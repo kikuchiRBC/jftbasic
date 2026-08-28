@@ -6,13 +6,70 @@
 <title>JFT-BASIC漢字の読み方クイズ</title>
 
 <style>
-body{font-family: "Yu Gothic", sans-serif;
-    text-align:center;
-    background: linear-gradient(135deg,#8cfe4f,#fff41c);
-    min-height:100vh;
-    margin:0;
+body {
+    font-family: "Yu Gothic", sans-serif;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+
+    /* 森の中のような背景 */
+    background:
+        linear-gradient(
+            rgba(220, 245, 225, 0.72),
+            rgba(190, 225, 205, 0.78)
+        ),
+        linear-gradient(
+            135deg,
+            #b9e6c1,
+            #e8f5d8,
+            #b8dfc4
+        );
+
+    position: relative;
+    overflow-x: hidden;
+}
+/* =========================
+   🌿 癒しの自然背景
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+
+    top: -180px;
+    left: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 220, 0.45);
+
+    filter: blur(45px);
+
+    pointer-events: none;
+    z-index: -1;
+
+    animation: sunlight 10s ease-in-out infinite alternate;
 }
 
+@keyframes sunlight {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.45;
+    }
+
+    50% {
+        transform: translate(180px, 100px) scale(1.15);
+        opacity: 0.65;
+    }
+
+    100% {
+        transform: translate(350px, 30px) scale(0.95);
+        opacity: 0.4;
+    }
+}
 /* タイトル */
 h1{ border:none;
     border-radius:12px;
@@ -60,6 +117,126 @@ h1{ border:none;
         transform:
             translate(var(--x), var(--y))
             scale(1.5);
+        opacity: 0;
+    }
+}
+/* =========================
+   🍃 ゆっくり動く葉っぱ
+========================= */
+
+.leaves {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: -1;
+}
+
+.leaves span {
+    position: absolute;
+
+    font-size: 28px;
+
+    opacity: 0.35;
+
+    animation: leafMove 12s linear infinite;
+}
+
+/* 葉っぱの位置 */
+
+.leaves span:nth-child(1) {
+    left: 8%;
+    top: -50px;
+    animation-delay: 0s;
+}
+
+.leaves span:nth-child(2) {
+    left: 22%;
+    top: -80px;
+    animation-delay: 4s;
+}
+
+.leaves span:nth-child(3) {
+    left: 38%;
+    top: -40px;
+    animation-delay: 7s;
+}
+
+.leaves span:nth-child(4) {
+    left: 52%;
+    top: -100px;
+    animation-delay: 2s;
+}
+
+.leaves span:nth-child(5) {
+    left: 68%;
+    top: -60px;
+    animation-delay: 5s;
+}
+
+.leaves span:nth-child(6) {
+    left: 78%;
+    top: -120px;
+    animation-delay: 8s;
+}
+
+.leaves span:nth-child(7) {
+    left: 90%;
+    top: -50px;
+    animation-delay: 3s;
+}
+
+.leaves span:nth-child(8) {
+    left: 45%;
+    top: -150px;
+    animation-delay: 10s;
+}
+
+
+/* 葉っぱが風に揺れながら落ちる */
+
+@keyframes leafMove {
+
+    0% {
+        transform:
+            translateY(-80px)
+            translateX(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.35;
+    }
+
+    40% {
+        transform:
+            translateY(30vh)
+            translateX(60px)
+            rotate(100deg);
+    }
+
+    65% {
+        transform:
+            translateY(60vh)
+            translateX(-40px)
+            rotate(220deg);
+    }
+
+    85% {
+        opacity: 0.25;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            translateX(80px)
+            rotate(360deg);
+
         opacity: 0;
     }
 }
@@ -283,7 +460,16 @@ text-shadow:
 
 <button onclick="goHome()">RESET</button>
 </div>
-
+<div class="leaves">
+    <span>🍃</span>
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+    <span>🍃</span>
+</div>
 <script>
 
 

@@ -1,0 +1,4010 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JFT-BASIC漢字の読み方クイズ</title>
+
+<style>
+body{font-family: "Yu Gothic", sans-serif;
+    text-align:center;
+    background: linear-gradient(135deg,#8cfe4f,#fff41c);
+    min-height:100vh;
+    margin:0;
+}
+
+/* タイトル */
+h1{ border:none;
+    border-radius:12px;
+    background:linear-gradient(45deg,#ffc156,#ffd52b);
+    color:white;
+    font-size:2.5rem;
+    text-shadow:2px 2px 5px rgba(0,0,0,0.3);
+    margin-top:20px;
+}
+
+.random-btn:hover{
+    background-color: darkorange;
+}
+
+/* スコア */
+#scoreBoard{
+    position:fixed;
+    top:15px;
+    right:20px;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    border-radius:15px;
+    padding:15px 25px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    font-size:22px;
+    font-weight:bold;
+}
+.firework{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 99999;
+    animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes explode{
+    0%{
+        transform: translate(0,0) scale(0.5);
+        opacity: 1;
+    }
+
+    100%{
+        transform:
+            translate(var(--x), var(--y))
+            scale(1.5);
+        opacity: 0;
+    }
+}
+/* クイズエリア */
+#quiz{
+    width:600px;
+    max-width:90%;
+    margin:30px auto;
+    background:rgba(255,255,255,0.95);
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* 漢字 */
+#kanji{
+    font-size:72px;
+    font-weight:bold;
+    color:#222;
+    margin:30px 0;
+}
+
+
+.random-btn{
+    background: linear-gradient(45deg,#2cff28,#0bc850) !important;
+    color:white !important;
+}
+
+/* 問題数 */
+#count{
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* ボタン */
+
+
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+button:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+}
+
+/* 正誤表示 */
+#result{
+    font-size:28px;
+    font-weight:bold;
+    margin:25px;
+     color:red;
+}
+
+/* 次へボタン */
+#next,
+#nextSet{
+    width:260px;
+    background:linear-gradient(45deg,#00c853,#64dd17);
+}
+button{
+    width:230px;
+    margin:10px;
+    padding:15px;
+    font-size:24px;
+    font-weight:bold;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(45deg,#126798,#729aff);
+    color:whitesmoke;
+    cursor:pointer;
+    transition:all .3s ease;
+
+
+
+text-shadow:
+    -1px -1px 0 rgb(61, 41, 153),
+     1px -1px 0 rgb(61, 41, 153),
+    -1px  1px 0 rgb(61, 41, 153),
+     1px  1px 0 rgb(61, 41, 153);
+
+}
+
+#imageArea img{
+    max-width:300px;
+    max-height:250px;
+    border-radius:10px;
+    margin:15px 0;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+/* ===== スマホ対応 ===== */
+@media screen and (max-width: 768px){
+
+    h1{
+        font-size:1.4rem;
+        margin:10px;
+        padding:10px;
+    }
+
+    #scoreBoard{
+        position:static;
+        display:inline-block;
+        margin:10px auto;
+        font-size:18px;
+        padding:10px 15px;
+    }
+
+    #quiz{
+        width:95%;
+        padding:15px;
+        margin:10px auto;
+        border-radius:15px;
+    }
+
+    #kanji{
+        font-size:48px;
+        margin:20px 0;
+        word-break:break-word;
+    }
+
+    #count{
+        font-size:18px;
+        margin:10px 0;
+    }
+
+    button{
+        width:100%;
+        max-width:350px;
+        font-size:20px;
+        padding:14px;
+        margin:8px auto;
+        display:block;
+    }
+
+    #next,
+    #nextSet{
+        width:100%;
+        max-width:350px;
+    }
+
+    #result{
+        font-size:22px;
+        line-height:1.5;
+    }
+}
+
+/* 小型スマホ */
+@media screen and (max-width: 480px){
+
+    h1{
+        font-size:1.2rem;
+    }
+
+    #kanji{
+        font-size:38px;
+    }
+
+    button{
+        font-size:18px;
+        padding:12px;
+    }
+
+    #result{
+        font-size:18px;
+    }
+
+    #scoreBoard{
+        font-size:16px;
+    }
+
+    #count{
+        font-size:16px;
+    }
+}
+</style>
+
+</head>
+<body>
+<h1>JFT-BASIC漢字クイズ（第<span id="set">1</span>セット）</h1>
+<div id="scoreBoard">
+    score：<span id="score">0</span>　
+    miss：<span id="miss">0</span>
+</div>
+<div id="count"></div>
+<div id="start">
+    <h2>✏かんじ　もんだい✏</h2>
+<button onclick="startQuiz(1)">A（1～50）</button>
+<button onclick="startQuiz(2)">B（51～100）</button>
+<button onclick="startQuiz(3)">C（101～150）</button>
+<button onclick="startQuiz(4)">D（151～200）</button>
+<button onclick="startQuiz(5)">E（201～250）</button>
+<button onclick="startQuiz(6)">F（251～300）</button>
+<button onclick="startQuiz(7)">G（301～350）</button>
+<button onclick="startQuiz(8)">H（351～400）</button>
+<button onclick="startQuiz(9)">I（401～450）</button>
+<button onclick="startQuiz(10)">J（451～500）</button>
+<button onclick="startQuiz(11)">K（501～550）</button>
+<button onclick="startQuiz(12)">L（551～600）</button>
+<button onclick="startQuiz(13)">M（601～650）</button>
+<h2>🖼がぞう　もんだい🖼</h2>
+<button onclick="startQuiz(14)">A</button>
+<button onclick="startQuiz(15)">B</button>
+     <br> <button class="random-btn" onclick="startQuiz(16)">TEST✏30問</button>
+    </div>
+
+<div id="quiz" style="display:none;">
+    <div id="imageArea"></div>
+    <div id="kanji"></div>
+    <div id="choices"></div>
+    <div id="result"></div>
+    <button id="next" onclick="nextQuestion()">次の問題</button>
+<button id="nextSet" onclick="goNextSet()" style="display:none;">
+次のセットへ進む
+</button>
+
+</div>
+
+<button onclick="goHome()">RESET</button>
+</div>
+
+<script>
+
+
+
+let score = 0;
+let miss = 0;
+let allQuizData = [
+    {
+        kanji:"温度",
+        answer:"おんど",
+        choices:["おんど","おどん","おんと","おどと"]
+    },
+    {
+        kanji:"危険",
+        answer:"きけん",
+        choices:["きけん","きげん","きかん","きこん"]
+    },
+    {
+        kanji:"種類",
+        answer:"しゅるい",
+        choices:["しゅるい","しゅうるい","しゅれい","しゅらい"]
+    },
+    {
+        kanji:"消す",
+        answer:"けす",
+        choices:["けす","けし","こす","けつ"]
+    },
+    {
+        kanji:"捨てる",
+        answer:"すてる",
+        choices:["すてる","してる","すれる","すける"]
+    },
+    {
+        kanji:"出す",
+        answer:"だす",
+        choices:["だす","です","たす","だし"]
+    },
+    {
+        kanji:"分ける",
+        answer:"わける",
+        choices:["わける","わかる","われる","まける"]
+    },
+    {
+        kanji:"燃える",
+        answer:"もえる",
+        choices:["もえる","もやる","こえる","もどる"]
+    },
+    {
+        kanji:"決める",
+        answer:"きめる",
+        choices:["きめる","きまる","けめる","きれる"]
+    },
+    {
+        kanji:"設定する",
+        answer:"せっていする",
+        choices:["せっていする","せいってする","せつていする","せってする"]
+    },
+    {
+        kanji:"地震",
+        answer:"じしん",
+        choices:["じしん","ちしん","じじん","ちじん"]
+    },
+    {
+        kanji:"台風",
+        answer:"たいふう",
+        choices:["たいふう","だいふう","たいぷう","だいぷう"]
+    },
+    {
+        kanji:"外",
+        answer:"そと",
+        choices:["そと","ほか","がい","うち"]
+    },
+    {
+        kanji:"声",
+        answer:"こえ",
+        choices:["こえ","こい","ごえ","ごい"]
+    },
+    {
+        kanji:"危ない",
+        answer:"あぶない",
+        choices:["あぶない","あぶい","あない","あやない"]
+    },
+    {
+        kanji:"大切",
+        answer:"たいせつ",
+        choices:["たいせつ","だいせつ","たいぜつ","だいぜつ"]
+    },
+    {
+        kanji:"心配",
+        answer:"しんぱい",
+        choices:["しんぱい","じんぱい","しんばい","じんばい"]
+    },
+    {
+        kanji:"集まる",
+        answer:"あつまる",
+        choices:["あつまる","あつまり","つまる","あつめる"]
+    },
+    {
+        kanji:"進む",
+        answer:"すすむ",
+        choices:["すすむ","すすめる","すすめ","すずむ"]
+    },
+    {
+        kanji:"最近",
+        answer:"さいきん",
+        choices:["さいきん","さいげん","さいこん","さいけん"]
+    },
+    {
+        kanji:"授業",
+        answer:"じゅぎょう",
+        choices:["じゅぎょう","じゅきょう","しゅぎょう","じゅぎょ"]
+    },
+    {
+        kanji:"問題",
+        answer:"もんだい",
+        choices:["もんだい","もんたい","ほんだい","もだんい"]
+    },
+    {
+        kanji:"大変",
+        answer:"たいへん",
+        choices:["たいへん","だいへん","たいべん","だいべん"]
+    },
+    {
+        kanji:"困る",
+        answer:"こまる",
+        choices:["こまる","こもる","こめる","こなる"]
+    },
+    {
+        kanji:"違う",
+        answer:"ちがう",
+        choices:["ちがう","ちかう","ことなる","ちあう"]
+    },
+    {
+        kanji:"慣れる",
+        answer:"なれる",
+        choices:["なれる","なられる","なべる","なける"]
+    },
+    {
+        kanji:"増える",
+        answer:"ふえる",
+        choices:["ふえる","ふやす","ふける","こえる"]
+    },
+    {
+        kanji:"笑う",
+        answer:"わらう",
+        choices:["わらう","わらい","わるう","わろう"]
+    },
+    {
+        kanji:"苦労する",
+        answer:"くろうする",
+        choices:["くろうする","くどうする","くりょうする","ころうする"]
+    },
+    {
+        kanji:"希望",
+        answer:"きぼう",
+        choices:["きぼう","きもう","ぎぼう","きほう"]
+    },
+    {
+        kanji:"募集",
+        answer:"ぼしゅう",
+        choices:["ぼしゅう","ぼじゅう","ほしゅう","ぼしょう"]
+    },
+    {
+        kanji:"特に",
+        answer:"とくに",
+        choices:["とくに","どくに","とっくに","ときに"]
+    },
+    {
+        kanji:"住む",
+        answer:"すむ",
+        choices:["すむ","つむ","すまう","しむ"]
+    },
+    {
+        kanji:"建てる",
+        answer:"たてる",
+        choices:["たてる","たつる","けてる","だてる"]
+    },
+    {
+        kanji:"続ける",
+        answer:"つづける",
+        choices:["つづける","つずける","つけづる","つつける"]
+    },
+    {
+        kanji:"考える",
+        answer:"かんがえる",
+        choices:["かんがえる","かがえる","こうがえる","かんかえる"]
+    },
+    {
+        kanji:"役に立つ",
+        answer:"やくにたつ",
+        choices:["やくにたつ","やくたにつ","やっくにたつ","やくにだつ"]
+    },
+    {
+        kanji:"卒業する",
+        answer:"そつぎょうする",
+        choices:["そつぎょうする","そっぎょうする","そつきょうする","そうぎょうする"]
+    },
+    {
+        kanji:"留学する",
+        answer:"りゅうがくする",
+        choices:["りゅうがくする","りょうがくする","りゅがくする","りゅうがっくする"]
+    },
+    {
+        kanji:"野球",
+        answer:"やきゅう",
+        choices:["やきゅう","やきょう","やくゅう","やきゅ"]
+    },
+    {
+        kanji:"応援",
+        answer:"おうえん",
+        choices:["おうえん","おうねん","おえん","おうけん"]
+    },
+    {
+        kanji:"約束",
+        answer:"やくそく",
+        choices:["やくそく","やっそく","やくぞく","やくしょく"]
+    },
+    {
+        kanji:"得意",
+        answer:"とくい",
+        choices:["とくい","どくい","とけい","とっくい"]
+    },
+    {
+        kanji:"伝統的",
+        answer:"でんとうてき",
+        choices:["でんとうてき","てんとうてき","でんとうでき","でんとてき"]
+    },
+    {
+        kanji:"弱い",
+        answer:"よわい",
+        choices:["よわい","よあい","じゃくい","よるい"]
+    },
+    {
+        kanji:"勝つ",
+        answer:"かつ",
+        choices:["かつ","まつ","がつ","かっつ"]
+    },
+    {
+        kanji:"負ける",
+        answer:"まける",
+        choices:["まける","まげる","あける","まれる"]
+    },
+    {
+        kanji:"誘う",
+        answer:"さそう",
+        choices:["さそう","ささう","ゆそう","さとう"]
+    },
+    {
+        kanji:"座る",
+        answer:"すわる",
+        choices:["すわる","ざわる","すまる","すわれる"]
+    },
+    {
+        kanji:"共感",
+        answer:"きょうかん",
+        choices:["きょうかん","きょうがん","きょかん","ぎょうかん"]
+    },
+    {
+        kanji:"主人公",
+        answer:"しゅじんこう",
+        choices:["しゅじんこう","しゅにんこう","しゅじこう","しゅじんごう"]
+    },
+    {
+        kanji:"映像",
+        answer:"えいぞう",
+        choices:["えいぞう","えぞう","えいそう","えいじょう"]
+    },
+    {
+        kanji:"原作",
+        answer:"げんさく",
+        choices:["げんさく","けんさく","げんざく","げんしょく"]
+    },
+    {
+        kanji:"歌詞",
+        answer:"かし",
+        choices:["かし","うたし","かじ","うたごと"]
+    },
+    {
+        kanji:"俳優",
+        answer:"はいゆう",
+        choices:["はいゆう","はいよう","ばいゆう","はいりゅう"]
+    },
+    {
+        kanji:"お腹",
+        answer:"おなか",
+        choices:["おなか","おはら","おなこ","おはか"]
+    },
+    {
+        kanji:"深み",
+        answer:"ふかみ",
+        choices:["ふかみ","しんみ","ふくみ","ふかさ"]
+    },
+    {
+        kanji:"演じる",
+        answer:"えんじる",
+        choices:["えんじる","えんする","えいじる","えんぜる"]
+    },
+    {
+        kanji:"探す",
+        answer:"さがす",
+        choices:["さがす","さかす","たがす","さだす"]
+    },
+    {
+        kanji:"死ぬ",
+        answer:"しぬ",
+        choices:["しぬ","じぬ","しの","しむ"]
+    },
+
+    {
+        kanji:"引っ越し",
+        answer:"ひっこし",
+        choices:["ひっこし","ひこっし","ひっこうし","ひこし"]
+    },
+    {
+        kanji:"家賃",
+        answer:"やちん",
+        choices:["やちん","かちん","やじん","いえちん"]
+    },
+    {
+        kanji:"築～年",
+        answer:"ちく～ねん",
+        choices:["ちく～ねん","きず～ねん","ちっく～ねん","ちく～とし"]
+    },
+    {
+        kanji:"住宅地",
+        answer:"じゅうたくち",
+        choices:["じゅうたくち","じゅたくち","じゅうたくじ","じゅうだくち"]
+    },
+    {
+        kanji:"荷物",
+        answer:"にもつ",
+        choices:["にもつ","にもの","かもつ","にもり"]
+    },
+    {
+        kanji:"冷蔵庫",
+        answer:"れいぞうこ",
+        choices:["れいぞうこ","れいそうこ","れぞうこ","れいぞうご"]
+    },
+    {
+        kanji:"電子レンジ",
+        answer:"でんしレンジ",
+        choices:["でんしレンジ","でんじレンジ","てんしレンジ","でんしレンシ"]
+    },
+    {
+        kanji:"～県",
+        answer:"～けん",
+        choices:["～けん","～げん","～かん","～えん"]
+    },
+    {
+        kanji:"～区",
+        answer:"～く",
+        choices:["～く","～ぐ","～こ","～き"]
+    },
+    {
+        kanji:"洗面台",
+        answer:"せんめんだい",
+        choices:["せんめんだい","せいめんだい","せんめんたい","せんべんだい"]
+    },
+    {
+        kanji:"洗濯機",
+        answer:"せんたくき",
+        choices:["せんたくき","せんだくき","せんたきき","せんたくぎ"]
+    },
+    {
+        kanji:"換気扇",
+        answer:"かんきせん",
+        choices:["かんきせん","かんけせん","かんきぜん","かんきさん"]
+    },
+    {
+        kanji:"一戸建て",
+        answer:"いっこだて",
+        choices:["いっこだて","いちこだて","いっこうだて","いっこたて"]
+    },
+    {
+        kanji:"庭",
+        answer:"にわ",
+        choices:["にわ","には","てい","にば"]
+    },
+    {
+        kanji:"運動",
+        answer:"うんどう",
+        choices:["うんどう","うんとう","うどう","うんど"]
+    },
+    {
+        kanji:"バス停",
+        answer:"ばすてい",
+        choices:["ばすてい","ばすて","ばすちょう","ばすでい"]
+    },
+    {
+        kanji:"田んぼ",
+        answer:"たんぼ",
+        choices:["たんぼ","でんぼ","たぼ","たんぽ"]
+    },
+    {
+        kanji:"林",
+        answer:"はやし",
+        choices:["はやし","りん","ばやし","はし"]
+    },
+    {
+        kanji:"鳥",
+        answer:"とり",
+        choices:["とり","どり","とろ","ちょう"]
+    },
+    {
+        kanji:"注文履歴",
+        answer:"ちゅうもんりれき",
+        choices:["ちゅうもんりれき","ちゅうもんれき","ちょうもんりれき","ちゅうもんりせき"]
+    },
+    {
+        kanji:"持ち帰り",
+        answer:"もちかえり",
+        choices:["もちかえり","まちかえり","もちがえり","もちかいり"]
+    },
+    {
+        kanji:"税込",
+        answer:"ぜいこみ",
+        choices:["ぜいこみ","せいこみ","ぜいごみ","ぜいこむ"]
+    },
+    {
+        kanji:"大盛り",
+        answer:"おおもり",
+        choices:["おおもり","たいもり","おもり","おおまり"]
+    },
+    {
+        kanji:"麺",
+        answer:"めん",
+        choices:["めん","めい","べん","ねん"]
+    },
+    {
+        kanji:"送信する",
+        answer:"そうしんする",
+        choices:["そうしんする","そうじんする","そうせんする","そうにんする"]
+    },
+    {
+        kanji:"混ぜる",
+        answer:"まぜる",
+        choices:["まぜる","ませる","こんぜる","まじる"]
+    },
+    {
+        kanji:"固める",
+        answer:"かためる",
+        choices:["かためる","こためる","かためり","かためす"]
+    },
+    {
+        kanji:"丸める",
+        answer:"まるめる",
+        choices:["まるめる","まろめる","まるまる","まるける"]
+    },
+    {
+        kanji:"煮る",
+        answer:"にる",
+        choices:["にる","ねる","いる","みる"]
+    },
+    {
+        kanji:"冷凍食品",
+        answer:"れいとうしょくひん",
+        choices:["れいとうしょくひん","れいどうしょくひん","れいとうしょっぴん","れいとしょくひん"]
+    },
+    {
+        kanji:"果物",
+        answer:"くだもの",
+        choices:["くだもの","かもの","くだもん","くだものう"]
+    },
+    {
+        kanji:"農家",
+        answer:"のうか",
+        choices:["のうか","のか","のうや","のうけ"]
+    },
+    {
+        kanji:"直接",
+        answer:"ちょくせつ",
+        choices:["ちょくせつ","ちょくぜつ","ちょうくせつ","ちょくせっ"]
+    },
+    {
+        kanji:"健康",
+        answer:"けんこう",
+        choices:["けんこう","げんこう","けんこう","けいこう"]
+    },
+    {
+        kanji:"栄養",
+        answer:"えいよう",
+        choices:["えいよう","えよう","えいようう","えきよう"]
+    },
+    {
+        kanji:"鍋",
+        answer:"なべ",
+        choices:["なべ","なへ","べな","かべ"]
+    },
+    {
+        kanji:"調味料",
+        answer:"ちょうみりょう",
+        choices:["ちょうみりょう","ちょうみりょう","ちょうみりょ","ちょうみよう"]
+    },
+    {
+        kanji:"新鮮",
+        answer:"しんせん",
+        choices:["しんせん","じんせん","しんぜん","しんさん"]
+    },
+    {
+        kanji:"東むき",
+        answer:"ひがしむき",
+        choices:["ひがしむき","あずまむき","ひがしむけ","とうむき"]
+    },
+    {
+        kanji:"自己紹介",
+        answer:"じこしょうかい",
+        choices:["じこしょうかい","じごしょうかい","じこしょうがい","じこうしょうかい"]
+    },
+    {
+        kanji:"興味",
+        answer:"きょうみ",
+        choices:["きょうみ","きようみ","こうみ","きょみ"]
+    },
+    {
+        kanji:"仲間",
+        answer:"なかま",
+        choices:["なかま","ちゅうかん","なかまち","なかな"]
+    },
+    {
+        kanji:"子育て",
+        answer:"こそだて",
+        choices:["こそだて","こそたて","こいくて","こだて"]
+    },
+    {
+        kanji:"児童館",
+        answer:"じどうかん",
+        choices:["じどうかん","じとうかん","しどうかん","じどうがん"]
+    },
+    {
+        kanji:"掲示板",
+        answer:"けいじばん",
+        choices:["けいじばん","けじばん","けいしばん","けいじはん"]
+    },
+    {
+        kanji:"掃除",
+        answer:"そうじ",
+        choices:["そうじ","そうし","そじ","しょうじ"]
+    },
+    {
+        kanji:"次",
+        answer:"つぎ",
+        choices:["つぎ","じ","つき","つぐ"]
+    },
+    {
+        kanji:"簡単",
+        answer:"かんたん",
+        choices:["かんたん","かんだん","けんたん","かんた"]
+    },
+    {
+        kanji:"植える",
+        answer:"うえる",
+        choices:["うえる","うめる","はえる","うわる"]
+    },
+    {
+        kanji:"第一印象",
+        answer:"だいいちいんしょう",
+        choices:["だいいちいんしょう","たいいちいんしょう","だいいちいんそう","だいいちいんしょう"]
+    },
+    {
+        kanji:"関心",
+        answer:"かんしん",
+        choices:["かんしん","かんじん","がんしん","かんせん"]
+    },
+    {
+        kanji:"背筋",
+        answer:"せすじ",
+        choices:["せすじ","はいすじ","せきん","はいきん"]
+    },
+    {
+        kanji:"逆",
+        answer:"ぎゃく",
+        choices:["ぎゃく","きゃく","ぎゃっく","ぎょく"]
+    },
+    {
+        kanji:"この辺",
+        answer:"このへん",
+        choices:["このへん","このあたり","このべん","このけん"]
+    },
+    {
+        kanji:"清潔",
+        answer:"せいけつ",
+        choices:["せいけつ","しょうけつ","せいげつ","せいせつ"]
+    },
+    {
+        kanji:"効果的",
+        answer:"こうかてき",
+        choices:["こうかてき","こうがてき","こうかでき","こっかてき"]
+    },
+    {
+        kanji:"伸ばす",
+        answer:"のばす",
+        choices:["のばす","のべる","しんばす","のます"]
+    },
+    {
+        kanji:"与える",
+        answer:"あたえる",
+        choices:["あたえる","あだえる","あてえる","あだる"]
+    },
+    {
+        kanji:"整う",
+        answer:"ととのう",
+        choices:["ととのう","ととのえる","とどのう","とおのう"]
+    },
+    {
+        kanji:"方言",
+        answer:"ほうげん",
+        choices:["ほうげん","ほげん","ほうけん","ほうごん"]
+    },
+    {
+        kanji:"目標",
+        answer:"もくひょう",
+        choices:["もくひょう","もくしょう","ぼくひょう","もっきょう"]
+    },
+    {
+        kanji:"知識",
+        answer:"ちしき",
+        choices:["ちしき","ちじき","ちせき","じしき"]
+    },
+    {
+        kanji:"最初",
+        answer:"さいしょ",
+        choices:["さいしょ","さいしょう","さいそ","さいじょ"]
+    },
+    {
+        kanji:"悩み",
+        answer:"なやみ",
+        choices:["なやみ","なまみ","のやみ","なやむ"]
+    },
+    {
+        kanji:"介護",
+        answer:"かいご",
+        choices:["かいご","がいご","かいこう","かいこ"]
+    },
+    {
+        kanji:"吹き替え",
+        answer:"ふきかえ",
+        choices:["ふきかえ","ふきがえ","ふきけえ","ふきかい"]
+    },
+    {
+        kanji:"足りる",
+        answer:"たりる",
+        choices:["たりる","たれる","たりうる","とりる"]
+    },
+    {
+        kanji:"失敗する",
+        answer:"しっぱいする",
+        choices:["しっぱいする","しっばいする","しっぱいさる","しっぱいしる"]
+    },
+    {
+        kanji:"理解する",
+        answer:"りかいする",
+        choices:["りかいする","りがいする","りけいする","りかする"]
+    },
+    {
+        kanji:"登録",
+        answer:"とうろく",
+        choices:["とうろく","とうりょく","どうろく","とうろう"]
+    },
+    {
+        kanji:"対象",
+        answer:"たいしょう",
+        choices:["たいしょう","だいしょう","たいじょう","たいそう"]
+    },
+    {
+        kanji:"文章",
+        answer:"ぶんしょう",
+        choices:["ぶんしょう","ぶんじょう","もんしょう","ぶんそう"]
+    },
+    {
+        kanji:"表現",
+        answer:"ひょうげん",
+        choices:["ひょうげん","ひょうけん","びょうげん","ひょげん"]
+    },
+    {
+        kanji:"字幕",
+        answer:"じまく",
+        choices:["じまく","しまく","じばく","じもく"]
+    },
+    {
+        kanji:"～在住",
+        answer:"～ざいじゅう",
+        choices:["～ざいじゅう","～さいじゅう","～ざいしゅう","～ざいじょう"]
+    },
+    {
+        kanji:"専門学校",
+        answer:"せんもんがっこう",
+        choices:["せんもんがっこう","せんもんがこう","せいもんがっこう","せんもんこうこう"]
+    },
+    {
+        kanji:"基礎的",
+        answer:"きそてき",
+        choices:["きそてき","きぞてき","きしょうてき","きそでき"]
+    },
+    {
+        kanji:"研究する",
+        answer:"けんきゅうする",
+        choices:["けんきゅうする","げんきゅうする","けんきょうする","けんきゅする"]
+    },
+    {
+        kanji:"助かる",
+        answer:"たすかる",
+        choices:["たすかる","だすかる","たづかる","たすがる"]
+    },
+    {
+        kanji:"忘れ物",
+        answer:"わすれもの",
+        choices:["わすれもの","わすれもん","わすりもの","わするもの"]
+    },
+    {
+        kanji:"財布",
+        answer:"さいふ",
+        choices:["さいふ","ざいふ","さいぶ","せいふ"]
+    },
+    {
+        kanji:"法律",
+        answer:"ほうりつ",
+        choices:["ほうりつ","ほうりっ","ほうれつ","ほりつ"]
+    },
+    {
+        kanji:"違反",
+        answer:"いはん",
+        choices:["いはん","ちはん","いばん","いかん"]
+    },
+    {
+        kanji:"協力",
+        answer:"きょうりょく",
+        choices:["きょうりょく","きょうろく","ぎょうりょく","きょりょく"]
+    },
+    {
+        kanji:"鉄道会社",
+        answer:"てつどうがいしゃ",
+        choices:["てつどうがいしゃ","てつどうかいしゃ","てつどがいしゃ","てつどうがしゃ"]
+    },
+    {
+        kanji:"提示する",
+        answer:"ていじする",
+        choices:["ていじする","ていしする","てじする","ていじさる"]
+    },
+    {
+        kanji:"発券する",
+        answer:"はっけんする",
+        choices:["はっけんする","はつけんする","はっげんする","はっけんさる"]
+    },
+    {
+        kanji:"落とす",
+        answer:"おとす",
+        choices:["おとす","おろす","おつす","おどうす"]
+    },
+    {
+        kanji:"預ける",
+        answer:"あずける",
+        choices:["あずける","あづける","あすける","あずかる"]
+    },
+    {
+        kanji:"払う",
+        answer:"はらう",
+        choices:["はらう","はろう","ばらう","はれる"]
+    },
+    {
+        kanji:"警察",
+        answer:"けいさつ",
+        choices:["けいさつ","けいざつ","けさつ","けいせつ"]
+    },
+    {
+        kanji:"消防署",
+        answer:"しょうぼうしょ",
+        choices:["しょうぼうしょ","しょうほうしょ","しょうぼうじょ","しょうぼしょ"]
+    },
+    {
+        kanji:"救急車",
+        answer:"きゅうきゅうしゃ",
+        choices:["きゅうきゅうしゃ","きゅきゅうしゃ","きゅうきゅしゃ","きゅうきゅうじゃ"]
+    },
+    {
+        kanji:"ひったくり",
+        answer:"ひったくり",
+        choices:["ひったくり","ひたっくり","ひったぐり","ひったくい"]
+    },
+    {
+        kanji:"交差点",
+        answer:"こうさてん",
+        choices:["こうさてん","こうさでん","こうさてい","こうしゃてん"]
+    },
+    {
+        kanji:"～丁目",
+        answer:"～ちょうめ",
+        choices:["～ちょうめ","～ていめ","～ちょめ","～ちょうべ"]
+    },
+    {
+        kanji:"～歳",
+        answer:"～さい",
+        choices:["～さい","～ざい","～せい","～とし"]
+    },
+    {
+        kanji:"警報",
+        answer:"けいほう",
+        choices:["けいほう","けいぼう","けいぽう","けほう"]
+    },
+    {
+        kanji:"出張",
+        answer:"しゅっちょう",
+        choices:["しゅっちょう","しゅつちょう","しゅっしょう","しゅちょう"]
+    },
+    {
+        kanji:"曲がる",
+        answer:"まがる",
+        choices:["まがる","まわる","まける","まさる"]
+    },
+    {
+        kanji:"置く",
+        answer:"おく",
+        choices:["おく","おこ","おけ","おぐ"]
+    },
+    {
+        kanji:"運命",
+        answer:"うんめい",
+        choices:["うんめい","うめい","うんみょう","うんれい"]
+    },
+    {
+        kanji:"糸",
+        answer:"いと",
+        choices:["いと","しと","いとう","いろ"]
+    },
+    {
+        kanji:"恋人",
+        answer:"こいびと",
+        choices:["こいびと","れんびと","こいひと","こびと"]
+    },
+    {
+        kanji:"太陽",
+        answer:"たいよう",
+        choices:["たいよう","だいよう","たいようう","たいおう"]
+    },
+    {
+        kanji:"反対",
+        answer:"はんたい",
+        choices:["はんたい","ばんたい","はんだい","はんてい"]
+    },
+    {
+        kanji:"若い",
+        answer:"わかい",
+        choices:["わかい","わこう","じゃくい","わがい"]
+    },
+    {
+        kanji:"就職する",
+        answer:"しゅうしょくする",
+        choices:["しゅうしょくする","しゅしょくする","しゅうそくする","じゅうしょくする"]
+    },
+    {
+        kanji:"退職する",
+        answer:"たいしょくする",
+        choices:["たいしょくする","だいしょくする","たいそくする","たいしょうする"]
+    },
+    {
+        kanji:"覚えている",
+        answer:"おぼえている",
+        choices:["おぼえている","おぼえてる","おもえている","おぼいでいる"]
+    },
+    {
+        kanji:"仲良し",
+        answer:"なかよし",
+        choices:["なかよし","なかよく","ちゅうよし","なかよ"]
+    },
+    {
+        kanji:"恋愛",
+        answer:"れんあい",
+        choices:["れんあい","こいあい","れない","れんえい"]
+    },
+    {
+        kanji:"既読",
+        answer:"きどく",
+        choices:["きどく","きとく","がいどく","きよみ"]
+    },
+    {
+        kanji:"好奇心",
+        answer:"こうきしん",
+        choices:["こうきしん","こうぎしん","こうきじん","こきしん"]
+    },
+    {
+        kanji:"積極的",
+        answer:"せっきょくてき",
+        choices:["せっきょくてき","せきょくてき","せっきょうてき","せっきょくでき"]
+    },
+    {
+        kanji:"悲しい",
+        answer:"かなしい",
+        choices:["かなしい","かなしい","かなし","かなしいい"]
+    },
+    {
+        kanji:"尊敬する",
+        answer:"そんけいする",
+        choices:["そんけいする","そんげいする","そんけする","そっけいする"]
+    },
+    {
+        kanji:"実は",
+        answer:"じつは",
+        choices:["じつは","じちは","じっは","みつは"]
+    },
+    {
+        kanji:"例えば",
+        answer:"たとえば",
+        choices:["たとえば","たどえば","たとえは","たどえは"]
+    },
+    {
+        kanji:"湖",
+        answer:"みずうみ",
+        choices:["みずうみ","こ","みずみ","うみ"]
+    },
+    {
+        kanji:"雲",
+        answer:"くも",
+        choices:["くも","ぐも","そら","くむ"]
+    },
+    {
+        kanji:"空港",
+        answer:"くうこう",
+        choices:["くうこう","くこう","そらこう","くうごう"]
+    },
+    {
+        kanji:"各地",
+        answer:"かくち",
+        choices:["かくち","かくじ","がくち","かっち"]
+    },
+    {
+        kanji:"緑",
+        answer:"みどり",
+        choices:["みどり","りょく","みとり","みどる"]
+    },
+    {
+        kanji:"黄色",
+        answer:"きいろ",
+        choices:["きいろ","きいろう","おうしょく","きろ"]
+    },
+    {
+        kanji:"昔",
+        answer:"むかし",
+        choices:["むかし","むこう","むし","むか"]
+    },
+    {
+        kanji:"かき氷",
+        answer:"かきごおり",
+        choices:["かきごおり","かきこおり","かきごり","かきこうり"]
+    },
+    {
+        kanji:"石炭",
+        answer:"せきたん",
+        choices:["せきたん","いしたん","せったん","せきだん"]
+    },
+    {
+        kanji:"暖かい",
+        answer:"あたたかい",
+        choices:["あたたかい","あたかい","あったかい","あただかい"]
+    },
+    {
+        kanji:"訪れる",
+        answer:"おとずれる",
+        choices:["おとずれる","おとづれる","たずねる","おどずれる"]
+    },
+    {
+        kanji:"新幹線",
+        answer:"しんかんせん",
+        choices:["しんかんせん","しんがんせん","しんかんぜん","しんこうせん"]
+    },
+    {
+        kanji:"飛行機",
+        answer:"ひこうき",
+        choices:["ひこうき","ひこうき","ひこうぎ","ひこき"]
+    },
+    {
+        kanji:"宿泊",
+        answer:"しゅくはく",
+        choices:["しゅくはく","しゅくばく","しゅうはく","しゅくはっく"]
+    },
+    {
+        kanji:"和室",
+        answer:"わしつ",
+        choices:["わしつ","かしつ","わじつ","わしゅつ"]
+    },
+    {
+        kanji:"洋室",
+        answer:"ようしつ",
+        choices:["ようしつ","ようじつ","ようしゅつ","ようせつ"]
+    },
+    {
+        kanji:"お土産",
+        answer:"おみやげ",
+        choices:["おみやげ","おどさん","おつちさん","おみやけ"]
+    },
+    {
+        kanji:"美術館",
+        answer:"びじゅつかん",
+        choices:["びじゅつかん","びしゅつかん","びじつかん","みじゅつかん"]
+    },
+    {
+        kanji:"追加",
+        answer:"ついか",
+        choices:["ついか","つかい","ついが","つうか"]
+    },
+    {
+        kanji:"高級",
+        answer:"こうきゅう",
+        choices:["こうきゅう","こうぎゅう","こうきゅ","ごうきゅう"]
+    },
+    {
+        kanji:"疲れる",
+        answer:"つかれる",
+        choices:["つかれる","つがれる","つかねる","つくれる"]
+    },
+    {
+        kanji:"給料",
+        answer:"きゅうりょう",
+        choices:["きゅうりょう","ぎゅうりょう","きゅりょう","きゅうりょ"]
+    },
+    {
+        kanji:"欠勤",
+        answer:"けっきん",
+        choices:["けっきん","けつきん","けっこん","けきん"]
+    },
+    {
+        kanji:"会議",
+        answer:"かいぎ",
+        choices:["かいぎ","がいぎ","かぎ","かいき"]
+    },
+    {
+        kanji:"残業",
+        answer:"ざんぎょう",
+        choices:["ざんぎょう","さんぎょう","ざんきょう","ざんごう"]
+    },
+    {
+        kanji:"規則",
+        answer:"きそく",
+        choices:["きそく","ぎそく","きぞく","きそっく"]
+    },
+    {
+        kanji:"髪型",
+        answer:"かみがた",
+        choices:["かみがた","かみかた","はつがた","かみけい"]
+    },
+    {
+        kanji:"不可",
+        answer:"ふか",
+        choices:["ふか","ぶか","ふが","ふけ"]
+    },
+    {
+        kanji:"～係",
+        answer:"～がかり",
+        choices:["～がかり","～かかり","～ががり","～かり"]
+    },
+    {
+        kanji:"速い",
+        answer:"はやい",
+        choices:["はやい","すごい","はやし","はよい"]
+    },
+    {
+        kanji:"遅刻する",
+        answer:"ちこくする",
+        choices:["ちこくする","じこくする","ちこうする","ちこっくする"]
+    },
+    {
+        kanji:"輸出",
+        answer:"ゆしゅつ",
+        choices:["ゆしゅつ","ゆしょう","ゆじゅつ","ゆしゅっ"]
+    },
+    {
+        kanji:"作成",
+        answer:"さくせい",
+        choices:["さくせい","さくしょう","さくぜい","さっせい"]
+    },
+    {
+        kanji:"未経験",
+        answer:"みけいけん",
+        choices:["みけいけん","びけいけん","みけいげん","みけんけい"]
+    },
+    {
+        kanji:"順調",
+        answer:"じゅんちょう",
+        choices:["じゅんちょう","しゅんちょう","じゅんじょう","じゅんしょう"]
+    },
+    {
+        kanji:"報告",
+        answer:"ほうこく",
+        choices:["ほうこく","ほうごく","ほこうこく","ほうこう"]
+    },
+    {
+        kanji:"努力",
+        answer:"どりょく",
+        choices:["どりょく","どりょうく","とりょく","どろく"]
+    },
+    {
+        kanji:"非常に",
+        answer:"ひじょうに",
+        choices:["ひじょうに","ひしょうに","びじょうに","ひじょに"]
+    },
+    {
+        kanji:"充実する",
+        answer:"じゅうじつする",
+        choices:["じゅうじつする","じゅじつする","じゅうしつする","じゅうじつさる"]
+    },
+    {
+        kanji:"答える",
+        answer:"こたえる",
+        choices:["こたえる","こだえる","こたいる","こたる"]
+    },
+    {
+        kanji:"向いている",
+        answer:"むいている",
+        choices:["むいている","むいでいる","むけている","むかいている"]
+    },
+
+    {
+        kanji:"名前",
+        answer:"なまえ",
+        choices:["なまえ","なめえ","なまい","なめい"]
+    },
+    {
+        kanji:"高校",
+        answer:"こうこう",
+        choices:["こうこう","こうごう","ここう","こうこ"]
+    },
+    {
+        kanji:"大学",
+        answer:"だいがく",
+        choices:["だいがく","たいがく","だいかく","だいごく"]
+    },
+    {
+        kanji:"練習",
+        answer:"れんしゅう",
+        choices:["れんしゅう","れんしょう","れんじゅう","れんしゅ"]
+    },
+    {
+        kanji:"漢字",
+        answer:"かんじ",
+        choices:["かんじ","かんし","がんじ","かんぢ"]
+    },
+    {
+        kanji:"無料",
+        answer:"むりょう",
+        choices:["むりょう","むりょ","ぶりょう","むよう"]
+    },
+    {
+        kanji:"言う",
+        answer:"いう",
+        choices:["いう","ゆう","いうう","いわう"]
+    },
+    {
+        kanji:"書く",
+        answer:"かく",
+        choices:["かく","かこ","がく","かけ"]
+    },
+    {
+        kanji:"貸す",
+        answer:"かす",
+        choices:["かす","だす","かつ","かし"]
+    },
+    {
+        kanji:"教える",
+        answer:"おしえる",
+        choices:["おしえる","おせえる","おぼえる","おしいる"]
+    },
+    {
+        kanji:"説明する",
+        answer:"せつめいする",
+        choices:["せつめいする","せつめする","せつべいする","せつめいさる"]
+    },
+
+    {
+        kanji:"父",
+        answer:"ちち",
+        choices:["ちち","はは","とう","ち"]
+    },
+    {
+        kanji:"午前",
+        answer:"ごぜん",
+        choices:["ごぜん","こうぜん","ごせん","ごねん"]
+    },
+    {
+        kanji:"午後",
+        answer:"ごご",
+        choices:["ごご","こうご","ごこう","ごこ"]
+    },
+    {
+        kanji:"教科書",
+        answer:"きょうかしょ",
+        choices:["きょうかしょ","きょうかしょう","きょうがしょ","きょうかじょ"]
+    },
+    {
+        kanji:"教室",
+        answer:"きょうしつ",
+        choices:["きょうしつ","きょうじつ","きょしつ","きょうせつ"]
+    },
+    {
+        kanji:"先生",
+        answer:"せんせい",
+        choices:["せんせい","せんぜい","せんしょう","せんせ"]
+    },
+    {
+        kanji:"全部",
+        answer:"ぜんぶ",
+        choices:["ぜんぶ","せんぶ","ぜんぷ","ぜぶん"]
+    },
+    {
+        kanji:"～回",
+        answer:"～かい",
+        choices:["～かい","～がい","～え","～まわり"]
+    },
+    {
+        kanji:"参加する",
+        answer:"さんかする",
+        choices:["さんかする","ざんかする","さんがする","さんかさる"]
+    },
+    {
+        kanji:"用意する",
+        answer:"よういする",
+        choices:["よういする","ようする","ようえする","よういさる"]
+    },
+
+    {
+        kanji:"水",
+        answer:"みず",
+        choices:["みず","すい","みつ","みづ"]
+    },
+    {
+        kanji:"飲み物",
+        answer:"のみもの",
+        choices:["のみもの","のみもん","のみぶつ","のみものう"]
+    },
+    {
+        kanji:"お茶",
+        answer:"おちゃ",
+        choices:["おちゃ","おさ","おちや","おじゃ"]
+    },
+    {
+        kanji:"お酒",
+        answer:"おさけ",
+        choices:["おさけ","おざけ","おしゅ","おさき"]
+    },
+    {
+        kanji:"材料",
+        answer:"ざいりょう",
+        choices:["ざいりょう","さいりょう","ざりょう","ざいよう"]
+    },
+    {
+        kanji:"野菜",
+        answer:"やさい",
+        choices:["やさい","のさい","やざい","やせい"]
+    },
+    {
+        kanji:"牛肉",
+        answer:"ぎゅうにく",
+        choices:["ぎゅうにく","きゅうにく","ぎゅにく","ぎゅうじく"]
+    },
+    {
+        kanji:"豚肉",
+        answer:"ぶたにく",
+        choices:["ぶたにく","とんにく","ぶだにく","ぶたじく"]
+    },
+    {
+        kanji:"皿",
+        answer:"さら",
+        choices:["さら","ざら","さらい","さらう"]
+    },
+    {
+        kanji:"売る",
+        answer:"うる",
+        choices:["うる","うれる","おる","うりる"]
+    },
+    {
+        kanji:"持って行く",
+        answer:"もっていく",
+        choices:["もっていく","もってゆく","もていく","もってくる"]
+    },
+    
+    {
+        kanji:"魚",
+        answer:"さかな",
+        choices:["さかな","うお","さかなあ","さけな"]
+    },
+    {
+        kanji:"卵",
+        answer:"たまご",
+        choices:["たまご","たごま","らん","たまこ"]
+    },
+    {
+        kanji:"料理",
+        answer:"りょうり",
+        choices:["りょうり","りょり","りょうりい","りょうりょ"]
+    },
+    {
+        kanji:"お湯",
+        answer:"おゆ",
+        choices:["おゆ","おみず","ゆ","およ"]
+    },
+    {
+        kanji:"調理方法",
+        answer:"ちょうりほうほう",
+        choices:["ちょうりほうほう","ちょうりぼうほう","ちょうりほほう","ちょうりほうぼう"]
+    },
+    {
+        kanji:"少し",
+        answer:"すこし",
+        choices:["すこし","しょうし","すくし","すこじ"]
+    },
+    {
+        kanji:"味",
+        answer:"あじ",
+        choices:["あじ","み","あし","あぢ"]
+    },
+    {
+        kanji:"甘い",
+        answer:"あまい",
+        choices:["あまい","うまい","あない","あめい"]
+    },
+    {
+        kanji:"辛い",
+        answer:"からい",
+        choices:["からい","つらい","しんらい","からえ"]
+    },
+    {
+        kanji:"苦手",
+        answer:"にがて",
+        choices:["にがて","くて","にがで","にげて"]
+    },
+    {
+        kanji:"お願いします",
+        answer:"おねがいします",
+        choices:["おねがいします","おながいします","おねいます","おねがえします"]
+    },
+
+    {
+        kanji:"家",
+        answer:"いえ",
+        choices:["いえ","うち","や","いけ"]
+    },
+    {
+        kanji:"コピー機",
+        answer:"コピーき",
+        choices:["コピーき","コピーぎ","こぴーき","コピーか"]
+    },
+    {
+        kanji:"数字",
+        answer:"すうじ",
+        choices:["すうじ","すじ","すうし","ずうじ"]
+    },
+    {
+        kanji:"電気",
+        answer:"でんき",
+        choices:["でんき","てんき","でんぎ","でんし"]
+    },
+    {
+        kanji:"音",
+        answer:"おと",
+        choices:["おと","ね","おん","こえ"]
+    },
+    {
+        kanji:"机",
+        answer:"つくえ",
+        choices:["つくえ","つぐえ","き","つくい"]
+    },
+    {
+        kanji:"都合",
+        answer:"つごう",
+        choices:["つごう","とごう","つこう","つご"]
+    },
+    {
+        kanji:"悪い",
+        answer:"わるい",
+        choices:["わるい","あくい","わりい","わらい"]
+    },
+    {
+        kanji:"動く",
+        answer:"うごく",
+        choices:["うごく","どうく","うこく","うごけ"]
+    },
+    {
+        kanji:"使う",
+        answer:"つかう",
+        choices:["つかう","つこう","しよう","つがう"]
+    },
+    {
+        kanji:"終わる",
+        answer:"おわる",
+        choices:["おわる","おえる","しゅうわる","おかる"]
+    },
+
+    {
+        kanji:"上",
+        answer:"うえ",
+        choices:["うえ","うい","うわ","じょう"]
+    },
+    {
+        kanji:"用事",
+        answer:"ようじ",
+        choices:["ようじ","ようし","ようち","よじ"]
+    },
+    {
+        kanji:"氏名",
+        answer:"しめい",
+        choices:["しめい","じめい","しみょう","しな"]
+    },
+    {
+        kanji:"理由",
+        answer:"りゆう",
+        choices:["りゆう","りよう","りゅう","りじゆう"]
+    },
+    {
+        kanji:"連絡先",
+        answer:"れんらくさき",
+        choices:["れんらくさき","れんらくせん","れんらくまえ","れんらくあと"]
+    },
+    {
+        kanji:"別に",
+        answer:"べつに",
+        choices:["べつに","べっに","べつり","べつで"]
+    },
+    {
+        kanji:"早く",
+        answer:"はやく",
+        choices:["はやく","そうく","はやいく","はやけ"]
+    },
+    {
+        kanji:"吸う",
+        answer:"すう",
+        choices:["すう","きゅう","すおう","す"]
+    },
+    {
+        kanji:"取る",
+        answer:"とる",
+        choices:["とる","どる","とれる","とおる"]
+    },
+    {
+        kanji:"帰る",
+        answer:"かえる",
+        choices:["かえる","かえす","きえる","がえる"]
+    },
+    {
+        kanji:"伝える",
+        answer:"つたえる",
+        choices:["つたえる","でんえる","つだえる","つたう"]
+    },
+
+    {
+        kanji:"月",
+        answer:"つき",
+        choices:["つき","げつ","がつ","つぎ"]
+    },
+    {
+        kanji:"熱",
+        answer:"ねつ",
+        choices:["ねつ","あつ","ねっ","ねち"]
+    },
+    {
+        kanji:"薬",
+        answer:"くすり",
+        choices:["くすり","やく","くさり","くずり"]
+    },
+    {
+        kanji:"病気",
+        answer:"びょうき",
+        choices:["びょうき","ひょうき","びょうぎ","びょうし"]
+    },
+    {
+        kanji:"病院",
+        answer:"びょういん",
+        choices:["びょういん","ひょういん","びよういん","びょうえん"]
+    },
+    {
+        kanji:"医者",
+        answer:"いしゃ",
+        choices:["いしゃ","いじゃ","いさ","いせい"]
+    },
+    {
+        kanji:"住所",
+        answer:"じゅうしょ",
+        choices:["じゅうしょ","じゅうじょ","じゅしょ","じゅしょう"]
+    },
+    {
+        kanji:"～才",
+        answer:"～さい",
+        choices:["～さい","～ざい","～せい","～とし"]
+    },
+    {
+        kanji:"痛い",
+        answer:"いたい",
+        choices:["いたい","いたえ","つらい","いたし"]
+    },
+    {
+        kanji:"眠い",
+        answer:"ねむい",
+        choices:["ねむい","ねぶい","ねもい","ねむたい"]
+    },
+    {
+        kanji:"寝る",
+        answer:"ねる",
+        choices:["ねる","ねれる","ねろ","ぬる"]
+    },
+    {
+        kanji:"記入する",
+        answer:"きにゅうする",
+        choices:["きにゅうする","きゅうにする","きにゅする","きにゅうさる"]
+    },
+    {
+        kanji:"車",
+        answer:"くるま",
+        choices:["くるま","ぐるま","くるみ","くろま"]
+    },
+    {
+        kanji:"体",
+        answer:"からだ",
+        choices:["からだ","かだら","たい","からた"]
+    },
+    {
+        kanji:"顔",
+        answer:"かお",
+        choices:["かお","がお","かこ","かう"]
+    },
+    {
+        kanji:"目",
+        answer:"め",
+        choices:["め","もく","ま","み"]
+    },
+    {
+        kanji:"耳",
+        answer:"みみ",
+        choices:["みみ","じ","みも","みい"]
+    },
+    {
+        kanji:"口",
+        answer:"くち",
+        choices:["くち","こう","ぐち","くつ"]
+    },
+    {
+        kanji:"頭",
+        answer:"あたま",
+        choices:["あたま","かしら","ず","あだま"]
+    },
+    {
+        kanji:"足",
+        answer:"あし",
+        choices:["あし","そく","あじ","あせ"]
+    },
+    {
+        kanji:"手",
+        answer:"て",
+        choices:["て","しゅ","で","た"]
+    },
+    {
+        kanji:"起きる",
+        answer:"おきる",
+        choices:["おきる","おこる","おける","おぎる"]
+    },
+    {
+        kanji:"歩く",
+        answer:"あるく",
+        choices:["あるく","あるけ","ありく","あるこ"]
+    },
+    {
+        kanji:"走る",
+        answer:"はしる",
+        choices:["はしる","はいる","はせる","ばしる"]
+    },
+
+    {
+        kanji:"お父さん",
+        answer:"おとうさん",
+        choices:["おとうさん","おとさん","おどうさん","おかあさん"]
+    },
+    {
+        kanji:"お母さん",
+        answer:"おかあさん",
+        choices:["おかあさん","おがあさん","おかさん","おとうさん"]
+    },
+    {
+        kanji:"兄",
+        answer:"あに",
+        choices:["あに","にい","あね","あん"]
+    },
+    {
+        kanji:"お兄さん",
+        answer:"おにいさん",
+        choices:["おにいさん","おにさん","おねえさん","おにいちゃん"]
+    },
+    {
+        kanji:"姉",
+        answer:"あね",
+        choices:["あね","あに","ねえ","あめ"]
+    },
+    {
+        kanji:"お姉さん",
+        answer:"おねえさん",
+        choices:["おねえさん","おねさん","おにいさん","おねいさん"]
+    },
+    {
+        kanji:"弟",
+        answer:"おとうと",
+        choices:["おとうと","おとと","おとう","おとうろ"]
+    },
+    {
+        kanji:"妹",
+        answer:"いもうと",
+        choices:["いもうと","いもと","もうと","いもうつ"]
+    },
+    {
+        kanji:"夫",
+        answer:"おっと",
+        choices:["おっと","ふ","おとこ","おつと"]
+    },
+    {
+        kanji:"妻",
+        answer:"つま",
+        choices:["つま","さい","つめ","つまり"]
+    },
+    {
+        kanji:"両親",
+        answer:"りょうしん",
+        choices:["りょうしん","りょしん","りょうじん","りょうせん"]
+    },
+
+    {
+        kanji:"男の子",
+        answer:"おとこのこ",
+        choices:["おとこのこ","おとこご","おんなのこ","おとこのひ"]
+    },
+    {
+        kanji:"女の子",
+        answer:"おんなのこ",
+        choices:["おんなのこ","おんなご","おとこのこ","おなのこ"]
+    },
+    {
+        kanji:"お祝い",
+        answer:"おいわい",
+        choices:["おいわい","おいあい","おいわえ","おうわい"]
+    },
+    {
+        kanji:"誕生日",
+        answer:"たんじょうび",
+        choices:["たんじょうび","たんしょうび","だんじょうび","たんじょうひ"]
+    },
+    {
+        kanji:"結婚",
+        answer:"けっこん",
+        choices:["けっこん","けつこん","げっこん","けっごん"]
+    },
+    {
+        kanji:"時計",
+        answer:"とけい",
+        choices:["とけい","どけい","とけ","とげい"]
+    },
+    {
+        kanji:"幸せ",
+        answer:"しあわせ",
+        choices:["しあわせ","こうふく","しあせ","しやわせ"]
+    },
+    {
+        kanji:"生まれる",
+        answer:"うまれる",
+        choices:["うまれる","うれる","いまれる","うませる"]
+    },
+    {
+        kanji:"思う",
+        answer:"おもう",
+        choices:["おもう","おもう","おもうう","おぼう"]
+    },
+    {
+        kanji:"選ぶ",
+        answer:"えらぶ",
+        choices:["えらぶ","えらむ","せらぶ","えりぶ"]
+    },
+    {
+        kanji:"合格する",
+        answer:"ごうかくする",
+        choices:["ごうかくする","こうかくする","ごかくする","ごうがくする"]
+    },
+
+    {
+        kanji:"山",
+        answer:"やま",
+        choices:["やま","さん","やも","やみ"]
+    },
+    {
+        kanji:"川",
+        answer:"かわ",
+        choices:["かわ","がわ","せん","かわう"]
+    },
+    {
+        kanji:"海",
+        answer:"うみ",
+        choices:["うみ","かい","うめ","みう"]
+    },
+    {
+        kanji:"島",
+        answer:"しま",
+        choices:["しま","とう","じま","しまう"]
+    },
+    {
+        kanji:"森",
+        answer:"もり",
+        choices:["もり","しん","もる","りん"]
+    },
+    {
+        kanji:"客",
+        answer:"きゃく",
+        choices:["きゃく","きゃっく","かく","ぎゃく"]
+    },
+    {
+        kanji:"観光地",
+        answer:"かんこうち",
+        choices:["かんこうち","かんこち","かんごうち","かんこうじ"]
+    },
+    {
+        kanji:"意味",
+        answer:"いみ",
+        choices:["いみ","いみい","いび","みい"]
+    },
+    {
+        kanji:"経験",
+        answer:"けいけん",
+        choices:["けいけん","けいげん","けいかん","けけん"]
+    },
+    {
+        kanji:"意志",
+        answer:"いし",
+        choices:["いし","いじ","いち","しい"]
+    },
+    {
+        kanji:"立つ",
+        answer:"たつ",
+        choices:["たつ","たてる","だつ","たっつ"]
+    },
+    {
+        kanji:"泣く",
+        answer:"なく",
+        choices:["なく","なくう","なくる","なくす"]
+    },
+{
+        kanji:"写真",
+        answer:"しゃしん",
+        choices:["しゃしん","しゃじん","さしん","しゃせん"]
+    },
+    {
+        kanji:"歌",
+        answer:"うた",
+        choices:["うた","か","うだ","うたい"]
+    },
+    {
+        kanji:"歌手",
+        answer:"かしゅ",
+        choices:["かしゅ","うたしゅ","かて","かじゅ"]
+    },
+    {
+        kanji:"上手",
+        answer:"じょうず",
+        choices:["じょうず","じょうつ","うわて","じょず"]
+    },
+    {
+        kanji:"明るい",
+        answer:"あかるい",
+        choices:["あかるい","あかい","あけるい","あかろい"]
+    },
+    {
+        kanji:"長い",
+        answer:"ながい",
+        choices:["ながい","ちょうい","ながえ","なかい"]
+    },
+    {
+        kanji:"短い",
+        answer:"みじかい",
+        choices:["みじかい","たんい","みしかい","みじけい"]
+    },
+    {
+        kanji:"着る",
+        answer:"きる",
+        choices:["きる","ぎる","きえる","きりる"]
+    },
+    {
+        kanji:"立つ",
+        answer:"たつ",
+        choices:["たつ","だつ","たてる","たっつ"]
+    },
+    {
+        kanji:"泣く",
+        answer:"なく",
+        choices:["なく","なくす","なる","なくう"]
+    },
+
+    {
+        kanji:"注文",
+        answer:"ちゅうもん",
+        choices:["ちゅうもん","ちょうもん","じゅうもん","ちゅうほん"]
+    },
+    {
+        kanji:"会計",
+        answer:"かいけい",
+        choices:["かいけい","がいけい","かいせい","かいけ"]
+    },
+    {
+        kanji:"予約",
+        answer:"よやく",
+        choices:["よやく","ようやく","よがく","よやっく"]
+    },
+    {
+        kanji:"電話番号",
+        answer:"でんわばんごう",
+        choices:["でんわばんごう","でんわはんごう","でんわばんこう","でんわばんご"]
+    },
+    {
+        kanji:"～様",
+        answer:"～さま",
+        choices:["～さま","～よう","～さん","～しょう"]
+    },
+    {
+        kanji:"ご飯",
+        answer:"ごはん",
+        choices:["ごはん","ごへん","こはん","ごばん"]
+    },
+    {
+        kanji:"牛乳",
+        answer:"ぎゅうにゅう",
+        choices:["ぎゅうにゅう","きゅうにゅう","ぎゅにゅう","ぎゅうりゅう"]
+    },
+    {
+        kanji:"生",
+        answer:"なま",
+        choices:["なま","せい","しょう","うま"]
+    },
+    {
+        kanji:"禁煙",
+        answer:"きんえん",
+        choices:["きんえん","ぎんえん","きねん","きんねん"]
+    },
+    {
+        kanji:"自由",
+        answer:"じゆう",
+        choices:["じゆう","しゆう","じよう","じゅう"]
+    },
+
+    {
+        kanji:"塩",
+        answer:"しお",
+        choices:["しお","えん","しょ","しう"]
+    },
+    {
+        kanji:"油",
+        answer:"あぶら",
+        choices:["あぶら","ゆ","あぷら","あぶり"]
+    },
+    {
+        kanji:"量",
+        answer:"りょう",
+        choices:["りょう","りょうう","よう","りょうく"]
+    },
+    {
+        kanji:"～方",
+        answer:"～かた",
+        choices:["～かた","～ほう","～がた","～ぽう"]
+    },
+    {
+        kanji:"～屋",
+        answer:"～や",
+        choices:["～や","～おく","～おくや","～やあ"]
+    },
+    {
+        kanji:"満足",
+        answer:"まんぞく",
+        choices:["まんぞく","ばんぞく","まんそく","まんぞっく"]
+    },
+    {
+        kanji:"切る",
+        answer:"きる",
+        choices:["きる","ぎる","きえる","きりる"]
+    },
+    {
+        kanji:"焼く",
+        answer:"やく",
+        choices:["やく","やける","やっく","ようく"]
+    },
+    {
+        kanji:"入れる",
+        answer:"いれる",
+        choices:["いれる","はいる","いれう","いられる"]
+    },
+
+    {
+        kanji:"自然",
+        answer:"しぜん",
+        choices:["しぜん","じぜん","しせん","しねん"]
+    },
+    {
+        kanji:"交通",
+        answer:"こうつう",
+        choices:["こうつう","こうどう","こうとお","こうずう"]
+    },
+    {
+        kanji:"船",
+        answer:"ふね",
+        choices:["ふね","せん","ぶね","ふな"]
+    },
+    {
+        kanji:"自転車",
+        answer:"じてんしゃ",
+        choices:["じてんしゃ","してんしゃ","じでんしゃ","じてんじゃ"]
+    },
+    {
+        kanji:"旅館",
+        answer:"りょかん",
+        choices:["りょかん","りょうかん","りょこん","りょがん"]
+    },
+    {
+        kanji:"東京",
+        answer:"とうきょう",
+        choices:["とうきょう","ときょう","どうきょう","とうぎょう"]
+    },
+    {
+        kanji:"計画",
+        answer:"けいかく",
+        choices:["けいかく","げいかく","けいがく","けいこく"]
+    },
+    {
+        kanji:"遊ぶ",
+        answer:"あそぶ",
+        choices:["あそぶ","あそう","あすぶ","あそび"]
+    },
+    {
+        kanji:"調べる",
+        answer:"しらべる",
+        choices:["しらべる","しらべ","くらべる","しらべた"]
+    },
+    {
+        kanji:"出発する",
+        answer:"しゅっぱつする",
+        choices:["しゅっぱつする","しゅつぱつする","しゅっぱっする","しゅうぱつする"]
+    },
+
+    {
+        kanji:"運転",
+        answer:"うんてん",
+        choices:["うんてん","うんでん","うてん","うんてい"]
+    },
+    {
+        kanji:"事故",
+        answer:"じこ",
+        choices:["じこ","しこ","じこう","じご"]
+    },
+    {
+        kanji:"故障",
+        answer:"こしょう",
+        choices:["こしょう","ごしょう","こうしょう","こじょう"]
+    },
+    {
+        kanji:"指定席",
+        answer:"していせき",
+        choices:["していせき","していぜき","してせき","していしき"]
+    },
+    {
+        kanji:"週末",
+        answer:"しゅうまつ",
+        choices:["しゅうまつ","しゅまつ","じゅうまつ","しゅうばつ"]
+    },
+    {
+        kanji:"絵",
+        answer:"え",
+        choices:["え","かい","ええ","か"]
+    },
+    {
+        kanji:"空",
+        answer:"そら",
+        choices:["そら","から","くう","そり"]
+    },
+    {
+        kanji:"泳ぐ",
+        answer:"およぐ",
+        choices:["およぐ","およげる","おようぐ","およく"]
+    },
+    {
+        kanji:"光る",
+        answer:"ひかる",
+        choices:["ひかる","ひがる","ぴかる","ひかり"]
+    },
+    {
+        kanji:"到着する",
+        answer:"とうちゃくする",
+        choices:["とうちゃくする","どうちゃくする","とうじゃくする","とうちゃくさる"]
+    },
+
+    {
+        kanji:"お知らせ",
+        answer:"おしらせ",
+        choices:["おしらせ","おしらぜ","おしらす","お知らせ"]
+    },
+    {
+        kanji:"今月",
+        answer:"こんげつ",
+        choices:["こんげつ","こんげち","こんせつ","こんがつ"]
+    },
+    {
+        kanji:"水道",
+        answer:"すいどう",
+        choices:["すいどう","みずどう","すいとう","ずいどう"]
+    },
+    {
+        kanji:"工事",
+        answer:"こうじ",
+        choices:["こうじ","こうし","こうち","こうぎ"]
+    },
+    {
+        kanji:"広場",
+        answer:"ひろば",
+        choices:["ひろば","こうば","ひろは","ひろばあ"]
+    },
+    {
+        kanji:"場合",
+        answer:"ばあい",
+        choices:["ばあい","ばいあい","ばえい","ばない"]
+    },
+    {
+        kanji:"中止",
+        answer:"ちゅうし",
+        choices:["ちゅうし","ちゅうじ","じゅうし","ちゅし"]
+    },
+    {
+        kanji:"条件",
+        answer:"じょうけん",
+        choices:["じょうけん","しょうけん","じょうげん","じょうせん"]
+    },
+    {
+        kanji:"～以上",
+        answer:"～いじょう",
+        choices:["～いじょう","～いしょう","～じょう","～いじょ"]
+    },
+    {
+        kanji:"開く",
+        answer:"ひらく",
+        choices:["ひらく","あく","かいく","ひらける"]
+    },
+    {
+        kanji:"生産する",
+        answer:"せいさんする",
+        choices:["せいさんする","しょうさんする","せいざんする","せいさんさる"]
+    },
+
+    {
+        kanji:"来年",
+        answer:"らいねん",
+        choices:["らいねん","らいせん","ないねん","らいれん"]
+    },
+    {
+        kanji:"会場",
+        answer:"かいじょう",
+        choices:["かいじょう","がいじょう","かいしょう","かいじょ"]
+    },
+    {
+        kanji:"世界",
+        answer:"せかい",
+        choices:["せかい","せがい","せたい","せけい"]
+    },
+    {
+        kanji:"体験",
+        answer:"たいけん",
+        choices:["たいけん","だいけん","たいげん","たいせん"]
+    },
+    {
+        kanji:"国際交流",
+        answer:"こくさいこうりゅう",
+        choices:["こくさいこうりゅう","こくせいこうりゅう","こくさいこうりょう","こくさいこうゆう"]
+    },
+    {
+        kanji:"禁止",
+        answer:"きんし",
+        choices:["きんし","ぎんし","きんじ","きしん"]
+    },
+    {
+        kanji:"紙",
+        answer:"かみ",
+        choices:["かみ","がみ","し","かめ"]
+    },
+    {
+        kanji:"始まる",
+        answer:"はじまる",
+        choices:["はじまる","はしまる","はじめる","はずまる"]
+    },
+    {
+        kanji:"申し込む",
+        answer:"もうしこむ",
+        choices:["もうしこむ","もうしごむ","もじこむ","もうこしむ"]
+    },
+    
+    {
+        kanji:"今年",
+        answer:"ことし",
+        choices:["ことし","こんねん","ことせ","こどし"]
+    },
+    {
+        kanji:"昨年",
+        answer:"さくねん",
+        choices:["さくねん","さっねん","さくせん","さくとし"]
+    },
+    {
+        kanji:"毎年",
+        answer:"まいとし",
+        choices:["まいとし","まいねん","まいどし","まいせい"]
+    },
+    {
+        kanji:"文化",
+        answer:"ぶんか",
+        choices:["ぶんか","ぶんが","もんか","ぶんけ"]
+    },
+    {
+        kanji:"祭り",
+        answer:"まつり",
+        choices:["まつり","まっり","さいり","まづり"]
+    },
+    {
+        kanji:"正月",
+        answer:"しょうがつ",
+        choices:["しょうがつ","しょうげつ","せいがつ","しょうかつ"]
+    },
+    {
+        kanji:"～式",
+        answer:"～しき",
+        choices:["～しき","～しぎ","～せき","～しけ"]
+    },
+    {
+        kanji:"大人",
+        answer:"おとな",
+        choices:["おとな","だいにん","たいじん","おとなあ"]
+    },
+    {
+        kanji:"米",
+        answer:"こめ",
+        choices:["こめ","べい","まい","こま"]
+    },
+    {
+        kanji:"特別",
+        answer:"とくべつ",
+        choices:["とくべつ","どくべつ","とくべっ","とくへつ"]
+    },
+
+    {
+        kanji:"服",
+        answer:"ふく",
+        choices:["ふく","ぶく","ようふく","ふこ"]
+    },
+    {
+        kanji:"袋",
+        answer:"ふくろ",
+        choices:["ふくろ","ぶくろ","ふころ","ふくる"]
+    },
+    {
+        kanji:"自分",
+        answer:"じぶん",
+        choices:["じぶん","しぶん","じふん","じぷん"]
+    },
+    {
+        kanji:"店長",
+        answer:"てんちょう",
+        choices:["てんちょう","でんちょう","てんしょう","てんじょう"]
+    },
+    {
+        kanji:"全員",
+        answer:"ぜんいん",
+        choices:["ぜんいん","せんいん","ぜにん","ぜんえん"]
+    },
+    {
+        kanji:"習慣",
+        answer:"しゅうかん",
+        choices:["しゅうかん","じゅうかん","しゅかん","しゅうけん"]
+    },
+    {
+        kanji:"普通",
+        answer:"ふつう",
+        choices:["ふつう","ふどう","ぶつう","ふつ"]
+    },
+    {
+        kanji:"暗い",
+        answer:"くらい",
+        choices:["くらい","ぐらい","くらえ","くらし"]
+    },
+    {
+        kanji:"怒る",
+        answer:"おこる",
+        choices:["おこる","いかる","おごる","おこえる"]
+    },
+    {
+        kanji:"入院する",
+        answer:"にゅういんする",
+        choices:["にゅういんする","にゅいんする","にゅうえんする","にゅういんさる"]
+    },
+    {
+        kanji:"案内する",
+        answer:"あんないする",
+        choices:["あんないする","あんないさる","あんだいする","あんないしる"]
+    },
+
+    {
+        kanji:"色",
+        answer:"いろ",
+        choices:["いろ","しょく","いら","えろ"]
+    },
+    {
+        kanji:"赤",
+        answer:"あか",
+        choices:["あか","せき","あけ","あが"]
+    },
+    {
+        kanji:"青",
+        answer:"あお",
+        choices:["あお","せい","あう","あご"]
+    },
+    {
+        kanji:"黒",
+        answer:"くろ",
+        choices:["くろ","こく","ぐろ","くり"]
+    },
+    {
+        kanji:"白",
+        answer:"しろ",
+        choices:["しろ","はく","びゃく","しら"]
+    },
+    {
+        kanji:"女性",
+        answer:"じょせい",
+        choices:["じょせい","じょうせい","しょせい","じょしょう"]
+    },
+    {
+        kanji:"男性",
+        answer:"だんせい",
+        choices:["だんせい","たんせい","だんしょう","だんぜい"]
+    },
+    {
+        kanji:"急に",
+        answer:"きゅうに",
+        choices:["きゅうに","きゅに","きょうに","ぎゅうに"]
+    },
+    {
+        kanji:"営業する",
+        answer:"えいぎょうする",
+        choices:["えいぎょうする","えいきょうする","えいぎょする","えいごうする"]
+    },
+    {
+        kanji:"来内する",
+        answer:"らいないする",
+        choices:["らいないする","らいだいする","らいないさる","らいのうする"]
+    },
+
+    {
+        kanji:"商品",
+        answer:"しょうひん",
+        choices:["しょうひん","しょうびん","しょうへん","しょひん"]
+    },
+    {
+        kanji:"値段",
+        answer:"ねだん",
+        choices:["ねだん","ちだん","ねたん","ねでん"]
+    },
+    {
+        kanji:"価格",
+        answer:"かかく",
+        choices:["かかく","がかく","かがく","かこく"]
+    },
+    {
+        kanji:"消費税",
+        answer:"しょうひぜい",
+        choices:["しょうひぜい","しょうひせい","しょうびぜい","しょうひざい"]
+    },
+    {
+        kanji:"税別",
+        answer:"ぜいべつ",
+        choices:["ぜいべつ","せいべつ","ぜいべっ","ぜべつ"]
+    },
+    {
+        kanji:"店員",
+        answer:"てんいん",
+        choices:["てんいん","でんいん","てにん","てんえん"]
+    },
+    {
+        kanji:"親切",
+        answer:"しんせつ",
+        choices:["しんせつ","じんせつ","しんぜつ","しんせち"]
+    },
+    {
+        kanji:"重い",
+        answer:"おもい",
+        choices:["おもい","おおい","おもう","およい"]
+    },
+    {
+        kanji:"軽い",
+        answer:"かるい",
+        choices:["かるい","がるい","かろい","かれい"]
+    },
+    {
+        kanji:"変わる",
+        answer:"かわる",
+        choices:["かわる","かえる","がわる","かわいる"]
+    },
+
+    {
+        kanji:"市",
+        answer:"し",
+        choices:["し","いち","しい","ち"]
+    },
+    {
+        kanji:"料金",
+        answer:"りょうきん",
+        choices:["りょうきん","りょうぎん","りょうけん","りょきん"]
+    },
+    {
+        kanji:"図書館",
+        answer:"としょかん",
+        choices:["としょかん","ずしょかん","としょうかん","としょがん"]
+    },
+    {
+        kanji:"道具",
+        answer:"どうぐ",
+        choices:["どうぐ","とうぐ","どうく","どぐ"]
+    },
+    {
+        kanji:"～点",
+        answer:"～てん",
+        choices:["～てん","～でん","～せん","～たん"]
+    },
+    {
+        kanji:"必要",
+        answer:"ひつよう",
+        choices:["ひつよう","ひっよう","ひつよ","びつよう"]
+    },
+    {
+        kanji:"借りる",
+        answer:"かりる",
+        choices:["かりる","かえる","からる","かれる"]
+    },
+    {
+        kanji:"返す",
+        answer:"かえす",
+        choices:["かえす","かえる","がえす","かやす"]
+    },
+    {
+        kanji:"開く",
+        answer:"あく",
+        choices:["あく","ひらく","かいく","あける"]
+    },
+    {
+        kanji:"閉まる",
+        answer:"しまる",
+        choices:["しまる","しめる","じまる","しわる"]
+    },
+    {
+        kanji:"利用する",
+        answer:"りようする",
+        choices:["りようする","りゅうようする","りよする","りようさる"]
+    },
+
+    {
+        kanji:"外国",
+        answer:"がいこく",
+        choices:["がいこく","かいこく","がいごく","がいこう"]
+    },
+    {
+        kanji:"情報",
+        answer:"じょうほう",
+        choices:["じょうほう","しょうほう","じょうぼう","じょうこう"]
+    },
+    {
+        kanji:"相談",
+        answer:"そうだん",
+        choices:["そうだん","そうたん","ぞうだん","そうでん"]
+    },
+    {
+        kanji:"質問",
+        answer:"しつもん",
+        choices:["しつもん","しちもん","しつほん","しつも"]
+    },
+    {
+        kanji:"窓口",
+        answer:"まどぐち",
+        choices:["まどぐち","まどくち","そうぐち","まどうち"]
+    },
+    {
+        kanji:"郵便局",
+        answer:"ゆうびんきょく",
+        choices:["ゆうびんきょく","ゆびんきょく","ゆうべんきょく","ゆうびんぎょく"]
+    },
+    {
+        kanji:"近所",
+        answer:"きんじょ",
+        choices:["きんじょ","きんしょ","こんじょ","きんしょう"]
+    },
+    {
+        kanji:"自動",
+        answer:"じどう",
+        choices:["じどう","しどう","じとう","じど"]
+    },
+    {
+        kanji:"洗う",
+        answer:"あらう",
+        choices:["あらう","せんう","あろう","あれる"]
+    },
+    {
+        kanji:"入力する",
+        answer:"にゅうりょくする",
+        choices:["にゅうりょくする","にゅうろくする","にゅりょくする","にゅうりょうする"]
+    },
+    {
+        kanji:"名前",
+        answer:"なまえ",
+        choices:["なまえ","なめえ","なまい","なめい"]
+    },
+    {
+        kanji:"国",
+        answer:"くに",
+        choices:["くに","こく","ぐに","くり"]
+    },
+    {
+        kanji:"私",
+        answer:"わたし",
+        choices:["わたし","わだし","わたち","わらし"]
+    },
+    {
+        kanji:"日本",
+        answer:"にほん",
+        choices:["にほん","にっぽん","にほん","にぼん"]
+    },
+    {
+        kanji:"父",
+        answer:"ちち",
+        choices:["ちち","はは","とう","あに"]
+    },
+    {
+        kanji:"母",
+        answer:"はは",
+        choices:["はは","ちち","おかあ","あね"]
+    },
+    {
+        kanji:"子ども",
+        answer:"こども",
+        choices:["こども","こどもう","こどま","こど"]
+    },
+    {
+        kanji:"水",
+        answer:"みず",
+        choices:["みず","みづ","すい","みつ"]
+    },
+    {
+        kanji:"食べます",
+        answer:"たべます",
+        choices:["たべます","たへます","たべました","のみます"]
+    },
+    {
+        kanji:"飲みます",
+        answer:"のみます",
+        choices:["のみます","のみました","たべます","のいます"]
+    },
+    {
+        kanji:"魚",
+        answer:"さかな",
+        choices:["さかな","うお","さけな","さかな"]
+    },
+    {
+        kanji:"肉",
+        answer:"にく",
+        choices:["にく","にぐ","しし","にこ"]
+    },
+    {
+        kanji:"好き",
+        answer:"すき",
+        choices:["すき","ずき","すぎ","すけ"]
+    },
+    {
+        kanji:"家",
+        answer:"いえ",
+        choices:["いえ","うち","や","いけ"]
+    },
+    {
+        kanji:"新しい",
+        answer:"あたらしい",
+        choices:["あたらしい","あだらしい","あたらし","しんしい"]
+    },
+    {
+        kanji:"広い",
+        answer:"ひろい",
+        choices:["ひろい","ひろう","びろい","ひろえ"]
+    },
+    {
+        kanji:"古い",
+        answer:"ふるい",
+        choices:["ふるい","ふろい","こい","ふりい"]
+    },
+    {
+        kanji:"上",
+        answer:"うえ",
+        choices:["うえ","した","なか","じょう"]
+    },
+    {
+        kanji:"下",
+        answer:"した",
+        choices:["した","うえ","げ","なか"]
+    },
+    {
+        kanji:"中",
+        answer:"なか",
+        choices:["なか","ちゅう","うち","そと"]
+    },
+
+    {
+        kanji:"月",
+        answer:"げつ",
+        choices:["げつ","がつ","つき","げち"]
+    },
+    {
+        kanji:"火",
+        answer:"か",
+        choices:["か","ひ","が","き"]
+    },
+    {
+        kanji:"水曜日",
+        answer:"すいようび",
+        choices:["すいようび","かようび","きんようび","もくようび"]
+    },
+    {
+        kanji:"木曜日",
+        answer:"もくようび",
+        choices:["すいようび","かようび","きんようび","もくようび"]
+    },
+    {
+        kanji:"金曜日",
+        answer:"きんようび",
+        choices:["すいようび","かようび","きんようび","もくようび"]
+    },
+    {
+        kanji:"土曜日",
+        answer:"どようび",
+        choices:["どようび","かようび","きんようび","もくようび"]
+    },
+    {
+        kanji:"日曜日",
+        answer:"にちようび",
+        choices:["すいようび","にちようび","きんようび","もくようび"]
+    },
+    {
+        kanji:"～曜日",
+        answer:"～ようび",
+        choices:["～ようび","～ようひ","～よび","～ようち"]
+    },
+    {
+        kanji:"朝",
+        answer:"あさ",
+        choices:["あさ","ちょうし","あした","あす"]
+    },
+    {
+        kanji:"昼",
+        answer:"ひる",
+        choices:["ひる","ちゅうう","ひろ","ゆう"]
+    },
+    {
+        kanji:"夜",
+        answer:"よる",
+        choices:["よる","やい","よい","よう"]
+    },
+    {
+        kanji:"～時",
+        answer:"～じ",
+        choices:["～じ","～ひ","～し","～び"]
+    },
+    {
+        kanji:"～分",
+        answer:"～ふん",
+        choices:["～ふん","～ぶん","～ん","～ぶ"]
+    },
+    {
+        kanji:"～半",
+        answer:"～はん",
+        choices:["～はん","～ばん","～ぱん","～ほん"]
+    },
+    {
+        kanji:"～枚",
+        answer:"～まい",
+        choices:["～まい","～ばい","～めい","～ま"]
+    },
+    {
+        kanji:"読みます",
+        answer:"よみます",
+        choices:["よみます","よびます","みます","ききます"]
+    },
+    {
+        kanji:"聞きます",
+        answer:"ききます",
+        choices:["ききます","ききした","よみます","みます"]
+    },
+    {
+        kanji:"見ます",
+        answer:"みます",
+        choices:["みます","きます","よみます","ききます"]
+    },
+    {
+        kanji:"本",
+        answer:"ほん",
+        choices:["ほん","びん","ぽん","もど"]
+    },
+    {
+        kanji:"友だち",
+        answer:"ともだち",
+        choices:["ともだち","ともたち","ゆうだち","ともだ"]
+    },
+    {
+        kanji:"何",
+        answer:"なに",
+        choices:["なに","なし","なんに","なり"]
+    },
+    {
+        kanji:"～年",
+        answer:"～ねん",
+        choices:["～ねん","～ねい","～せい","～ね"]
+    },
+    {
+        kanji:"～月",
+        answer:"～がつ",
+        choices:["～がつ","～げぃ","～き","～かつ"]
+    },
+    {
+        kanji:"～日",
+        answer:"～にち",
+        choices:["～にち","～じ","～ぎ","～じつ"]
+    },
+    {
+        kanji:"今日",
+        answer:"きょう",
+        choices:["きょう","こんに","きょ","こんつ"]
+    },
+    {
+        kanji:"今週",
+        answer:"こんしゅう",
+        choices:["こんしゅう","こんじゅう","こんしょう","こんしゅ"]
+    },
+    {
+        kanji:"今度",
+        answer:"こんど",
+        choices:["こんど","こんと","いまど","こんどう"]
+    },
+
+    {
+        kanji:"東",
+        answer:"ひがし",
+        choices:["ひがし","あ","とお","ひかし"]
+    },
+    {
+        kanji:"西",
+        answer:"にし",
+        choices:["にし","せ","さ","にせ"]
+    },
+    {
+        kanji:"南",
+        answer:"みなみ",
+        choices:["みなみ","な","なみ","みのみ"]
+    },
+    {
+        kanji:"北",
+        answer:"きた",
+        choices:["きた","ほ","きだ","ほっ"]
+    },
+    {
+        kanji:"会社",
+        answer:"かいしゃ",
+        choices:["かいしゃ","がいしゃ","かしゃ","かいじゃ"]
+    },
+    {
+        kanji:"来ます",
+        answer:"きます",
+        choices:["きます","いきます","きました","こいます"]
+    },
+    {
+        kanji:"行きます",
+        answer:"いきます",
+        choices:["いきます","きます","のります","いけます"]
+    },
+    {
+        kanji:"乗ります",
+        answer:"のります",
+        choices:["のります","おります","いきます","のれます"]
+    },
+    {
+        kanji:"大きい",
+        answer:"おおきい",
+        choices:["おおきい","おきい","だいきい","おおき"]
+    },
+    {
+        kanji:"小さい",
+        answer:"ちいさい",
+        choices:["ちいさい","こさい","ちさい","しょうさい"]
+    },
+    {
+        kanji:"高い",
+        answer:"たかい",
+        choices:["たかい","こうい","たけい","たがい"]
+    },
+    {
+        kanji:"低い",
+        answer:"ひくい",
+        choices:["ひくい","ていい","ひきい","ひこい"]
+    },
+    {
+        kanji:"前",
+        answer:"まえ",
+        choices:["まえ","うしろ","まい","ぜん"]
+    },
+    {
+        kanji:"後ろ",
+        answer:"うしろ",
+        choices:["うしろ","まえ","あとろ","こうろ"]
+    },
+    {
+        kanji:"横",
+        answer:"よこ",
+        choices:["よこ","お","よけ","よろ"]
+    },
+    {
+        kanji:"入口",
+        answer:"いりぐち",
+        choices:["いりぐち","でぐち","いりくち","いりろ"]
+    },
+    {
+        kanji:"出口",
+        answer:"でぐち",
+        choices:["でぐち","いりぐち","でくち","でろ"]
+    },
+    {
+        kanji:"～階",
+        answer:"～かい",
+        choices:["～かい","～が","～けい","～え"]
+    },
+    {
+        kanji:"押す",
+        answer:"おす",
+        choices:["おす","ひく","おろす","おし"]
+    },
+    {
+        kanji:"引く",
+        answer:"ひく",
+        choices:["ひく","おす","ひらく","ひき"]
+    },
+    {
+        kanji:"安い",
+        answer:"やすい",
+        choices:["やすい","やさい","あんい","やすえ"]
+    },
+    {
+        kanji:"一",
+        answer:"いち",
+        choices:["いち","に","さん","よん"]
+    },
+    {
+        kanji:"二",
+        answer:"に",
+        choices:["に","いち","さん","よん"]
+    },
+    {
+        kanji:"三",
+        answer:"さん",
+        choices:["さん","に","よん","ご"]
+    },
+    {
+        kanji:"四",
+        answer:"よん",
+        choices:["よん","し","ご","ろく"]
+    },
+    {
+        kanji:"五",
+        answer:"ご",
+        choices:["ご","ろく","しち","よん"]
+    },
+    {
+        kanji:"六",
+        answer:"ろく",
+        choices:["ろく","ご","なな","はち"]
+    },
+    {
+        kanji:"七",
+        answer:"なな",
+        choices:["なな","しち","はち","ろく"]
+    },
+    {
+        kanji:"八",
+        answer:"はち",
+        choices:["はち","なな","きゅう","ろく"]
+    },
+    {
+        kanji:"九",
+        answer:"きゅう",
+        choices:["きゅう","く","はち","じゅう"]
+    },
+    {
+        kanji:"十",
+        answer:"じゅう",
+        choices:["じゅう","きゅう","とお","じゅ"]
+    },
+    
+    {
+        kanji:"百",
+        answer:"ひゃく",
+        choices:["ひゃく","びゃ","ひゃっく","はく"]
+    },
+    {
+        kanji:"千",
+        answer:"せん",
+        choices:["せん","ぜん","せい","せっ"]
+    },
+    {
+        kanji:"万",
+        answer:"まん",
+        choices:["まん","ば","もん","ま"]
+    },
+    {
+        kanji:"～円",
+        answer:"～えん",
+        choices:["～えん","～せん","～えい","～え"]
+    },
+    {
+        kanji:"休み",
+        answer:"やすみ",
+        choices:["やすみ","やすめ","きゅうみ","やす"]
+    },
+    {
+        kanji:"映画",
+        answer:"えいが",
+        choices:["えいが","えが","えいか","えいわ"]
+    },
+    {
+        kanji:"日本語",
+        answer:"にほんご",
+        choices:["にほんご","にっぽんご","にほんこ","にほんごう"]
+    },
+    {
+        kanji:"勉強します",
+        answer:"べんきょうします",
+        choices:["べんきょうします","べんこうします","べんきょします","べんぎょうします"]
+    },
+    {
+        kanji:"買います",
+        answer:"かいます",
+        choices:["かいます","かえます","がいます","かります"]
+    },
+
+    {
+        kanji:"温泉",
+        answer:"おんせん",
+        choices:["おんせん","おんぜん","おせん","おんしん"]
+    },
+    {
+        kanji:"予定",
+        answer:"よてい",
+        choices:["よてい","ようてい","よたい","よでい"]
+    },
+    {
+        kanji:"来週",
+        answer:"らいしゅう",
+        choices:["らいしゅう","らいしょう","らいじゅう","らいしゅ"]
+    },
+    {
+        kanji:"会います",
+        answer:"あいます",
+        choices:["あいます","かいます","あります","あえます"]
+    },
+    {
+        kanji:"入ります",
+        answer:"はいります",
+        choices:["はいります","いります","はいれます","はいり"]
+    },
+    {
+        kanji:"旅行します",
+        answer:"りょこうします",
+        choices:["りょこうします","りょうこうします","りょこします","りょこうします"]
+    },
+
+    {
+        kanji:"学生",
+        answer:"がくせい",
+        choices:["がくせい","かくせい","がくしょう","がくぜい"]
+    },
+    {
+        kanji:"学校",
+        answer:"がっこう",
+        choices:["がっこう","がこう","かっこう","がっこ"]
+    },
+    {
+        kanji:"生活",
+        answer:"せいかつ",
+        choices:["せいかつ","しょうかつ","せいがつ","せかつ"]
+    },
+    {
+        kanji:"去年",
+        answer:"きょねん",
+        choices:["きょねん","こねん","きょうねん","さくねん"]
+    },
+    {
+        kanji:"先週",
+        answer:"せんしゅう",
+        choices:["せんしゅう","せんしょう","せんじゅう","せんしゅ"]
+    },
+    {
+        kanji:"仕事",
+        answer:"しごと",
+        choices:["しごと","じごと","しこと","しごろ"]
+    },
+    {
+        kanji:"元気",
+        answer:"げんき",
+        choices:["げんき","けんき","げんぎ","げき"]
+    },
+    {
+        kanji:"忙しい",
+        answer:"いそがしい",
+        choices:["いそがしい","いぞがしい","いそかしい","いそがし"]
+    },
+    {
+        kanji:"働く",
+        answer:"はたらく",
+        choices:["はたらく","はらたく","はたろく","はたらき"]
+    },
+    {
+        kanji:"作る",
+        answer:"つくる",
+        choices:["つくる","さくる","つぐる","つくり"]
+    },
+
+    {
+        kanji:"人",
+        answer:"ひと",
+        choices:["ひと","じ","に","ひとり"]
+    },
+    {
+        kanji:"～人",
+        answer:"～にん",
+        choices:["～にん","～じ","～ひ","～り"]
+    },
+    {
+        kanji:"犬",
+        answer:"いぬ",
+        choices:["いぬ","け","いね","いの"]
+    },
+    {
+        kanji:"家族",
+        answer:"かぞく",
+        choices:["かぞく","がぞく","かそく","かぞっく"]
+    },
+    {
+        kanji:"夕方",
+        answer:"ゆうがた",
+        choices:["ゆうがた","ゆがた","ゆうかた","ゆうがつ"]
+    },
+    {
+        kanji:"英語",
+        answer:"えいご",
+        choices:["えいご","えご","えいこ","えいごう"]
+    },
+    {
+        kanji:"音楽",
+        answer:"おんがく",
+        choices:["おんがく","おんらく","おんかく","おがく"]
+    },
+    {
+        kanji:"習う",
+        answer:"ならう",
+        choices:["ならう","ならぶ","ならえる","なろう"]
+    },
+    {
+        kanji:"話す",
+        answer:"はなす",
+        choices:["はなす","はなし","はなせる","はやす"]
+    },
+    {
+        kanji:"出かける",
+        answer:"でかける",
+        choices:["でかける","でがける","でかいる","でるかける"]
+    },
+
+    {
+        kanji:"季節",
+        answer:"きせつ",
+        choices:["きせつ","ぎせつ","きぜつ","きせっ"]
+    },
+    {
+        kanji:"春",
+        answer:"はる",
+        choices:["はる","しゅ","ばる","はろ"]
+    },
+    {
+        kanji:"夏",
+        answer:"なつ",
+        choices:["なつ","か","なち","なっ"]
+    },
+    {
+        kanji:"秋",
+        answer:"あき",
+        choices:["あき","しゅ","あぎ","あけ"]
+    },
+    {
+        kanji:"冬",
+        answer:"ふゆ",
+        choices:["ふゆ","と","ふよ","ふう"]
+    },
+    {
+        kanji:"花",
+        answer:"はな",
+        choices:["はな","かな","ばな","はね"]
+    },
+    {
+        kanji:"同じ",
+        answer:"おなじ",
+        choices:["おなじ","どうじ","おなし","おなじい"]
+    },
+    {
+        kanji:"暑い",
+        answer:"あつい",
+        choices:["あつい","あづい","ねつい","あちい"]
+    },
+    {
+        kanji:"寒い",
+        answer:"さむい",
+        choices:["さむい","ざむい","かんい","さもい"]
+    },
+    {
+        kanji:"天気",
+        answer:"てんき",
+        choices:["てんき","でんき","てんぎ","てき"]
+    },
+    {
+        kanji:"晴れ",
+        answer:"はれ",
+        choices:["はれ","せい","はり","ばれ"]
+    },
+    {
+        kanji:"雨",
+        answer:"あめ",
+        choices:["あめ","うう","あみ","あね"]
+    },
+    {
+        kanji:"雪",
+        answer:"ゆき",
+        choices:["ゆき","せ","ゆぎ","ゆけ"]
+    },
+    {
+        kanji:"風",
+        answer:"かぜ",
+        choices:["かぜ","ふ","かせ","かじ"]
+    },
+    {
+        kanji:"今",
+        answer:"いま",
+        choices:["いま","こ","いめ","いもう"]
+    },
+    {
+        kanji:"昨日",
+        answer:"きのう",
+        choices:["きのう","さくじ","きょう","きの"]
+    },
+    {
+        kanji:"明日",
+        answer:"あした",
+        choices:["あした","あず","みょうに","あしたあ"]
+    },
+    {
+        kanji:"毎日",
+        answer:"まいにち",
+        choices:["まいにち","まいじつ","まいひ","まにち"]
+    },
+    {
+        kanji:"強い",
+        answer:"つよい",
+        choices:["つよい","づよい","きょうい","つよえ"]
+    },
+
+    {
+        kanji:"町",
+        answer:"まち",
+        choices:["まち","ちょ","まじ","まつ"]
+    },
+    {
+        kanji:"店",
+        answer:"みせ",
+        choices:["みせ","て","みぜ","みし"]
+    },
+    {
+        kanji:"食堂",
+        answer:"しょくどう",
+        choices:["しょくどう","しょくとう","しょくろう","しょどう"]
+    },
+    {
+        kanji:"便利",
+        answer:"べんり",
+        choices:["べんり","へんり","べり","べんれい"]
+    },
+    {
+        kanji:"不便",
+        answer:"ふべん",
+        choices:["ふべん","ぶべん","ふへん","ふべい"]
+    },
+    {
+        kanji:"静か",
+        answer:"しずか",
+        choices:["しずか","せいか","しづか","しずけ"]
+    },
+    {
+        kanji:"有名",
+        answer:"ゆうめい",
+        choices:["ゆうめい","ゆめい","ゆうみょう","ゆうねい"]
+    },
+    {
+        kanji:"多い",
+        answer:"おおい",
+        choices:["おおい","おい","たい","おおえ"]
+    },
+    {
+        kanji:"少ない",
+        answer:"すくない",
+        choices:["すくない","しょうない","すこない","すくねい"]
+    },
+    {
+        kanji:"遠い",
+        answer:"とおい",
+        choices:["とおい","とい","えんい","とおえ"]
+    },
+
+    {
+        kanji:"道",
+        answer:"みち",
+        choices:["みち","ど","みじ","みつ"]
+    },
+    {
+        kanji:"公園",
+        answer:"こうえん",
+        choices:["こうえん","こうねん","こうせん","こうえい"]
+    },
+    {
+        kanji:"銀行",
+        answer:"ぎんこう",
+        choices:["ぎんこう","きんこう","ぎんごう","ぎこう"]
+    },
+    {
+        kanji:"お寺",
+        answer:"おてら",
+        choices:["おてら","おでら","てら","おてり"]
+    },
+    {
+        kanji:"神社",
+        answer:"じんじゃ",
+        choices:["じんじゃ","しんじゃ","じんしゃ","しんしゃ"]
+    },
+    {
+        kanji:"右",
+        answer:"みぎ",
+        choices:["みぎ","うぎ","みき","ぎみ"]
+    },
+    {
+        kanji:"左",
+        answer:"ひだり",
+        choices:["ひだり","さい","ひたり","ひたり"]
+    },
+    {
+        kanji:"近く",
+        answer:"ちかく",
+        choices:["ちかく","きんく","ちがく","ちかぐ"]
+    },
+    {
+        kanji:"車",
+        answer:"くるま",
+        choices:["くるま","ぐるま","くろま","くるみ"]
+    },
+    {
+        kanji:"送る",
+        answer:"おくる",
+        choices:["おくる","おこる","そうる","おける"]
+    },
+
+    {
+        kanji:"時間",
+        answer:"じかん",
+        choices:["じかん","しかん","じけん","じがん"]
+    },
+    {
+        kanji:"場所",
+        answer:"ばしょ",
+        choices:["ばしょ","ばじょ","はしょ","ばしょう"]
+    },
+    {
+        kanji:"駅",
+        answer:"えき",
+        choices:["えき","えぎ","えきい","えく"]
+    },
+    {
+        kanji:"受付",
+        answer:"うけつけ",
+        choices:["うけつけ","うけづけ","うけつき","うけせつ"]
+    },
+    {
+        kanji:"門",
+        answer:"もん",
+        choices:["もん","か","もんう","どあ"]
+    },
+    {
+        kanji:"電車",
+        answer:"でんしゃ",
+        choices:["でんしゃ","てんしゃ","でんじゃ","でしゃ"]
+    },
+    {
+        kanji:"待つ",
+        answer:"まつ",
+        choices:["まつ","まって","もつ","またつ"]
+    },
+    {
+        kanji:"止まる",
+        answer:"とまる",
+        choices:["とまる","やまる","とめる","どまる"]
+    },
+    {
+        kanji:"着く",
+        answer:"つく",
+        choices:["つく","ちゃく","つける","つぐ"]
+    },
+    {
+        kanji:"急ぐ",
+        answer:"いそぐ",
+        choices:["いそぐ","いそく","きゅうぐ","いそげる"]
+    },
+
+    {
+        kanji:"お金",
+        answer:"おかね",
+        choices:["おかね","がね","おがね","おきね"]
+    },
+    {
+        kanji:"食事",
+        answer:"しょくじ",
+        choices:["しょくじ","しょくし","しょくち","しょくぎ"]
+    },
+    {
+        kanji:"～店",
+        answer:"～てん",
+        choices:["～てん","～み","～でん","～けん"]
+    },
+    {
+        kanji:"博物館",
+        answer:"はくぶつかん",
+        choices:["はくぶつかん","はくもつかん","ばくぶつかん","はくぶっかん"]
+    },    {
+        kanji:"動物園",
+        answer:"どうぶつえん",
+        choices:["どうぶつえん","どうぶつせん","どうもつえん","どうぶつけん"]
+    },
+    {
+        kanji:"試合",
+        answer:"しあい",
+        choices:["しあい","じあい","しやい","しえい"]
+    },
+    {
+        kanji:"楽しい",
+        answer:"たのしい",
+        choices:["たのしい","たのし","らくしい","たのい"]
+    },
+    {
+        kanji:"難しい",
+        answer:"むずかしい",
+        choices:["むずかしい","むつかしい","むずしい","むずかし"]
+    },
+    {
+        kanji:"登る",
+        answer:"のぼる",
+        choices:["のぼる","のぼれる","あがる","のぽる"]
+    },
+
+
+    {image:"img/1.jpg",
+  answer:"前",
+  choices:["前","上","下","中"
+    ]},
+    
+{image:"img/2.jpg",
+  answer:"下",
+  choices:["前","上","下","中"
+    ]},
+{image:"img/3.jpg",
+  answer:"中",
+  choices:["前","上","下","中"
+    ]},
+{image:"img/4.jpg",
+  answer:"横",
+  choices:["前","上","下","横"
+    ]},
+{image:"img/5.jpg",
+  answer:"後ろ",
+  choices:["前","後ろ","下","横"
+    ]},
+
+    //651
+    {image:"img/ilust/onomatope/1.png",
+  answer:"ワンワン",
+  choices:["ワンワン","ピカピカ","ゴロゴロ","イライラ"
+    ]},
+    {image:"img/ilust/onomatope/2.png",
+  answer:"サプライズ",
+  choices:["ざんねん","ショック","サプライズ","イライラ"
+    ]},
+
+{image:"img/ilust/onomatope/3.png",
+  answer:"うれしい",
+  choices:["ざんねん","ショック","うれしい","イライラ"
+    ]},
+{image:"img/ilust/onomatope/4.png",
+  answer:"クイズ",
+  choices:["クイズ","ピカピカ","うれしい","イライラ"
+    ]},
+{image:"img/ilust/onomatope/5.png",
+  answer:"ショック",
+  choices:["ピカピカ","ショック","シーン","イライラ"
+    ]},
+{image:"img/ilust/onomatope/6.png",
+  answer:"ひらめいた",
+  choices:["クイズ","シーン","ひらめいた","イライラ"
+    ]},
+{image:"img/ilust/onomatope/7.png",
+  answer:"ざんねん",
+  choices:["クイズ","ざんねん","ひらめいた","イライラ"
+    ]},
+{image:"img/ilust/onomatope/8.png",
+  answer:"ぴゅーぴゅー",
+  choices:["ぴゅーぴゅー","シーン","ゴロゴロ","イライラ"
+    ]},
+{image:"img/ilust/onomatope/9.png",
+  answer:"ゴロゴロ",
+  choices:["ピカピカ","ショック","シーン","ゴロゴロ"
+    ]},
+    
+{image:"img/ilust/onomatope/10.png",
+  answer:"ピカピカ",
+  choices:["シーン","ゴロゴロ","ひらめいた","ピカピカ"
+    ]},
+{image:"img/ilust/onomatope/11.png",
+  answer:"イライラ",
+  choices:["シーン","ゴロゴロ","イライラ","ピカピカ"
+    ]},
+{image:"img/ilust/onomatope/12.png",
+  answer:"たのしみ",
+  choices:["たのしみ","ざんねん","ひらめいた","ショック"
+    ]},
+{image:"img/ilust/onomatope/13.png",
+  answer:"ざんねん",
+  choices:["たのしみ","ざんねん","ひらめいた","うれしい"
+    ]},
+{image:"img/ilust/onomatope/14.png",
+  answer:"ザーザー",
+  choices:["トントン","ワンワン","ザーザー","うれしい"
+    ]},
+    {image:"img/ilust/onomatope/15.png",
+  answer:"ぽつぽつ",
+  choices:["ちゃんちゃん","ワンワン","ぽつぽつ","うれしい"
+    ]},
+    {image:"img/ilust/onomatope/16.png",
+  answer:"しとしと",
+  choices:["ゴロゴロ","ワンワン","しとしと","ちゃんちゃん"
+    ]},    
+    {image:"img/ilust/onomatope/17.png",
+  answer:"シーン",
+  choices:["シーン","ガーン","パーン","ちゃんちゃん"
+    ]},  
+    
+];
+
+let quizSet1 = allQuizData.slice(0, 50);
+let quizSet2 = allQuizData.slice(50);
+
+let quizData = [];
+
+
+
+
+let currentSet = 1;
+quizData = quizSet1
+
+let current = 0;
+let wrongQuestions = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: []
+};
+let reviewMode = false;
+function makeChoices(q){
+
+    // 正解
+    let result = [q.answer];
+
+    // 正解に似た読み
+    result.push(q.choices[1]);
+
+    // 他の問題を1つ選ぶ
+    let other;
+
+    do{
+        other = allQuizData[Math.floor(Math.random()*allQuizData.length)];
+    }while(other.kanji === q.kanji);
+
+// 他の問題の間違い選択肢をランダム
+let wrong =
+    other.choices[Math.floor(Math.random()*3)+1];
+
+result.push(other.answer);
+result.push(wrong);
+
+    // シャッフル
+    for(let i=result.length-1;i>0;i--){
+        let j=Math.floor(Math.random()*(i+1));
+        [result[i],result[j]]=[result[j],result[i]];
+    }
+
+    return result;
+}
+function startQuiz(set){
+    score = 0;
+    miss = 0;
+document.getElementById("nextSet").style.display = "none";
+document.getElementById("score").textContent = score;
+document.getElementById("miss").textContent = miss;
+
+    currentSet = set;  // ←追加
+
+    document.getElementById("start").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+if (!wrongQuestions[currentSet]) {
+    wrongQuestions[currentSet] = [];
+}
+ if(set === 1){
+    quizData = allQuizData.slice(0,50);
+}else if(set === 2){
+    quizData = allQuizData.slice(50,100);
+}else if(set === 3){
+    quizData = allQuizData.slice(100,150);
+}else if(set === 4){
+    quizData = allQuizData.slice(150,200);
+}else if(set === 5){
+    quizData = allQuizData.slice(200,250);
+}else if(set === 6){
+    quizData = allQuizData.slice(250,300);
+}else if(set === 7){
+    quizData = allQuizData.slice(300,350);
+}else if(set === 8){
+    quizData = allQuizData.slice(350,400);
+}else if(set === 9){
+    quizData = allQuizData.slice(400,450);
+}else if(set === 10){
+    quizData = allQuizData.slice(450,500);
+}else if(set === 11){
+    quizData = allQuizData.slice(500,550);
+}else if(set === 12){
+    quizData = allQuizData.slice(550,600);
+}else if(set === 13){
+    quizData = allQuizData.slice(600,645);
+}else if(set == 14){
+    quizData = allQuizData.slice(645,700);
+}else if(set === 15){
+    quizData = allQuizData.slice(700,750);
+}else if(set == 16){
+    quizData = [...allQuizData];
+
+    for(let i = quizData.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [quizData[i], quizData[j]] = [quizData[j], quizData[i]];
+    }
+
+    quizData = quizData.slice(0,30);
+}
+
+
+    current = 0;
+    loadQuiz();
+}
+
+function shuffle(array){
+    for(let i=array.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+    }
+    return array;
+}
+function goHome(){
+
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("start").style.display = "block";
+
+    current = 0;
+    currentSet = 1;
+    reviewMode = false;
+
+wrongQuestions = {
+    1: [], 2: [], 3: [], 4: [], 5: [],
+    6: [], 7: [], 8: [], 9: [], 10: [],
+    11: [], 12: [], 13: [], 14: [],15: [],16: []
+};
+
+
+    document.getElementById("count").textContent = "";
+}
+
+function loadQuiz(){
+
+    document.getElementById("result").textContent="";
+    document.getElementById("next").style.display="none";
+
+    const q = quizData[current];
+
+    document.getElementById("count").textContent =
+        (current + 1) + " / " + quizData.length;
+
+const imageArea = document.getElementById("imageArea");
+
+if (q.image) {
+    imageArea.innerHTML = `
+        <img src="${q.image}"
+             style="max-width:150px;width:100%;height:auto;">
+    `;
+    kanji.textContent = "";
+} else {
+    imageArea.innerHTML = "";
+    kanji.textContent = q.kanji || "";
+}
+
+document.getElementById("set").textContent = currentSet;
+
+
+
+
+const area=document.getElementById("choices");
+area.innerHTML="";
+
+let choices;
+
+if(q.image){
+    choices = q.choices;  
+}else{
+    choices = makeChoices(q); 
+}
+
+shuffle(choices).forEach(choice=>{
+        const btn=document.createElement("button");
+        btn.textContent=choice;
+
+btn.onclick = function(){
+
+    if(choice === q.answer){
+
+        document.getElementById("result").textContent =
+        "〇 正解！";
+        score++;
+showCorrectEffect();
+    }else{
+
+        document.getElementById("result").textContent =
+        "× 不正解！ 正解は「" + q.answer + "」";
+        miss++;
+
+
+if(currentSet != 16
+){
+    if(!wrongQuestions[currentSet].includes(q)){
+        wrongQuestions[currentSet].push(q);
+    }
+}
+
+    }
+
+    document.getElementById("score").textContent = score;
+    document.getElementById("miss").textContent = miss;
+
+    document.querySelectorAll("#choices button")
+    .forEach(b=>{
+        b.disabled = true;
+    });
+
+    document.getElementById("next").style.display =
+    "inline-block";
+
+};
+
+        area.appendChild(btn);
+
+    });
+
+}
+
+function goNextSet(){
+
+    currentSet++;
+
+    if(currentSet === 2){
+        quizData = allQuizData.slice(50,100);
+    }else if(currentSet === 3){
+        quizData = allQuizData.slice(100,150);
+    }else if(currentSet === 4){
+        quizData = allQuizData.slice(150);
+    }else{
+        alert("全セット終了です！");
+        goHome();
+        return;
+    }
+
+    current = 0;
+    reviewMode = false;
+
+    document.getElementById("nextSet").style.display = "none";
+
+    loadQuiz();
+}
+function showCorrectEffect(){
+
+    const marks = ["✨","⭐","🌟","💚","💜","🟡","🟠"];
+
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    for(let i = 0; i < 60; i++){
+
+        const p = document.createElement("div");
+        p.className = "firework";
+
+        p.textContent =
+            marks[Math.floor(Math.random()*marks.length)];
+
+        p.style.left = centerX + "px";
+        p.style.top = centerY + "px";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 150 + Math.random() * 250;
+
+        p.style.setProperty(
+            "--x",
+            Math.cos(angle) * distance + "px"
+        );
+
+        p.style.setProperty(
+            "--y",
+            Math.sin(angle) * distance + "px"
+        );
+
+        document.body.appendChild(p);
+
+        setTimeout(() => {
+            p.remove();
+        }, 1200);
+    }
+}
+
+function nextQuestion(){
+
+    current++;
+
+    if(current >= quizData.length){
+
+        // 復習モード終了
+        if(reviewMode){
+
+            reviewMode = false;
+
+            document.getElementById("choices").innerHTML = "";
+            document.getElementById("result").textContent =
+            "復習終了！";
+
+            document.getElementById("next").style.display = "none";
+            document.getElementById("nextSet").style.display = "inline-block";
+
+            return;
+        }
+
+// ランダム30問は復習なし
+if(currentSet ==16){
+
+    document.getElementById("choices").innerHTML = "";
+    document.getElementById("result").innerHTML =
+        "🏆 テスト30問終了！<br>" +
+        "30点中 " + score + " 点でした。";
+
+    document.getElementById("next").style.display = "none";
+    document.getElementById("nextSet").style.display = "none";
+    return;
+}
+
+// 間違いがあれば復習
+if(wrongQuestions[currentSet].length > 0){
+
+            alert("セット" + currentSet + "の復習を行います");
+
+            quizData = wrongQuestions[currentSet];
+            wrongQuestions[currentSet] = [];
+
+            current = 0;
+            reviewMode = true;
+
+            loadQuiz();
+            return;
+        }
+
+// 間違いなしでセット終了
+
+document.getElementById("choices").innerHTML = "";
+
+if(currentSet == 5){
+    document.getElementById("result").innerHTML =
+        "🏆 テスト30問終了！<br>30点中 " + score + " 点でした。";
+
+    document.getElementById("next").style.display = "none";
+    document.getElementById("nextSet").style.display = "none";
+    return;
+}
+
+document.getElementById("result").textContent =
+    "セット" + currentSet + "終了！";
+
+document.getElementById("next").style.display = "none";
+document.getElementById("nextSet").style.display = "inline-block";
+
+return;
+    }
+
+    loadQuiz();
+}
+</script>
+
+</body>
+</html>

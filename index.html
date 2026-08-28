@@ -3866,11 +3866,9 @@ quizData = quizSet1
 
 let current = 0;
 let wrongQuestions = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: []
+    1:[],2:[],3:[],4:[],5:[],
+    6:[],7:[],8:[],9:[],10:[],
+    11:[],12:[],13:[],14:[],15:[],16:[]
 };
 let reviewMode = false;
 function makeChoices(q){
@@ -4020,13 +4018,8 @@ document.getElementById("set").textContent = currentSet;
 const area=document.getElementById("choices");
 area.innerHTML="";
 
-let choices;
+let choices = q.choices.slice();
 
-if(q.image){
-    choices = q.choices;  
-}else{
-    choices = makeChoices(q); 
-}
 
 shuffle(choices).forEach(choice=>{
         const btn=document.createElement("button");

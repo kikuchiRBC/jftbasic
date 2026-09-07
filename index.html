@@ -475,8 +475,13 @@ text-shadow:
 <h2>📖ぶんぽう もんだい📖</h2>
 <button onclick="startGrammarQuiz(1)">A（1～50）</button>
 <button onclick="startGrammarQuiz(2)">B（51～100）</button>
-</div>
 
+<h2>🎧ちょうかい もんだい🎧</h2>
+
+<button onclick="startListeningQuiz()">
+聴解テスト
+</button>
+</div>
 <div id="quiz" style="display:none;">
     <div id="audioArea"></div>
     <div id="imageArea"></div>
@@ -506,6 +511,7 @@ text-shadow:
 <script src="js/quizData1.js"></script>
 <script src="js/quizData2.js"></script>
 <script src="js/quizData3.js"></script>
+<script src="js/quizData4.js"></script>
 <script>
 
 
@@ -712,8 +718,11 @@ function startMixedTest(){
         getRandomItems(allQuizData, 10);
 
     const grammar =
-        getRandomItems(allGrammarData, 10);
-
+    getRandomItems(allGrammarData,10)
+    .map(item => ({
+        ...item,
+        type:"grammar"
+    }));
     const image =
         getRandomItems(allImageQuizData, 10);
 
@@ -767,16 +776,38 @@ function loadQuiz(){
         (current + 1) + " / " + quizData.length;
 
 const imageArea = document.getElementById("imageArea");
-const questionArea = document.getElementById("questionText");
+const questionArea =
+document.getElementById("questionText");
 
-// 文法問題なら小さくする
-if(q.q){
-    questionArea.style.fontSize = "26px";
+// 文法問題だけ小さく表示
+const isGrammar =
+    q.type === "grammar";
+
+if(isGrammar){
+
+    questionArea.style.fontSize =
+        window.innerWidth <= 768
+        ? "18px"
+        : "20px";
+
 }else{
+
     questionArea.style.fontSize = "26px";
+
 }
 const audioArea =
 document.getElementById("audioArea");
+
+audioArea.innerHTML = "";
+
+if (q.audio) {
+    audioArea.innerHTML = `
+        <audio controls>
+            <source src="${q.audio}" type="audio/mpeg">
+            このブラウザは音声再生に対応していません。
+        </audio>
+    `;
+}
 
 const kanjiArea = document.getElementById("kanji");
 
@@ -797,17 +828,17 @@ if (q.image) {
 
     kanjiArea.textContent = q.kanji || "";
 
-    if(quizType === "grammar"){
+if(q.type === "grammar"){
 
-        kanjiArea.style.fontSize = "30px";
-        kanjiArea.style.lineHeight = "1.8";
+    kanjiArea.style.fontSize = "30px";
+    kanjiArea.style.lineHeight = "1.8";
 
-    }else{
+}else{
 
-        kanjiArea.style.fontSize = "72px";
-        kanjiArea.style.lineHeight = "1.2";
+    kanjiArea.style.fontSize = "72px";
+    kanjiArea.style.lineHeight = "1.2";
 
-    }
+}
 }
 
 document.getElementById("set").textContent = currentSet;
@@ -869,7 +900,25 @@ if (
     });
 
 }
+function startListeningQuiz(){
 
+    quizType = "listening";
+
+    score = 0;
+    miss = 0;
+
+    document.getElementById("score").textContent = 0;
+    document.getElementById("miss").textContent = 0;
+
+    document.getElementById("start").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+
+    quizData = allListeningData;
+
+    current = 0;
+
+    loadQuiz();
+}
 function goNextSet(){
 
     currentSet++;

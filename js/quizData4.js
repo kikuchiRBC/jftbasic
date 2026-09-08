@@ -397,4 +397,89 @@ let allListeningData = [
 "1:c、2:b"
 ]
 },
+{
+    audio:"audio/35.wav",
+    q:"朝食は何時からですか。また、へやはどこですか。",
+    answer:"7時と503号室",
+    choices:[
+"9時と305号室",
+"7時と503号室",
+"9時と305号室",
+"7時と503号室"]
+},
+{
+    audio:"audio/36.wav",
+    image:"audio/36.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"2",
+    choices:["1","2","3","4"]
+},
+{
+    audio:"audio/37.wav",
+    image:"audio/37.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"3",
+    choices:["1","2","3","4"]
+},
+{
+    audio:"audio/38.wav",
+    image:"audio/38.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"3",
+    choices:["1","2","3","4"]
+},
+{
+    audio:"audio/39.wav",
+    q:"おんせいをきいてこたえなさい",
+    answer:"明るくて元気ですが、わすれものがおおい",
+    choices:["a. 勉強はすきですが、スポーツはきらい",
+        "明るくて元気ですが、わすれものがおおい","しずかなひと","毎日アルバイトをしています"]
+},
+{
+    audio:"audio/40.wav",
+    image:"audio/40.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"b",
+    choices:["a","b","c","d"]
+},
+{
+    audio:"audio/41.wav",
+    q:"俳優（はいゆう）を好きになったきっかけはなんですか。",
+    answer:"b",
+    choices:["友だちにすすめられたから","ドラマを見たから","演技（えんぎ）の勉強（べんきょう）をしているから","音楽ばんぐみに出ていたから"]
+},
+{
+    audio:"audio/42.wav",
+    image:"audio/42.png",
+    q:"リーさんの国の季節(きせつ）はどれですか",
+    answer:"c",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/43.wav",
+    image:"audio/43.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"c",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/44.wav",
+    q:"どんな町ですか？",
+    answer:"首都（しゅと）",
+    choices:["モンゴルのウランバートル","首都（しゅと）","いなか"]
+},
+{
+    audio:"audio/45.wav",
+    image:"audio/45.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"b",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/46.wav",
+    image:"audio/46.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"c",
+    choices:["a","b","c"]
+},
 ];

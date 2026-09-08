@@ -625,7 +625,7 @@ if (!wrongQuestions[currentSet]) {
 
     quizData = quizData.slice(0,30);
 }
-
+quizData = shuffle([...quizData]);
 
     current = 0;
     loadQuiz();
@@ -653,7 +653,7 @@ quizType = "image";
     else if(set === 3){
         quizData = allImageQuizData.slice(100);
     }
-
+quizData = shuffle([...quizData]);
     current = 0;
 
     loadQuiz();
@@ -677,7 +677,7 @@ document.getElementById("quiz").style.display="block";
     else if(set === 3){
         quizData = allGrammarData.slice(100);
     }
-
+quizData = shuffle([...quizData]);
     current = 0;
     loadQuiz();
 }
@@ -913,8 +913,7 @@ function startListeningQuiz(){
     document.getElementById("start").style.display = "none";
     document.getElementById("quiz").style.display = "block";
 
-    quizData = allListeningData;
-
+    quizData = shuffle([...allListeningData]);
     current = 0;
 
     loadQuiz();

@@ -77,7 +77,7 @@ type:"grammar",
     q:"A:原（はら）さんは、どの人ひとですか？ ",
     kanji:"B:原（はら）さんは、あそこで、本を読んでいる人です（★）。",
     answer:"よ",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -85,7 +85,7 @@ type:"grammar",
     q:"A:あのう、佐々木（ささき）さんは、どの人ひとですか？ ",
     kanji:"B:あの、髪（かみ）が短（みじか）くて、ひげをはやしている人です（★）。",
     answer:"よ",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -93,7 +93,7 @@ type:"grammar",
     q:"A:あのう、佐々木（ささき）さんは、どの人ひとですか？ 　　B:あの、髪（かみ）が短（みじか）くて、ひげをはやしている人ですよ。",
     kanji:"C:ありがとうございます。あのひげの人です（★）。",
     answer:"ね",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -101,7 +101,7 @@ type:"grammar",
     q:"　",
     kanji:"ほら、あの女の人、社長（しゃちょう）のお母さんです（★）。",
     answer:"よ",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -109,7 +109,7 @@ type:"grammar",
     q:"　",
     kanji:"あの人が、マイクさんです（★）？",
     answer:"か",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -117,7 +117,7 @@ type:"grammar",
     q:" A:すみません、ここに、山本（やまもと）さんという人ひとはいますか？",
     kanji:"B:山本（やまもと）さんは、あの人です（★）。",
     answer:"よ",
-    choices:["よ","ね","か"]
+    choices:["よ","や","か"]
 },
 {
  
@@ -137,7 +137,7 @@ type:"grammar",
     image:"imgs/grammar/3.jpg",
 
     answer:"泳（およ）げる",
-    choices:["泳（およ）げる","泳（およ）ぐ","泳（およ）いだ"
+    choices:["泳（およ）げる","泳（およ）ご","泳（およ）い"
     ]
 },
 {
@@ -146,7 +146,7 @@ type:"grammar",
    image:"imgs/grammar/4.jpg",
 
     answer:"できる",
-    choices:["できる","する","した"
+    choices:["できる","する","し"
     ]
 },
 {
@@ -155,7 +155,7 @@ type:"grammar",
     image:"imgs/grammar/5.jpg",
 
     answer:"入れる",
-    choices:["入れる","入る","入った"]
+    choices:["入れる","入ら","入れ"]
 },
 {
  
@@ -163,7 +163,7 @@ type:"grammar",
     image:"imgs/grammar/6.jpg",
     answer:"見られる",
     choices:[
-        "見られる","見る","見た"
+        "見られる","見れ","見ろ"
     ]
 },
 {
@@ -171,21 +171,21 @@ type:"grammar",
 type:"grammar",
     image:"imgs/grammar/7.jpg",
     answer:"できる",
-    choices:["できる","でる","できた"]
+    choices:["できる","でる","できよ"]
 },
 {
  
 type:"grammar",
     image:"imgs/grammar/8.jpg",
     answer:"食べられる",
-    choices:["食べられる","食べ","食べた"]
+    choices:["食べられる","食べ","食べて"]
 },
 {
  
 type:"grammar",
     image:"imgs/grammar/9.jpg",
     answer:"できる",
-    choices:["できる","する","した"]
+    choices:["できる","する","しと"]
 },
 {
  
@@ -193,7 +193,7 @@ type:"grammar",
     image:"imgs/grammar/10.jpg",
 
     answer:"見られる",
-    choices:["見られる","見る","見えた","見ている"]
+    choices:["見られる","見ろ","見えて","見ている"]
 },
 {
  
@@ -201,14 +201,14 @@ type:"grammar",
      image:"imgs/grammar/11.jpg",
    
     answer:"買える",
-    choices:["買える","買う","買った","買っている"]
+    choices:["買える","買お","買って","買っている"]
 },
 {
  
 type:"grammar",
     kanji:"道（みち）を（★）とき、リスを見ました。",
     answer:"歩いている",
-    choices:["歩く","歩いている","歩いた"]
+    choices:["歩く","歩いている","歩いく"]
 },
 {
  
@@ -216,28 +216,28 @@ type:"grammar",
  
     kanji:"沖縄（おきなわ）の海（うみ）をはじめて（★）とき、とても感動（かんどう）しました。",
     answer:"見た",
-    choices:["見る","見ている","見た"]
+    choices:["見る","見ている","見と"]
 },
 {
  
 type:"grammar",
      kanji:"日光（にっこう）に（★）とき、厚い上着（うわぎ）を持って行ったほうがいいですよ。",
     answer:"行く",
-    choices:["行く","行っている","行った"]
+    choices:["行く","行っている","行け"]
 },
 {
  
 type:"grammar",
      kanji:"ショーを（★）とき、ちょっと眠くなりました。",
     answer:"見ている",
-    choices:["見る","見ている","見た"]
+    choices:["見る","見ている","見ろ"]
 },
 {
  
 type:"grammar",
      kanji:"あべのハルカスに（★）とき、展望台（てんぼうだい）から空港（くうこう）が見えました。",
     answer:"登った",
-    choices:["登る","登っている","登った"]
+    choices:["登り","登って","登った"]
 },
 {
  
@@ -245,7 +245,7 @@ type:"grammar",
  
     kanji:"雨（あめ）が（★）とき、海で泳ぎたくないです。",
     answer:"降っている",
-    choices:["降る","降っている","降った"]
+    choices:["降り","降っている","降って"]
 },
 {
  
@@ -253,14 +253,14 @@ type:"grammar",
  
     kanji:"お寺（てら）の中（なか）に（★）とき、くつを脱ぎました。",
     answer:"入る",
-    choices:["入る","入っている","入った"]
+    choices:["入る","入り","入って"]
 },
 {
  
 type:"grammar",
      kanji:"ホテルに（★）とき、部屋（へや）からメールしますね。",
     answer:"着いた",
-    choices:["着く","着いている","着いた"]
+    choices:["着き","着いている","着いた"]
 },
 {
  
@@ -315,7 +315,7 @@ type:"grammar",
 type:"grammar",
     "kanji":"花（はな）はだれに（★）いいですか。",
     "answer":"わたせば",
-    "choices":["わたせば","わたすと","わたしたら"]
+    "choices":["わたせば","わたす","わたし"]
 },
 {
  
@@ -386,7 +386,7 @@ type:"grammar",
 type:"grammar",
     "kanji":"さいふがない！さいふを（★）かもしれません。",
     "answer":"とられた",
-    "choices":["とられた","とった","とらせた"]
+    "choices":["とられた","とった","とらせ"]
   },
   {
  
@@ -400,7 +400,7 @@ type:"grammar",
 type:"grammar",
     "kanji":"資料（しりょう）が展示（てんじ）して（★）。",
     "answer":"あります",
-    "choices":["います","あります","きます"]
+    "choices":["あます","あります","きます"]
   },
   {
  
@@ -414,7 +414,7 @@ type:"grammar",
 type:"grammar",
     "kanji":"暑（あつ）いので、窓（まど）を開（あ）けて（★）。",
     "answer":"います",
-    "choices":["います","あります","きます"]
+    "choices":["います","あり","ます"]
   },
   {
  
@@ -432,7 +432,7 @@ answer:"するなら"},
  
 type:"grammar",
 q:"やすみのひ、でかける（★）うみに　いきたいです。",
-choices:["なら","ので","けど"],answer:"なら"},
+choices:["なら","のに","しか"],answer:"なら"},
 
 {
  

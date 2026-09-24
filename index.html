@@ -347,6 +347,31 @@ text-shadow:
     margin:15px 0;
     box-shadow:0 4px 10px rgba(0,0,0,.3);
 }
+/* 文法リストボタン */
+.grammar-list-btn{
+    display:block;
+    width:230px;
+    margin:15px auto 25px;
+    padding:15px 20px;
+
+    background:linear-gradient(45deg,#7b61ff,#9b8cff);
+    color:white;
+
+    text-decoration:none;
+    font-size:22px;
+    font-weight:bold;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 12px rgba(0,0,0,0.2);
+
+    transition:all 0.3s ease;
+}
+
+.grammar-list-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
 /* ===== スマホ対応 ===== */
 @media screen and (max-width: 768px){
 
@@ -475,7 +500,9 @@ text-shadow:
 <h2>📖ぶんぽう もんだい📖</h2>
 <button onclick="startGrammarQuiz(1)">A（1～50）</button>
 <button onclick="startGrammarQuiz(2)">B（51～100）</button>
-
+<a href="bunpo.html" class="grammar-list-btn">
+    📘 文法リストを見る
+</a>
 <h2>🎧ちょうかい もんだい🎧</h2>
 
 <button onclick="startListeningQuiz()">

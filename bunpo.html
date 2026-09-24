@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JFT-Basic よく出る文法｜意味と使い方</title>
+<style>
+*{box-sizing:border-box} body{margin:0;background:#f4fbff;color:#263238;font-family:Arial,"Noto Sans JP",sans-serif}
+header{background:linear-gradient(135deg,#42a5f5,#26c6da);color:#fff;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:26px} header p{margin:8px 0 0}
+.container{max-width:1050px;margin:auto;padding:15px}
+.notice{background:#fff;border-left:5px solid #26a69a;border-radius:12px;padding:12px;line-height:1.7;margin-bottom:14px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input{flex:1;min-width:220px;padding:12px;border:1px solid #b0bec5;border-radius:10px;font-size:16px}
+button{border:0;border-radius:999px;padding:9px 14px;background:#e0f2f1;font-weight:bold;cursor:pointer}
+button.active{background:#26a69a;color:white}
+#count{font-weight:bold;margin:10px 0 15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:#fff;border-radius:18px;padding:15px;box-shadow:0 3px 14px #0001}
+.image-box{height:155px;border:3px dashed #64b5f6;border-radius:14px;background:#f5fbff;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:12px}
+.image-box img{width:100%;height:100%;object-fit:contain}
+.placeholder{color:#78909c;text-align:center;font-size:14px;line-height:1.6;padding:8px}
+.kanji{font-size:48px;font-weight:800;text-align:center;color:#1565c0}
+.main-reading{text-align:center;font-size:18px;color:#455a64;margin-bottom:12px}
+.row{margin-top:9px;padding:10px;border-radius:10px;background:#f7f9fa;line-height:1.65}
+.label{font-size:12px;font-weight:bold;color:#607d8b}
+.word{font-size:23px;font-weight:bold}
+.nepali{background:#fff8e1;border:1px solid #ffe082}
+.type-box{margin-bottom:10px;padding:9px 11px;border-radius:10px;background:#fff8df;border:1px solid #ead28a;font-weight:700}
+.word-chip{
+ display:inline-block;
+ margin:4px;
+ padding:6px 12px;
+ background:#e3f2fd;
+ border-radius:999px;
+ font-weight:bold;
+}
+
+.verb-form{
+ cursor:pointer;
+ color:#1565c0;
+ font-weight:bold;
+}
+
+.verb-modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.5);
+ justify-content:center;
+ align-items:center;
+ z-index:9999;
+}
+
+.verb-content{
+ background:white;
+ padding:20px;
+ border-radius:16px;
+ max-width:500px;
+}
+.example{
+  background:#e8f5e9;   /* 背景色 */
+  border-left:5px solid #4caf50;
+  padding:12px;
+  border-radius:10px;
+  font-size:18px;
+  line-height:1.8;
+}
+/* JFT-BASIC問題ページへのフロートボタン */
+.jft-basic-float{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    width:180px;
+    padding:14px 18px;
+
+    background:linear-gradient(135deg,#4caf50,#81c784);
+    color:white;
+
+    text-decoration:none;
+    text-align:center;
+
+    font-size:18px;
+    font-weight:bold;
+    line-height:1.5;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
+
+    z-index:9999;
+
+    transition:0.3s;
+}
+
+.jft-basic-float:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+.missing{color:#9e9e9e;font-style:italic}
+code{background:#eef5f8;padding:2px 5px;border-radius:4px}
+@media(max-width:600px){.image-box{height:180px}header h1{font-size:22px}}
+</style>
+<style>.row{margin:12px 0}.word-block{padding:14px;border-radius:12px;background:#f7f9ff;border:1px solid #dce4ff}.word-block>div{margin:7px 0}.usage{background:#f3fbf5;padding:10px;border-radius:8px}.meaning{background:#fffdf2;padding:10px;border-radius:8px}.word-title{font-size:1.2em;font-weight:700}</style>
+<style>
+.id-group{display:block;margin:18px 0;padding:14px;border:2px solid #d8e2ff;border-radius:12px;background:#f8faff}
+.id-title{font-size:1.15rem;font-weight:bold;margin-bottom:10px;color:#244a9b}
+.word-item{display:block;margin:10px 0;padding:12px;border-radius:10px;background:white;border:1px solid #e0e6f2;line-height:1.7}
+</style>
+</head>
+<body>
+<header><h1>📘 JFT-Basic よく出る文法</h1>
+<p>文法＋使い方＋例文＋英語＋ネパール語</p></header>
+<div class="container">
+<div class="notice">
+<strong>📚 JFT-Basic対策で重要な文法・表現をまとめています！</strong>
+日常生活でよく使う文法の意味・使い方・例文を勉強しましょう！
+
+</div><div class="controls">
+  <input id="search" placeholder="文法・形・例文・英語・ネパール語で検索">
+
+  <button class="active" data-filter="all">すべて</button>
+  <button data-filter="🟣 助詞">助詞・Particle・विभक्ति</button>
+  <button data-filter="🔵 動詞文法">動詞文法・Verb Grammar・क्रिया व्याकरण</button>
+  <button data-filter="🟢 形容詞">形容詞・Adjective・विशेषण</button>
+  <button data-filter="🟠 表現">表現・Expressions・अभिव्यक्ति</button>
+  <button data-filter="❓ 疑問詞">疑問詞・Question Words・प्रश्नवाचक शब्द</button>
+</div>
+
+<div id="count"></div>
+
+<div id="grid" class="grid"></div>
+<a href="index.html" class="jft-basic-float">
+    📝 JFT-BASIC<br>
+    問題ページ
+</a>
+<script>
+const data=
+[
+ {
+  "id": 1,
+  "kanji": "です／ます",
+  "reading": "Nです／Vます",
+  "word": "「これは りんご です」<br>「これを <ruby>食<rt>た</rt></ruby>べ ます」",
+  "wordReading": "",
+  "english": "This is / do",
+  "nepali": "यो हो / गर्छु",
+  "nepaliReading": "",
+  "explanation": "です：名詞・な形容詞の文。ます：丁寧な動詞。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 2,
+  "kanji": "は",
+  "reading": "Nは～です",
+  "word": "<ruby>私<rt>わたし</rt></ruby> は <ruby>会社員<rt>かいしゃいん</rt></ruby> です。<br><ruby>私<rt>わたし</rt></ruby> は <ruby>行<rt>い</rt></ruby> きます。",
+  "wordReading": "",
+  "english": "as for",
+  "nepali": "म कम्पनी कर्मचारी हुँ।",
+  "nepaliReading": "",
+  "explanation": "話題を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 3,
+  "kanji": "が",
+  "reading": "Nが～です",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby> が すき です。<br><ruby>電車<rt>でんしゃ</rt></ruby> が <ruby>走<rt>はし</rt></ruby>り ます。",
+  "wordReading": "",
+  "english": "subject / object marker",
+  "nepali": "जापानी भाषा बुझ्छु।",
+  "nepaliReading": "",
+  "explanation": "主語や、好き・わかる・できるなどの対象を示します。 ",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 4,
+  "kanji": "を",
+  "reading": "NをVます",
+  "word": "<ruby>毎朝<rt>まいあさ</rt></ruby>、<ruby>ご飯<rt>ごはん</rt></ruby> を <ruby>食<rt>た</rt></ruby>べ ます。",
+  "wordReading": "",
+  "english": "object marker",
+  "nepali": "हरेक बिहान खाना खान्छु।",
+  "nepaliReading": "",
+  "explanation": "動作の対象を示します。 ",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 5,
+  "kanji": "に（時間）",
+  "reading": "時間にVます",
+  "word": "<ruby>7時<rt>しちじ</rt></ruby> に <ruby>起<rt>お</rt></ruby>き ます。",
+  "wordReading": "",
+  "english": "at / on",
+  "nepali": "७ बजे उठ्छु।",
+  "nepaliReading": "",
+  "explanation": "動作をする時間を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 6,
+  "kanji": "に（場所）",
+  "reading": "場所にあります／います",
+  "word": "<ruby>駅<rt>えき</rt></ruby>の<ruby>前<rt>まえ</rt></ruby> に コンビニ が あり ます。<br><ruby>車<rt>くるま</rt></ruby>の<ruby>前<rt>まえ</rt></ruby> に ねこ が います。 ",
+  "wordReading": "",
+  "english": "in / at",
+  "nepali": "स्टेसन अगाडि सुविधा पसल छ।",
+  "nepaliReading": "",
+  "explanation": "人や物が存在する場所を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 7,
+  "kanji": "に（目的地）",
+  "reading": "場所に行きます／来ます",
+  "word": "<ruby>会社<rt>かいしゃ</rt></ruby> に <ruby>行<rt>い</rt></ruby>き ます。<br><ruby>学校<rt>がっこう</rt></ruby> に <ruby>来<rt>き</rt></ruby> ます。",
+  "wordReading": "",
+  "english": "to",
+  "nepali": "कम्पनी जान्छु।",
+  "nepaliReading": "",
+  "explanation": "移動の目的地を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 8,
+  "kanji": "で（場所）",
+  "reading": "場所でVます",
+  "word": "<ruby>食堂<rt>しょくどう</rt></ruby> で <ruby>昼<rt>ひる</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby> を<ruby> 食<rt>た</rt></ruby>べます。<br><ruby>学校<rt>がっこう</rt></ruby> で <ruby>勉強<rt>べんきょう</rt></ruby> を します。",
+  "wordReading": "",
+  "english": "at / in",
+  "nepali": "भोजनालयमा दिउँसोको खाना खान्छु।",
+  "nepaliReading": "",
+  "explanation": "動作をする場所を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 9,
+  "kanji": "で（手段）",
+  "reading": "NでVます",
+  "word": "<ruby>電車<rt>でんしゃ</rt></ruby> で <ruby>会社<rt>かいしゃ</rt></ruby> へ <ruby>行<rt>い</rt></ruby>き ます。",
+  "wordReading": "",
+  "english": "by / with",
+  "nepali": "रेलबाट कम्पनी जान्छु।",
+  "nepaliReading": "",
+  "explanation": "道具・手段を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 10,
+  "kanji": "と",
+  "reading": "NとVます",
+  "word": "<ruby>友<rt>とも</rt></ruby>だち と<ruby> 映画<rt>えいが</rt></ruby> を <ruby>見<rt>み</rt></ruby> ます。",
+  "wordReading": "",
+  "english": "with",
+  "nepali": "साथीसँग चलचित्र हेर्छु।",
+  "nepaliReading": "",
+  "explanation": "一緒にする相手を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 11,
+  "kanji": "の",
+  "reading": "NのN",
+  "word": "これは <ruby>私<rt>わたし</rt></ruby> の かばん です。",
+  "wordReading": "",
+  "english": "of / 's",
+  "nepali": "यो मेरो झोला हो।",
+  "nepaliReading": "",
+  "explanation": "所属・所有・種類などを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 12,
+  "kanji": "も",
+  "reading": "Nも～",
+  "word": "<ruby>私<rt>わたし</rt></ruby> も <ruby>行<rt>い</rt></ruby>き ます。",
+  "wordReading": "",
+  "english": "also / too",
+  "nepali": "म पनि जान्छु।",
+  "nepaliReading": "",
+  "explanation": "「同じように」「～もまた」を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 13,
+  "kanji": "から",
+  "reading": "Nから／時間から",
+  "word": "<ruby>9時<rt>くじ</rt></ruby> から <ruby>仕事<rt>しごと</rt></ruby> です。<br><ruby>12時<rt>じゅうにじ</rt></ruby> から はじめ ます",
+  "wordReading": "",
+  "english": "from / because",
+  "nepali": "९ बजेदेखि काम हो।",
+  "nepaliReading": "",
+  "explanation": "始まりの場所・時間、または理由を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 14,
+  "kanji": "まで",
+  "reading": "Nまで／時間まで",
+  "word": "<ruby>5時<rt>ごじ</rt></ruby> まで <ruby>働<rt>はたら</rt></ruby>き ます。",
+  "wordReading": "",
+  "english": "until / to",
+  "nepali": "५ बजेसम्म काम गर्छु।",
+  "nepaliReading": "",
+  "explanation": "終わりの場所・時間を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 15,
+  "kanji": "から～まで",
+  "reading": "NからNまで",
+  "word": "<ruby>月曜日<rt>げつようび</rt></ruby> から <ruby>金曜日<rt>きんようび</rt></ruby> まで<ruby>働<rt>はたら</rt></ruby>き ます。",
+  "wordReading": "",
+  "english": "from ... to",
+  "nepali": "सोमबारदेखि शुक्रबारसम्म काम गर्छु।",
+  "nepaliReading": "",
+  "explanation": "範囲の始まりと終わりを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 16,
+  "kanji": "だけ",
+  "reading": "Nだけ",
+  "word": "<ruby>水<rt>みず</rt></ruby> だけ <ruby>飲<rt>の</rt></ruby>み ます。",
+  "wordReading": "",
+  "english": "only",
+  "nepali": "पानी मात्र पिउँछु।",
+  "nepaliReading": "",
+  "explanation": "限定を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 17,
+  "kanji": "しか～ない",
+  "reading": "Nしかありません",
+  "word": "<ruby>100円<rt>ひゃくえん</rt></ruby> しか ありません。<br><ruby>水<rt>みず</rt></ruby> しか <ruby>飲<rt>の</rt></ruby>み ません。",
+  "wordReading": "",
+  "english": "only",
+  "nepali": "१०० येन मात्र छ।",
+  "nepaliReading": "",
+  "explanation": "「それ以外はない」という強い限定。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 18,
+  "kanji": "くらい／ぐらい",
+  "reading": "数量＋くらい",
+  "word": "<ruby>10分<rt>じゅっぷん</rt></ruby> ぐらい <ruby>待<rt>ま</rt></ruby>って ください。<br><ruby>15分<rt>じゅうごふん</rt></ruby> くらい したら<ruby> 来<rt>き</rt></ruby> ます。",
+  "wordReading": "",
+  "english": "about / approximately",
+  "nepali": "करिब १० मिनेट पर्खनुहोस्।",
+  "nepaliReading": "",
+  "explanation": "おおよその数量・程度を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 19,
+  "kanji": "ごろ",
+  "reading": "時間＋ごろ",
+  "word": "<ruby>8時<rt>はちじ</rt></ruby> ごろ <ruby> 来<rt>き</rt></ruby> ます。",
+  "wordReading": "",
+  "english": "around",
+  "nepali": "करिब ८ बजे आउँछु।",
+  "nepaliReading": "",
+  "explanation": "おおよその時刻を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 20,
+  "kanji": "とても",
+  "reading": "とても＋形容詞",
+  "word": "この<ruby>店<rt>みせ</rt></ruby> は とても<ruby> 安<rt>やす</rt></ruby>い です。<br><ruby>彼<rt>かれ</rt></ruby> は とても<ruby> 飲<rt>の</rt></ruby>んで います。",
+  "wordReading": "",
+  "english": "very",
+  "nepali": "यो पसल धेरै सस्तो छ।",
+  "nepaliReading": "",
+  "explanation": "程度が高いことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 21,
+  "kanji": "あまり～ない",
+  "reading": "あまり＋否定",
+  "word": "<ruby>今日<rt>きょう</rt></ruby>はあまり<ruby>忙<rt>いそが</rt></ruby>しくないです。",
+  "wordReading": "",
+  "english": "not very",
+  "nepali": "आज धेरै व्यस्त छैन।",
+  "nepaliReading": "",
+  "explanation": "程度が高くないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 22,
+  "kanji": "ぜんぜん～ない",
+  "reading": "ぜんぜん＋否定",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby>がぜんぜんわかりません。",
+  "wordReading": "",
+  "english": "not at all",
+  "nepali": "जापानी भाषा बिल्कुल बुझ्दिनँ।",
+  "nepaliReading": "",
+  "explanation": "まったく～ないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 23,
+  "kanji": "たくさん",
+  "reading": "たくさん＋N／V",
+  "word": "<ruby>野菜<rt>やさい</rt></ruby>をたくさん<ruby>食<rt>た</rt></ruby>べます。",
+  "wordReading": "",
+  "english": "many / much",
+  "nepali": "धेरै तरकारी खान्छु।",
+  "nepaliReading": "",
+  "explanation": "数量が多いことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 24,
+  "kanji": "あります",
+  "reading": "Nがあります",
+  "word": "<ruby>明日<rt>あした</rt></ruby>、<ruby>試験<rt>しけん</rt></ruby>があります。",
+  "wordReading": "",
+  "english": "there is / have",
+  "nepali": "भोलि परीक्षा छ।",
+  "nepaliReading": "",
+  "explanation": "物・場所・予定などの存在を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 25,
+  "kanji": "います",
+  "reading": "Nがいます",
+  "word": "<ruby>会社<rt>かいしゃ</rt></ruby>に<ruby>人<rt>ひと</rt></ruby>がいます。",
+  "wordReading": "",
+  "english": "there is / are",
+  "nepali": "कम्पनीमा मानिस छन्।",
+  "nepaliReading": "",
+  "explanation": "人・動物の存在を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 26,
+  "kanji": "い形容詞",
+  "reading": "Aいです",
+  "word": "この<ruby>部屋<rt>へや</rt></ruby>は<ruby>広<rt>ひろ</rt></ruby>いです。",
+  "wordReading": "",
+  "english": "i-adjective",
+  "nepali": "यो कोठा फराकिलो छ।",
+  "nepaliReading": "",
+  "explanation": "状態や性質を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 27,
+  "kanji": "な形容詞",
+  "reading": "Aなです／AなN",
+  "word": "この<ruby>町<rt>まち</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かです。",
+  "wordReading": "",
+  "english": "na-adjective",
+  "nepali": "यो सहर शान्त छ।",
+  "nepaliReading": "",
+  "explanation": "状態や性質を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 28,
+  "kanji": "名詞修飾",
+  "reading": "A／Nの＋N",
+  "word": "これは<ruby>日本<rt>にほん</rt></ruby>で<ruby>買<rt>か</rt></ruby>ったかばんです。",
+  "wordReading": "",
+  "english": "noun modifier",
+  "nepali": "यो जापानमा किनेको झोला हो।",
+  "nepaliReading": "",
+  "explanation": "名詞を説明します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 29,
+  "kanji": "～たいです",
+  "reading": "Vます＋たいです",
+  "word": "<ruby>日本<rt>にほん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きたいです。",
+  "wordReading": "",
+  "english": "want to",
+  "nepali": "जापान जान चाहन्छु।",
+  "nepaliReading": "",
+  "explanation": "自分の希望を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 30,
+  "kanji": "～たくないです",
+  "reading": "Vます＋たくないです",
+  "word": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>働<rt>はたら</rt></ruby>きたくないです。",
+  "wordReading": "",
+  "english": "do not want to",
+  "nepali": "आज काम गर्न चाहन्नँ।",
+  "nepaliReading": "",
+  "explanation": "自分がしたくないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 31,
+  "kanji": "～ましょう",
+  "reading": "Vましょう",
+  "word": "<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>食<rt>た</rt></ruby>べましょう。",
+  "wordReading": "",
+  "english": "let's",
+  "nepali": "सँगै खाऔँ।",
+  "nepaliReading": "",
+  "explanation": "誘い・提案を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 32,
+  "kanji": "～ませんか",
+  "reading": "Vませんか",
+  "word": "<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>行<rt>い</rt></ruby>きませんか。",
+  "wordReading": "",
+  "english": "would you like to",
+  "nepali": "सँगै जानुहुन्न?",
+  "nepaliReading": "",
+  "explanation": "相手を誘う丁寧な表現です。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 33,
+  "kanji": "～てください",
+  "reading": "Vてください",
+  "word": "ここに<ruby>名前<rt>なまえ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いてください。",
+  "wordReading": "",
+  "english": "please do",
+  "nepali": "यहाँ नाम लेख्नुहोस्।",
+  "nepaliReading": "",
+  "explanation": "相手に依頼します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 34,
+  "kanji": "～てもいいです",
+  "reading": "Vてもいいです",
+  "word": "ここに<ruby>座<rt>すわ</rt></ruby>ってもいいです。",
+  "wordReading": "",
+  "english": "may / can",
+  "nepali": "यहाँ बस्न मिल्छ।",
+  "nepaliReading": "",
+  "explanation": "許可を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 35,
+  "kanji": "～てはいけません",
+  "reading": "Vてはいけません",
+  "word": "ここで<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮<rt>と</rt></ruby>ってはいけません。",
+  "wordReading": "",
+  "english": "must not",
+  "nepali": "यहाँ फोटो खिच्न पाइँदैन।",
+  "nepaliReading": "",
+  "explanation": "禁止を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 36,
+  "kanji": "～ています",
+  "reading": "Vています",
+  "word": "<ruby>今<rt>いま</rt></ruby>、<ruby>仕事<rt>しごと</rt></ruby>をしています。",
+  "wordReading": "",
+  "english": "be doing",
+  "nepali": "अहिले काम गर्दैछु।",
+  "nepaliReading": "",
+  "explanation": "今していることや状態を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 37,
+  "kanji": "～てから",
+  "reading": "Vてから、～",
+  "word": "ご<ruby>飯<rt>はん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べてから、<ruby>仕事<rt>しごと</rt></ruby>をします。",
+  "wordReading": "",
+  "english": "after doing",
+  "nepali": "खाना खाएपछि काम गर्छु।",
+  "nepaliReading": "",
+  "explanation": "一つの動作の後に次の動作をすることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 38,
+  "kanji": "～ないでください",
+  "reading": "Vないでください",
+  "word": "ここに<ruby>車<rt>くるま</rt></ruby>を<ruby>止<rt>と</rt></ruby>めないでください。",
+  "wordReading": "",
+  "english": "please don't",
+  "nepali": "यहाँ गाडी नरोक्नुहोस्।",
+  "nepaliReading": "",
+  "explanation": "しないように依頼します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 39,
+  "kanji": "～なくてもいいです",
+  "reading": "Vなくてもいいです",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>来<rt>こ</rt></ruby>なくてもいいです。",
+  "wordReading": "",
+  "english": "do not have to",
+  "nepali": "भोलि आउनु पर्दैन।",
+  "nepaliReading": "",
+  "explanation": "する必要がないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 40,
+  "kanji": "～なければなりません",
+  "reading": "Vなければなりません",
+  "word": "<ruby>明日<rt>あした</rt></ruby>、<ruby>早<rt>はや</rt></ruby>く<ruby>起<rt>お</rt></ruby>きなければなりません。",
+  "wordReading": "",
+  "english": "must / have to",
+  "nepali": "भोलि चाँडै उठ्नुपर्छ।",
+  "nepaliReading": "",
+  "explanation": "必要・義務を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 41,
+  "kanji": "～ないといけません",
+  "reading": "Vないといけません",
+  "word": "<ruby>薬<rt>くすり</rt></ruby>を<ruby>飲<rt>の</rt></ruby>まないといけません。",
+  "wordReading": "",
+  "english": "have to",
+  "nepali": "औषधि खानुपर्छ।",
+  "nepaliReading": "",
+  "explanation": "必要・義務を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 42,
+  "kanji": "～たことがあります",
+  "reading": "Vたことがあります",
+  "word": "<ruby>日本<rt>にほん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>ったことがあります。",
+  "wordReading": "",
+  "english": "have experienced",
+  "nepali": "जापान गएको अनुभव छ।",
+  "nepaliReading": "",
+  "explanation": "過去の経験を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 43,
+  "kanji": "～たことがありません",
+  "reading": "Vたことがありません",
+  "word": "<ruby>北海道<rt>ほっかいどう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>ったことがありません。",
+  "wordReading": "",
+  "english": "have never",
+  "nepali": "होक्काइडो गएको अनुभव छैन।",
+  "nepaliReading": "",
+  "explanation": "経験がないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 44,
+  "kanji": "～たり～たりします",
+  "reading": "Vたり、Vたりします",
+  "word": "<ruby>休<rt>やす</rt></ruby>みの<ruby>日<rt>ひ</rt></ruby>は<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>たり、<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>したりします。",
+  "wordReading": "",
+  "english": "do things such as",
+  "nepali": "बिदाको दिन चलचित्र हेर्ने, किनमेल गर्ने आदि गर्छु।",
+  "nepaliReading": "",
+  "explanation": "いくつかの行動を例として挙げます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 45,
+  "kanji": "～たりします",
+  "reading": "Vたりします",
+  "word": "<ruby>週末<rt>しゅうまつ</rt></ruby>は<ruby>掃除<rt>そうじ</rt></ruby>したりします。",
+  "wordReading": "",
+  "english": "do things such as",
+  "nepali": "सप्ताहन्तमा सरसफाइ आदि गर्छु।",
+  "nepaliReading": "",
+  "explanation": "行動の例を一つ挙げます。 ",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 46,
+  "kanji": "～ながら",
+  "reading": "Vます＋ながら",
+  "word": "<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>きながら<ruby>勉強<rt>べんきょう</rt></ruby>します。",
+  "wordReading": "",
+  "english": "while",
+  "nepali": "संगीत सुन्दै पढ्छु।",
+  "nepaliReading": "",
+  "explanation": "二つの動作を同時に行います。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 47,
+  "kanji": "～ことができます",
+  "reading": "V辞書形＋ことができます",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>話<rt>はな</rt></ruby>すことができます。",
+  "wordReading": "",
+  "english": "can",
+  "nepali": "जापानी बोल्न सक्छु।",
+  "nepaliReading": "",
+  "explanation": "能力・可能を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 48,
+  "kanji": "～ことができません",
+  "reading": "V辞書形＋ことができません",
+  "word": "ここではカードを<ruby>使<rt>つか</rt></ruby>うことができません。",
+  "wordReading": "",
+  "english": "cannot",
+  "nepali": "यहाँ कार्ड प्रयोग गर्न सकिँदैन।",
+  "nepaliReading": "",
+  "explanation": "できないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 49,
+  "kanji": "～つもりです",
+  "reading": "V辞書形＋つもりです",
+  "word": "<ruby>来年<rt>らいねん</rt></ruby>、<ruby>日本<rt>にほん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>くつもりです。",
+  "wordReading": "",
+  "english": "intend to",
+  "nepali": "अर्को वर्ष जापान जाने सोचमा छु।",
+  "nepaliReading": "",
+  "explanation": "意志・予定を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 50,
+  "kanji": "～予定です",
+  "reading": "V辞書形＋予定です",
+  "word": "<ruby>来週<rt>らいしゅう</rt></ruby>、<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>く<ruby>予定<rt>よてい</rt></ruby>です。",
+  "wordReading": "",
+  "english": "be scheduled to",
+  "nepali": "अर्को हप्ता अस्पताल जाने योजना छ।",
+  "nepaliReading": "",
+  "explanation": "決まっている予定を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 51,
+  "kanji": "～と思います",
+  "reading": "普通形＋と思います",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>だと<ruby>思<rt>おも</rt></ruby>います。",
+  "wordReading": "",
+  "english": "I think",
+  "nepali": "भोलि पानी पर्छ जस्तो लाग्छ।",
+  "nepaliReading": "",
+  "explanation": "自分の考え・予想をやわらかく表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 52,
+  "kanji": "～と言います",
+  "reading": "普通形＋と言います",
+  "word": "<ruby>田中<rt>たなか</rt></ruby>さんは「<ruby>行<rt>い</rt></ruby>きます」と<ruby>言<rt>い</rt></ruby>いました。",
+  "wordReading": "",
+  "english": "say / call",
+  "nepali": "तनाका-सानले “जान्छु” भन्नुभयो।",
+  "nepaliReading": "",
+  "explanation": "発言・呼び方などを伝えます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 53,
+  "kanji": "～からです",
+  "reading": "普通形＋からです",
+  "word": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みです。",
+  "wordReading": "",
+  "english": "because",
+  "nepali": "आज बिदा हो। आइतबार भएकाले।",
+  "nepaliReading": "",
+  "explanation": "理由を説明します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 54,
+  "kanji": "～ので",
+  "reading": "普通形＋ので",
+  "word": "<ruby>雨<rt>あめ</rt></ruby>なので、<ruby>家<rt>いえ</rt></ruby>にいます。",
+  "wordReading": "",
+  "english": "because / since",
+  "nepali": "पानी परेकाले घरमा छु।",
+  "nepaliReading": "",
+  "explanation": "理由をやわらかく説明します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 55,
+  "kanji": "～けど",
+  "reading": "普通形＋けど",
+  "word": "<ruby>行<rt>い</rt></ruby>きたいけど、<ruby>時間<rt>じかん</rt></ruby>がありません。",
+  "wordReading": "",
+  "english": "but / though",
+  "nepali": "जान चाहन्छु तर समय छैन।",
+  "nepaliReading": "",
+  "explanation": "前後の内容をつなぎ、対比や前置きを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 56,
+  "kanji": "～が、～",
+  "reading": "普通形＋が、～",
+  "word": "すみませんが、もう<ruby>一度<rt>いちど</rt></ruby>お<ruby>願<rt>ねが</rt></ruby>いします。",
+  "wordReading": "",
+  "english": "but / however",
+  "nepali": "माफ गर्नुहोस्, फेरि एकपटकお願いします।",
+  "nepaliReading": "",
+  "explanation": "対比や話の前置きを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 57,
+  "kanji": "～ので、～",
+  "reading": "普通形＋ので、～",
+  "word": "<ruby>熱<rt>ねつ</rt></ruby>があるので、<ruby>今日<rt>きょう</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みます。",
+  "wordReading": "",
+  "english": "because",
+  "nepali": "ज्वरो भएकाले आज बिदा लिन्छु।",
+  "nepaliReading": "",
+  "explanation": "理由と結果をつなぎます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 58,
+  "kanji": "～前に",
+  "reading": "V辞書形＋前に",
+  "word": "<ruby>寝<rt>ね</rt></ruby>る<ruby>前<rt>まえ</rt></ruby>に、<ruby>歯<rt>は</rt></ruby>をみがきます。",
+  "wordReading": "",
+  "english": "before",
+  "nepali": "सुत्नुअघि दाँत माझ्छु।",
+  "nepaliReading": "",
+  "explanation": "ある動作より前の時間を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 59,
+  "kanji": "～後で",
+  "reading": "Vた＋後で",
+  "word": "<ruby>仕事<rt>しごと</rt></ruby>の<ruby>後<rt>あと</rt></ruby>で、<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>します。",
+  "wordReading": "",
+  "english": "after",
+  "nepali": "कामपछि किनमेल गर्छु।",
+  "nepaliReading": "",
+  "explanation": "ある動作より後の時間を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 60,
+  "kanji": "～とき",
+  "reading": "普通形＋とき",
+  "word": "<ruby>困<rt>こま</rt></ruby>ったとき、<ruby>先生<rt>せんせい</rt></ruby>に<ruby>聞<rt>き</rt></ruby>きます。",
+  "wordReading": "",
+  "english": "when",
+  "nepali": "समस्या पर्दा शिक्षकलाई सोध्छु।",
+  "nepaliReading": "",
+  "explanation": "ある時間・場面を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 61,
+  "kanji": "～と",
+  "reading": "V辞書形＋と、～",
+  "word": "このボタンを<ruby>押<rt>お</rt></ruby>すと、ドアが<ruby>開<rt>あ</rt></ruby>きます。",
+  "wordReading": "",
+  "english": "when / if",
+  "nepali": "यो बटन थिच्दा ढोका खुल्छ।",
+  "nepaliReading": "",
+  "explanation": "ある条件で自然に起こる結果を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 62,
+  "kanji": "～たら",
+  "reading": "Vた＋ら",
+  "word": "<ruby>時間<rt>じかん</rt></ruby>があったら、<ruby>電話<rt>でんわ</rt></ruby>してください。",
+  "wordReading": "",
+  "english": "if / when",
+  "nepali": "समय भए फोन गर्नुहोस्।",
+  "nepaliReading": "",
+  "explanation": "条件・仮定や、ある出来事の後を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 63,
+  "kanji": "～なら",
+  "reading": "N／普通形＋なら",
+  "word": "<ruby>日本<rt>にほん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>くなら、<ruby>春<rt>はる</rt></ruby>がいいです。",
+  "wordReading": "",
+  "english": "if / as for",
+  "nepali": "जापान जाने हो भने वसन्त राम्रो हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "相手の話を受けて条件を示します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 64,
+  "kanji": "～ても",
+  "reading": "Vても／Aくても",
+  "word": "<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>っても、<ruby>行<rt>い</rt></ruby>きます。",
+  "wordReading": "",
+  "english": "even if",
+  "nepali": "पानी परे पनि जान्छु।",
+  "nepaliReading": "",
+  "explanation": "「その条件でも結果は変わらない」を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 65,
+  "kanji": "～し、～し",
+  "reading": "普通形＋し、～し",
+  "word": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>安<rt>やす</rt></ruby>いし、おいしいです。",
+  "wordReading": "",
+  "english": "and / besides",
+  "nepali": "यो पसल सस्तो पनि छ र स्वादिलो पनि।",
+  "nepaliReading": "",
+  "explanation": "理由や特徴を複数挙げます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 66,
+  "kanji": "～や～など",
+  "reading": "NやNなど",
+  "word": "<ruby>果物<rt>くだもの</rt></ruby>や<ruby>野菜<rt>やさい</rt></ruby>などを<ruby>買<rt>か</rt></ruby>いました。",
+  "wordReading": "",
+  "english": "such as",
+  "nepali": "फलफूल र तरकारी आदि किनेँ।",
+  "nepaliReading": "",
+  "explanation": "代表例をいくつか挙げます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 67,
+  "kanji": "～とか～とか",
+  "reading": "N／Vとか～とか",
+  "word": "<ruby>休<rt>やす</rt></ruby>みの<ruby>日<rt>ひ</rt></ruby>は<ruby>映画<rt>えいが</rt></ruby>とか<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>とかします。",
+  "wordReading": "",
+  "english": "things like",
+  "nepali": "बिदामा चलचित्र वा किनमेल आदि गर्छु।",
+  "nepaliReading": "",
+  "explanation": "例をいくつか挙げます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 68,
+  "kanji": "もう",
+  "reading": "もう＋Vました",
+  "word": "もう<ruby>昼<rt>ひる</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べました。",
+  "wordReading": "",
+  "english": "already",
+  "nepali": "दिउँसोको खाना पहिले नै खाएँ।",
+  "nepaliReading": "",
+  "explanation": "すでに終わったことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 69,
+  "kanji": "まだ",
+  "reading": "まだ＋Vていません",
+  "word": "まだ<ruby>宿題<rt>しゅくだい</rt></ruby>をしていません。",
+  "wordReading": "",
+  "english": "not yet",
+  "nepali": "अझै गृहकार्य गरेको छैन।",
+  "nepaliReading": "",
+  "explanation": "今も終わっていないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 70,
+  "kanji": "まだ～です",
+  "reading": "まだ＋N／Aです",
+  "word": "まだ<ruby>元気<rt>げんき</rt></ruby>です。",
+  "wordReading": "",
+  "english": "still",
+  "nepali": "अझै स्वस्थ छु।",
+  "nepaliReading": "",
+  "explanation": "状態が続いていることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 71,
+  "kanji": "～すぎます",
+  "reading": "Vます＋すぎます／Aすぎます",
+  "word": "このかばんは<ruby>高<rt>たか</rt></ruby>すぎます。",
+  "wordReading": "",
+  "english": "too much / too",
+  "nepali": "यो झोला धेरै महँगो छ।",
+  "nepaliReading": "",
+  "explanation": "程度が普通より高いことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 72,
+  "kanji": "～やすいです",
+  "reading": "Vます＋やすいです",
+  "word": "このペンは<ruby>書<rt>か</rt></ruby>きやすいです。",
+  "wordReading": "",
+  "english": "easy to",
+  "nepali": "यो कलमले लेख्न सजिलो छ।",
+  "nepaliReading": "",
+  "explanation": "その動作がしやすいことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 73,
+  "kanji": "～にくいです",
+  "reading": "Vます＋にくいです",
+  "word": "この<ruby>字<rt>じ</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みにくいです。",
+  "wordReading": "",
+  "english": "difficult to",
+  "nepali": "यो अक्षर पढ्न गाह्रो छ।",
+  "nepaliReading": "",
+  "explanation": "その動作がしにくいことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 74,
+  "kanji": "～になります",
+  "reading": "N／A＋になります",
+  "word": "<ruby>4月<rt>しがつ</rt></ruby>になると、<ruby>暖<rt>あたた</rt></ruby>かくなります。",
+  "wordReading": "",
+  "english": "become",
+  "nepali": "अप्रिल भएपछि न्यानो हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "変化した結果を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 75,
+  "kanji": "～にします",
+  "reading": "N／A＋にします",
+  "word": "<ruby>飲<rt>の</rt></ruby>み<ruby>物<rt>もの</rt></ruby>はお<ruby>茶<rt>ちゃ</rt></ruby>にします。",
+  "wordReading": "",
+  "english": "make / choose",
+  "nepali": "पिउने कुरा चिया रोज्छु।",
+  "nepaliReading": "",
+  "explanation": "選択・決定や状態の変化を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 76,
+  "kanji": "～くします",
+  "reading": "Aくします",
+  "word": "<ruby>部屋<rt>へや</rt></ruby>をきれいにします。",
+  "wordReading": "",
+  "english": "make ...",
+  "nepali": "कोठा सफा बनाउँछु।",
+  "nepaliReading": "",
+  "explanation": "状態を変えることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 77,
+  "kanji": "～ほうがいいです",
+  "reading": "Vた／Vない＋ほうがいい",
+  "word": "<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>ったほうがいいです。",
+  "wordReading": "",
+  "english": "had better",
+  "nepali": "अस्पताल जानु राम्रो हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "助言を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 78,
+  "kanji": "～でしょう",
+  "reading": "普通形＋でしょう",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>晴<rt>は</rt></ruby>れるでしょう。",
+  "wordReading": "",
+  "english": "probably / right?",
+  "nepali": "भोलि मौसम सफा होला।",
+  "nepaliReading": "",
+  "explanation": "推量・確認をやわらかく表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 79,
+  "kanji": "～かもしれません",
+  "reading": "普通形＋かもしれません",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>かもしれません。",
+  "wordReading": "",
+  "english": "might / may",
+  "nepali": "भोलि पानी पर्न सक्छ।",
+  "nepaliReading": "",
+  "explanation": "可能性を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 80,
+  "kanji": "～そうです（様態）",
+  "reading": "Vます／A＋そうです",
+  "word": "このケーキはおいしそうです。",
+  "wordReading": "",
+  "english": "looks / seems",
+  "nepali": "यो केक स्वादिलो देखिन्छ।",
+  "nepaliReading": "",
+  "explanation": "見た感じから「～しそう」と判断します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 81,
+  "kanji": "～そうです（伝聞）",
+  "reading": "普通形＋そうです",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みだそうです。",
+  "wordReading": "",
+  "english": "I hear / apparently",
+  "nepali": "सुनेअनुसार भोलि बिदा रहेछ।",
+  "nepaliReading": "",
+  "explanation": "聞いた情報を伝えます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 82,
+  "kanji": "～ようです",
+  "reading": "普通形＋ようです",
+  "word": "<ruby>電気<rt>でんき</rt></ruby>がついているので、<ruby>家<rt>いえ</rt></ruby>にいるようです。",
+  "wordReading": "",
+  "english": "seems",
+  "nepali": "बत्ती बलेकोले घरमा हुनुहुन्छ जस्तो छ।",
+  "nepaliReading": "",
+  "explanation": "状況から判断したことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 83,
+  "kanji": "～たほうがいい",
+  "reading": "Vた＋ほうがいい",
+  "word": "<ruby>早<rt>はや</rt></ruby>く<ruby>寝<rt>ね</rt></ruby>たほうがいいです。",
+  "wordReading": "",
+  "english": "should",
+  "nepali": "चाँडै सुत्नु राम्रो हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "よりよい行動を助言します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 84,
+  "kanji": "AよりBのほうが",
+  "reading": "AよりBのほうが＋形容詞",
+  "word": "<ruby>電車<rt>でんしゃ</rt></ruby>よりバスのほうが<ruby>安<rt>やす</rt></ruby>いです。",
+  "wordReading": "",
+  "english": "B is more than A",
+  "nepali": "रेलभन्दा बस सस्तो छ।",
+  "nepaliReading": "",
+  "explanation": "二つを比べてBの程度が高いことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 85,
+  "kanji": "いちばん",
+  "reading": "いちばん＋形容詞",
+  "word": "この<ruby>店<rt>みせ</rt></ruby>がいちばん<ruby>安<rt>やす</rt></ruby>いです。",
+  "wordReading": "",
+  "english": "the most",
+  "nepali": "यो पसल सबैभन्दा सस्तो छ।",
+  "nepaliReading": "",
+  "explanation": "三つ以上の中で最高の程度を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 86,
+  "kanji": "～ほど～ない",
+  "reading": "AはBほど～ない",
+  "word": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>昨日<rt>きのう</rt></ruby>ほど<ruby>暑<rt>あつ</rt></ruby>くないです。",
+  "wordReading": "",
+  "english": "not as ... as",
+  "nepali": "आज हिजो जति गर्मी छैन।",
+  "nepaliReading": "",
+  "explanation": "比較して程度が低いことを表します。 ",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 87,
+  "kanji": "～の中で",
+  "reading": "Nの中で",
+  "word": "<ruby>果物<rt>くだもの</rt></ruby>の<ruby>中<rt>なか</rt></ruby>でりんごが<ruby>好<rt>す</rt></ruby>きです。",
+  "wordReading": "",
+  "english": "among / in",
+  "nepali": "फलफूलमध्ये स्याउ मनपर्छ।",
+  "nepaliReading": "",
+  "explanation": "ある範囲の中で比較・選択します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 88,
+  "kanji": "～について",
+  "reading": "Nについて",
+  "word": "<ruby>仕事<rt>しごと</rt></ruby>について<ruby>先生<rt>せんせい</rt></ruby>に<ruby>聞<rt>き</rt></ruby>きました。",
+  "wordReading": "",
+  "english": "about",
+  "nepali": "कामबारे शिक्षकलाई सोधेँ।",
+  "nepaliReading": "",
+  "explanation": "話題・内容を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 89,
+  "kanji": "～によって",
+  "reading": "Nによって",
+  "word": "<ruby>人<rt>ひと</rt></ruby>によって<ruby>考<rt>かんが</rt></ruby>え<ruby>方<rt>かた</rt></ruby>が<ruby>違<rt>ちが</rt></ruby>います。",
+  "wordReading": "",
+  "english": "depending on / by",
+  "nepali": "मानिसअनुसार सोच फरक हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "方法・違いなどを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 90,
+  "kanji": "～ために",
+  "reading": "V辞書形＋ために",
+  "word": "<ruby>日本<rt>にほん</rt></ruby>で<ruby>働<rt>はたら</rt></ruby>くために、<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>勉強<rt>べんきょう</rt></ruby>しています。",
+  "wordReading": "",
+  "english": "in order to",
+  "nepali": "जापानमा काम गर्न जापानी पढ्दैछु।",
+  "nepaliReading": "",
+  "explanation": "目的を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 91,
+  "kanji": "～ように",
+  "reading": "V辞書形＋ように",
+  "word": "<ruby>忘<rt>わす</rt></ruby>れないように、メモします。",
+  "wordReading": "",
+  "english": "so that",
+  "nepali": "नबिर्सियोस् भनेर नोट गर्छु।",
+  "nepaliReading": "",
+  "explanation": "目標・目的や状態を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 92,
+  "kanji": "～こと",
+  "reading": "V辞書形＋こと",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>話<rt>はな</rt></ruby>すことが<ruby>好<rt>す</rt></ruby>きです。",
+  "wordReading": "",
+  "english": "doing / to do",
+  "nepali": "जापानी बोल्न मनपर्छ।",
+  "nepaliReading": "",
+  "explanation": "動作を名詞のように扱います。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 93,
+  "kanji": "～のが好きです",
+  "reading": "V辞書形＋のが好きです",
+  "word": "<ruby>料理<rt>りょうり</rt></ruby>するのが<ruby>好<rt>す</rt></ruby>きです。",
+  "wordReading": "",
+  "english": "like doing",
+  "nepali": "खाना पकाउन मनपर्छ।",
+  "nepaliReading": "",
+  "explanation": "動作を好き・嫌いの対象にします。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 94,
+  "kanji": "～のが上手です",
+  "reading": "V辞書形＋のが上手です",
+  "word": "<ruby>料理<rt>りょうり</rt></ruby>を<ruby>作<rt>つく</rt></ruby>るのが<ruby>上手<rt>じょうず</rt></ruby>です。",
+  "wordReading": "",
+  "english": "be good at",
+  "nepali": "खाना बनाउन सिपालु छु।",
+  "nepaliReading": "",
+  "explanation": "動作が得意であることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 95,
+  "kanji": "～のが苦手です",
+  "reading": "V辞書形＋のが苦手です",
+  "word": "<ruby>人<rt>ひと</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>で<ruby>話<rt>はな</rt></ruby>すのが<ruby>苦手<rt>にがて</rt></ruby>です。",
+  "wordReading": "",
+  "english": "be not good at",
+  "nepali": "मानिसको अगाडि बोल्न गाह्रो लाग्छ।",
+  "nepaliReading": "",
+  "explanation": "動作が得意ではないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 96,
+  "kanji": "～てみます",
+  "reading": "Vてみます",
+  "word": "この<ruby>料理<rt>りょうり</rt></ruby>を<ruby>食<rt>た</rt></ruby>べてみます。",
+  "wordReading": "",
+  "english": "try doing",
+  "nepali": "यो खाना चाखेर हेर्छु।",
+  "nepaliReading": "",
+  "explanation": "試しにすることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 97,
+  "kanji": "～ておきます",
+  "reading": "Vておきます",
+  "word": "<ruby>旅行<rt>りょこう</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>にホテルを<ruby>予約<rt>よやく</rt></ruby>しておきます。",
+  "wordReading": "",
+  "english": "do in advance",
+  "nepali": "यात्राअघि होटल बुक गरेर राख्छु।",
+  "nepaliReading": "",
+  "explanation": "前もってしておくことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 98,
+  "kanji": "～てしまいます",
+  "reading": "Vてしまいます",
+  "word": "<ruby>宿題<rt>しゅくだい</rt></ruby>を<ruby>忘<rt>わす</rt></ruby>れてしまいました。",
+  "wordReading": "",
+  "english": "finish / unfortunately",
+  "nepali": "गृहकार्य बिर्सिएँ।",
+  "nepaliReading": "",
+  "explanation": "完了、または残念な結果を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 99,
+  "kanji": "～てあります",
+  "reading": "Vてあります",
+  "word": "<ruby>机<rt>つくえ</rt></ruby>の<ruby>上<rt>うえ</rt></ruby>に<ruby>名前<rt>なまえ</rt></ruby>が<ruby>書<rt>か</rt></ruby>いてあります。",
+  "wordReading": "",
+  "english": "has been done",
+  "nepali": "टेबलमाथि नाम लेखिएको छ।",
+  "nepaliReading": "",
+  "explanation": "誰かがした結果の状態が残っていることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 100,
+  "kanji": "～ないと",
+  "reading": "Vないと",
+  "word": "もう<ruby>帰<rt>かえ</rt></ruby>らないと。",
+  "wordReading": "",
+  "english": "have to",
+  "nepali": "अब फर्कनुपर्छ।",
+  "nepaliReading": "",
+  "explanation": "必要なことを短く表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 101,
+  "kanji": "～なきゃ",
+  "reading": "Vなきゃ",
+  "word": "もう<ruby>行<rt>い</rt></ruby>かなきゃ。",
+  "wordReading": "",
+  "english": "have to",
+  "nepali": "अब जानुपर्छ।",
+  "nepaliReading": "",
+  "explanation": "「～なければならない」の会話的な短い形。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 102,
+  "kanji": "～てもらいます",
+  "reading": "Vてもらいます",
+  "word": "<ruby>先生<rt>せんせい</rt></ruby>に<ruby>教<rt>おし</rt></ruby>えてもらいました。",
+  "wordReading": "",
+  "english": "have someone do",
+  "nepali": "शिक्षकबाट सिकेँ।",
+  "nepaliReading": "",
+  "explanation": "相手にしてもらうことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 103,
+  "kanji": "～てくれます",
+  "reading": "Vてくれます",
+  "word": "<ruby>友<rt>とも</rt></ruby>だちが<ruby>手伝<rt>てつだ</rt></ruby>ってくれました。",
+  "wordReading": "",
+  "english": "someone does for me",
+  "nepali": "साथीले मद्दत गरिदियो।",
+  "nepaliReading": "",
+  "explanation": "相手が自分のためにしてくれることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 104,
+  "kanji": "～てあげます",
+  "reading": "Vてあげます",
+  "word": "<ruby>友<rt>とも</rt></ruby>だちに<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>教<rt>おし</rt></ruby>えてあげます。",
+  "wordReading": "",
+  "english": "do for someone",
+  "nepali": "साथीलाई जापानी सिकाइदिन्छु।",
+  "nepaliReading": "",
+  "explanation": "自分が相手のためにすることを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 105,
+  "kanji": "～ないほうがいい",
+  "reading": "Vない＋ほうがいい",
+  "word": "<ruby>無理<rt>むり</rt></ruby>をしないほうがいいです。",
+  "wordReading": "",
+  "english": "should not",
+  "nepali": "जबरजस्ती नगर्नु राम्रो हुन्छ।",
+  "nepaliReading": "",
+  "explanation": "しないことを助言します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 106,
+  "kanji": "～しかない",
+  "reading": "V辞書形＋しかない",
+  "word": "<ruby>歩<rt>ある</rt></ruby>いて<ruby>行<rt>い</rt></ruby>くしかありません。",
+  "wordReading": "",
+  "english": "have no choice but to",
+  "nepali": "हिँडेर जानुबाहेक उपाय छैन।",
+  "nepaliReading": "",
+  "explanation": "他に方法がないことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 107,
+  "kanji": "～たらどうですか",
+  "reading": "Vたらどうですか",
+  "word": "<ruby>病院<rt>びょういん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>ったらどうですか。",
+  "wordReading": "",
+  "english": "why don't you",
+  "nepali": "अस्पताल गए कसो होला?",
+  "nepaliReading": "",
+  "explanation": "相手に提案・助言します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 108,
+  "kanji": "～ませんでしたか",
+  "reading": "Vませんでしたか",
+  "word": "<ruby>昨日<rt>きのう</rt></ruby>、<ruby>駅<rt>えき</rt></ruby>に<ruby>行<rt>い</rt></ruby>きませんでしたか。",
+  "wordReading": "",
+  "english": "didn't you",
+  "nepali": "हिजो स्टेशन जानुभएको थिएन?",
+  "nepaliReading": "",
+  "explanation": "相手の記憶・確認を丁寧にたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 109,
+  "kanji": "～でしょうか",
+  "reading": "普通形＋でしょうか",
+  "word": "<ruby>駅<rt>えき</rt></ruby>はどこでしょうか。",
+  "wordReading": "",
+  "english": "could you / I wonder",
+  "nepali": "स्टेसन कहाँ होला?",
+  "nepaliReading": "",
+  "explanation": "丁寧に質問・確認します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 110,
+  "kanji": "～んです",
+  "reading": "普通形＋んです",
+  "word": "どうしたんですか。",
+  "wordReading": "",
+  "english": "the thing is / you see",
+  "nepali": "के भयो?",
+  "nepaliReading": "",
+  "explanation": "理由や状況を説明・確認するときに使います。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 111,
+  "kanji": "～んですが",
+  "reading": "普通形＋んですが、～",
+  "word": "すみません、お<ruby>願<rt>ねが</rt></ruby>いがあるんですが。",
+  "wordReading": "",
+  "english": "the thing is...",
+  "nepali": "माफ गर्नुहोस्, एउटा अनुरोध छ।",
+  "nepaliReading": "",
+  "explanation": "相談・依頼などの前置きに使います。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 112,
+  "kanji": "～という",
+  "reading": "NというN",
+  "word": "「さくら」という<ruby>店<rt>みせ</rt></ruby>です。",
+  "wordReading": "",
+  "english": "called / named",
+  "nepali": "“साकुरा” भन्ने पसल हो।",
+  "nepaliReading": "",
+  "explanation": "名前・内容を説明します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 113,
+  "kanji": "～についての",
+  "reading": "NについてのN",
+  "word": "<ruby>日本<rt>にほん</rt></ruby>の<ruby>生活<rt>せいかつ</rt></ruby>についての<ruby>本<rt>ほん</rt></ruby>です。",
+  "wordReading": "",
+  "english": "about",
+  "nepali": "जापानको जीवनबारेको किताब हो।",
+  "nepaliReading": "",
+  "explanation": "話題に関する名詞を修飾します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 114,
+  "kanji": "～場合",
+  "reading": "N／普通形＋場合",
+  "word": "<ruby>地震<rt>じしん</rt></ruby>の<ruby>場合<rt>ばあい</rt></ruby>は、<ruby>外<rt>そと</rt></ruby>へ<ruby>出<rt>で</rt></ruby>ないでください。",
+  "wordReading": "",
+  "english": "in case / when",
+  "nepali": "भूकम्पको अवस्थामा बाहिर ननिस्कनुहोस्।",
+  "nepaliReading": "",
+  "explanation": "ある状況・条件を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 115,
+  "kanji": "～なら",
+  "reading": "Nなら",
+  "word": "<ruby>電車<rt>でんしゃ</rt></ruby>なら、<ruby>駅<rt>えき</rt></ruby>まで10<ruby>分<rt>ぷん</rt></ruby>です。",
+  "wordReading": "",
+  "english": "if that's the case",
+  "nepali": "रेल हो भने स्टेशनसम्म १० मिनेट हो।",
+  "nepaliReading": "",
+  "explanation": "相手の話題を受けて「それなら」と提案します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 116,
+  "kanji": "～のでしょうか",
+  "reading": "普通形＋のでしょうか",
+  "word": "どうして<ruby>休<rt>やす</rt></ruby>みなのでしょうか。",
+  "wordReading": "",
+  "english": "I wonder / could it be",
+  "nepali": "किन बिदा होला?",
+  "nepaliReading": "",
+  "explanation": "理由や状況を丁寧にたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 117,
+  "kanji": "～たら、～ました",
+  "reading": "Vたら、Vました",
+  "word": "<ruby>家<rt>いえ</rt></ruby>に<ruby>帰<rt>かえ</rt></ruby>ったら、<ruby>電話<rt>でんわ</rt></ruby>がありました。",
+  "wordReading": "",
+  "english": "when / after",
+  "nepali": "घर फर्किँदा फोन आएको रहेछ।",
+  "nepaliReading": "",
+  "explanation": "あることをした後に別の事実に気づいたことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 118,
+  "kanji": "これ／それ／あれ",
+  "reading": "これ・それ・あれ",
+  "word": "これは<ruby>私<rt>わたし</rt></ruby>のかばんです。",
+  "wordReading": "",
+  "english": "this / that",
+  "nepali": "यो मेरो झोला हो।",
+  "nepaliReading": "",
+  "explanation": "物を指します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 119,
+  "kanji": "この／その／あの",
+  "reading": "このN／そのN／あのN",
+  "word": "その<ruby>店<rt>みせ</rt></ruby>は<ruby>駅<rt>えき</rt></ruby>の<ruby>近<rt>ちか</rt></ruby>くです。",
+  "wordReading": "",
+  "english": "this / that + noun",
+  "nepali": "त्यो पसल स्टेशन नजिक छ।",
+  "nepaliReading": "",
+  "explanation": "名詞の前で物・人を指します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 120,
+  "kanji": "ここ／そこ／あそこ",
+  "reading": "ここ・そこ・あそこ",
+  "word": "トイレはあそこです。",
+  "wordReading": "",
+  "english": "here / there",
+  "nepali": "शौचालय त्यहाँ छ।",
+  "nepaliReading": "",
+  "explanation": "場所を指します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 121,
+  "kanji": "どこ／どちら",
+  "reading": "どこ／どちらですか",
+  "word": "<ruby>駅<rt>えき</rt></ruby>はどこですか。",
+  "wordReading": "",
+  "english": "where / which way",
+  "nepali": "स्टेसन कहाँ हो?",
+  "nepaliReading": "",
+  "explanation": "場所・方向などをたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 122,
+  "kanji": "だれ／どなた",
+  "reading": "だれ／どなたですか",
+  "word": "あの<ruby>方<rt>かた</rt></ruby>はどなたですか。",
+  "wordReading": "",
+  "english": "who",
+  "nepali": "उहाँ को हुनुहुन्छ?",
+  "nepaliReading": "",
+  "explanation": "人をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 123,
+  "kanji": "なに／なん",
+  "reading": "何ですか",
+  "word": "これは<ruby>何<rt>なん</rt></ruby>ですか。",
+  "wordReading": "",
+  "english": "what",
+  "nepali": "यो के हो?",
+  "nepaliReading": "",
+  "explanation": "物・内容をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 124,
+  "kanji": "いつ",
+  "reading": "いつ＋Vますか",
+  "word": "いつ<ruby>日本<rt>にほん</rt></ruby>へ<ruby>来<rt>き</rt></ruby>ましたか。",
+  "wordReading": "",
+  "english": "when",
+  "nepali": "जापान कहिले आउनुभयो?",
+  "nepaliReading": "",
+  "explanation": "時をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 125,
+  "kanji": "どう",
+  "reading": "どうですか",
+  "word": "<ruby>仕事<rt>しごと</rt></ruby>はどうですか。",
+  "wordReading": "",
+  "english": "how / how is",
+  "nepali": "काम कस्तो छ?",
+  "nepaliReading": "",
+  "explanation": "状態・感想などをたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 126,
+  "kanji": "どうして",
+  "reading": "どうして～ですか",
+  "word": "どうして<ruby>休<rt>やす</rt></ruby>みましたか。",
+  "wordReading": "",
+  "english": "why",
+  "nepali": "किन बिदा लिनुभयो?",
+  "nepaliReading": "",
+  "explanation": "理由をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 127,
+  "kanji": "どのくらい",
+  "reading": "どのくらい＋数量",
+  "word": "どのくらい<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>勉強<rt>べんきょう</rt></ruby>しましたか。",
+  "wordReading": "",
+  "english": "how long / how much",
+  "nepali": "कति समय जापानी पढ्नुभयो?",
+  "nepaliReading": "",
+  "explanation": "程度・期間などをたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 128,
+  "kanji": "いくつ",
+  "reading": "いくつですか",
+  "word": "りんごはいくつありますか。",
+  "wordReading": "",
+  "english": "how many / how old",
+  "nepali": "स्याउ कति वटा छन्?",
+  "nepaliReading": "",
+  "explanation": "数や年齢などをたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 129,
+  "kanji": "どんな",
+  "reading": "どんなN",
+  "word": "どんな<ruby>仕事<rt>しごと</rt></ruby>をしていますか。",
+  "wordReading": "",
+  "english": "what kind of",
+  "nepali": "कस्तो काम गर्नुहुन्छ?",
+  "nepaliReading": "",
+  "explanation": "種類・性質をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 130,
+  "kanji": "～から来ました",
+  "reading": "場所から来ました",
+  "word": "ネパールから<ruby>来<rt>き</rt></ruby>ました。",
+  "wordReading": "",
+  "english": "come from",
+  "nepali": "नेपालबाट आएको हुँ।",
+  "nepaliReading": "",
+  "explanation": "出身・出発地を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 131,
+  "kanji": "～に住んでいます",
+  "reading": "場所に住んでいます",
+  "word": "<ruby>名古屋<rt>なごや</rt></ruby>に<ruby>住<rt>す</rt></ruby>んでいます。",
+  "wordReading": "",
+  "english": "live in",
+  "nepali": "नागोयामा बस्छु।",
+  "nepaliReading": "",
+  "explanation": "現在住んでいる場所を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 132,
+  "kanji": "～をしています",
+  "reading": "Nをしています",
+  "word": "<ruby>会社員<rt>かいしゃいん</rt></ruby>をしています。",
+  "wordReading": "",
+  "english": "do / work as",
+  "nepali": "कम्पनी कर्मचारीको काम गर्छु।",
+  "nepaliReading": "",
+  "explanation": "仕事・状態・活動などを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 133,
+  "kanji": "～がほしいです",
+  "reading": "Nがほしいです",
+  "word": "<ruby>新<rt>あたら</rt></ruby>しい<ruby>電話<rt>でんわ</rt></ruby>がほしいです。",
+  "wordReading": "",
+  "english": "want",
+  "nepali": "नयाँ फोन चाहन्छु।",
+  "nepaliReading": "",
+  "explanation": "物をほしいと思う気持ちを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 134,
+  "kanji": "～てもらえますか",
+  "reading": "Vてもらえますか",
+  "word": "もう<ruby>一度<rt>いちど</rt></ruby><ruby>言<rt>い</rt></ruby>ってもらえますか。",
+  "wordReading": "",
+  "english": "could you",
+  "nepali": "फेरि एकपटक भन्न सक्नुहुन्छ?",
+  "nepaliReading": "",
+  "explanation": "相手に丁寧に依頼します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 135,
+  "kanji": "～ていただけますか",
+  "reading": "Vていただけますか",
+  "word": "<ruby>名前<rt>なまえ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いていただけますか。",
+  "wordReading": "",
+  "english": "could you please",
+  "nepali": "नाम लेखिदिन सक्नुहुन्छ?",
+  "nepaliReading": "",
+  "explanation": "より丁寧に依頼します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 136,
+  "kanji": "～ましょうか",
+  "reading": "Vましょうか",
+  "word": "<ruby>荷物<rt>にもつ</rt></ruby>を<ruby>持<rt>も</rt></ruby>ちましょうか。",
+  "wordReading": "",
+  "english": "shall I",
+  "nepali": "सामान बोकिदिऊँ?",
+  "nepaliReading": "",
+  "explanation": "相手を助ける申し出をします。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 137,
+  "kanji": "～ませんか（誘い）",
+  "reading": "Vませんか",
+  "word": "<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>昼<rt>ひる</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べませんか。",
+  "wordReading": "",
+  "english": "would you like to",
+  "nepali": "सँगै दिउँसोको खाना खाऔँ?",
+  "nepaliReading": "",
+  "explanation": "丁寧に誘います。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 138,
+  "kanji": "～のですか",
+  "reading": "普通形＋のですか",
+  "word": "<ruby>明日<rt>あした</rt></ruby>、<ruby>休<rt>やす</rt></ruby>むのですか。",
+  "wordReading": "",
+  "english": "is it that...",
+  "nepali": "भोलि बिदा लिने हो?",
+  "nepaliReading": "",
+  "explanation": "事情・理由をたずねます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 139,
+  "kanji": "～かな",
+  "reading": "普通形＋かな",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>晴<rt>は</rt></ruby>れるかな。",
+  "wordReading": "",
+  "english": "I wonder",
+  "nepali": "भोलि मौसम सफा होला कि?",
+  "nepaliReading": "",
+  "explanation": "独り言のように疑問・迷いを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 140,
+  "kanji": "～よ",
+  "reading": "文末＋よ",
+  "word": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>安<rt>やす</rt></ruby>いですよ。",
+  "wordReading": "",
+  "english": "you know / I'm telling you",
+  "nepali": "यो पसल सस्तो छ है।",
+  "nepaliReading": "",
+  "explanation": "相手に新しい情報を伝えます。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 141,
+  "kanji": "～ね",
+  "reading": "文末＋ね",
+  "word": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>暑<rt>あつ</rt></ruby>いですね。",
+  "wordReading": "",
+  "english": "right / isn't it",
+  "nepali": "आज गर्मी छ है।",
+  "nepaliReading": "",
+  "explanation": "共感・確認を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 142,
+  "kanji": "～よね",
+  "reading": "文末＋よね",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みですよね。",
+  "wordReading": "",
+  "english": "right?",
+  "nepali": "भोलि बिदा हो नि?",
+  "nepaliReading": "",
+  "explanation": "情報を伝えながら確認します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 143,
+  "kanji": "～でしょうね",
+  "reading": "普通形＋でしょうね",
+  "word": "<ruby>明日<rt>あした</rt></ruby>は<ruby>忙<rt>いそが</rt></ruby>しいでしょうね。",
+  "wordReading": "",
+  "english": "probably",
+  "nepali": "भोलि व्यस्त होला नि।",
+  "nepaliReading": "",
+  "explanation": "相手と推量を共有します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 144,
+  "kanji": "～みたいです",
+  "reading": "普通形＋みたいです",
+  "word": "<ruby>雨<rt>あめ</rt></ruby>みたいです。",
+  "wordReading": "",
+  "english": "seems like",
+  "nepali": "पानी पर्नेजस्तो छ।",
+  "nepaliReading": "",
+  "explanation": "見た情報などから判断します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 145,
+  "kanji": "～そうに",
+  "reading": "そうに＋V",
+  "word": "<ruby>楽<rt>たの</rt></ruby>しそうに<ruby>話<rt>はな</rt></ruby>しています。",
+  "wordReading": "",
+  "english": "in a ...-looking way",
+  "nepali": "रमाइलो मान्दै कुरा गरिरहेका छन्।",
+  "nepaliReading": "",
+  "explanation": "見た感じの状態で動作することを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 146,
+  "kanji": "～ため",
+  "reading": "Nのため／Vため",
+  "word": "<ruby>病気<rt>びょうき</rt></ruby>のため、<ruby>休<rt>やす</rt></ruby>みます。",
+  "wordReading": "",
+  "english": "because of / for",
+  "nepali": "बिरामी भएकाले बिदा लिन्छु।",
+  "nepaliReading": "",
+  "explanation": "原因・目的などを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 147,
+  "kanji": "～ようと思います",
+  "reading": "Vようと思います",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby>をもっと<ruby>勉強<rt>べんきょう</rt></ruby>しようと<ruby>思<rt>おも</rt></ruby>います。",
+  "wordReading": "",
+  "english": "I intend to",
+  "nepali": "जापानी अझै पढ्ने सोचमा छु।",
+  "nepaliReading": "",
+  "explanation": "これからの意志を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 148,
+  "kanji": "～ことにします",
+  "reading": "V辞書形＋ことにします",
+  "word": "<ruby>毎日<rt>まいにち</rt></ruby><ruby>勉強<rt>べんきょう</rt></ruby>することにします。",
+  "wordReading": "",
+  "english": "decide to",
+  "nepali": "हरेक दिन पढ्ने निर्णय गर्छु।",
+  "nepaliReading": "",
+  "explanation": "自分で決めたことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 149,
+  "kanji": "～ことになります",
+  "reading": "V辞書形＋ことになります",
+  "word": "<ruby>来月<rt>らいげつ</rt></ruby>、<ruby>東京<rt>とうきょう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>くことになりました。",
+  "wordReading": "",
+  "english": "it has been decided",
+  "nepali": "अर्को महिना टोकियो जाने निर्णय भएको छ।",
+  "nepaliReading": "",
+  "explanation": "決定されたことを表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 150,
+  "kanji": "～ようになります",
+  "reading": "V辞書形＋ようになります",
+  "word": "<ruby>日本語<rt>にほんご</rt></ruby>が<ruby>話<rt>はな</rt></ruby>せるようになりました。",
+  "wordReading": "",
+  "english": "come to be able to",
+  "nepali": "जापानी बोल्न सक्ने भएको छु।",
+  "nepaliReading": "",
+  "explanation": "できるようになるなどの変化を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 151,
+  "kanji": "～なくなります",
+  "reading": "Vない＋なくなります／Aく＋なくなります",
+  "word": "<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>らなくなりました。",
+  "wordReading": "",
+  "english": "come to no longer",
+  "nepali": "पानी पर्न छोड्यो।",
+  "nepaliReading": "",
+  "explanation": "ある状態ではなくなる変化を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 152,
+  "kanji": "～くなります",
+  "reading": "Aくなります",
+  "word": "<ruby>寒<rt>さむ</rt></ruby>くなりました。",
+  "wordReading": "",
+  "english": "become",
+  "nepali": "चिसो भयो।",
+  "nepaliReading": "",
+  "explanation": "い形容詞の変化を表します。",
+  "related": "",
+  "image": ""
+ },
+ {
+  "id": 153,
+  "kanji": "～になる",
+  "reading": "Nになる／Aになる",
+  "word": "<ruby>元気<rt>げんき</rt></ruby>になりました。",
+  "wordReading": "",
+  "english": "become",
+  "nepali": "सन्चो भयो।",
+  "nepaliReading": "",
+  "explanation": "状態の変化を表します。 例文：<ruby>元気になりました</ruby>。",
+  "related": "",
+  "image": ""
+ }
+];
+const verbForms = {
+  "ます形":[
+    "<ruby>食<rt>た</rt></ruby>べ（ます）",
+    "<ruby>飲<rt>の</rt></ruby>み（ます）",
+    "<ruby>行<rt>い</rt></ruby>き（ます）",
+    "<ruby>見<rt>み</rt></ruby>（ます）",
+    "<ruby>書<rt>か</rt></ruby>き（ます）",
+    "<ruby>話<rt>はな</rt></ruby>し（ます）",
+    "<ruby>来<rt>き</rt></ruby>（ます）",
+    "し（ます）"
+  ],
+
+  "辞書形":[
+    "<ruby>食<rt>た</rt></ruby>べる",
+    "<ruby>飲<rt>の</rt></ruby>む",
+    "<ruby>行<rt>い</rt></ruby>く",
+    "<ruby>見<rt>み</rt></ruby>る",
+    "<ruby>書<rt>か</rt></ruby>く",
+    "<ruby>話<rt>はな</rt></ruby>す",
+    "<ruby>来<rt>く</rt></ruby>る",
+    "する"
+  ],
+
+  "ない形":[
+    "<ruby>食<rt>た</rt></ruby>べない（<ruby>食<rt>た</rt></ruby>べません）",
+    "<ruby>飲<rt>の</rt></ruby>まない（<ruby>飲<rt>の</rt></ruby>みません）",
+    "<ruby>行<rt>い</rt></ruby>かない（<ruby>行<rt>い</rt></ruby>きません）",
+    "<ruby>見<rt>み</rt></ruby>ない（<ruby>見<rt>み</rt></ruby>ません）",
+    "<ruby>書<rt>か</rt></ruby>かない（<ruby>書<rt>か</rt></ruby>きません）",
+    "<ruby>話<rt>はな</rt></ruby>さない（<ruby>話<rt>はな</rt></ruby>せません）",
+    "<ruby>来<rt>こ</rt></ruby>ない（<ruby>来<rt>き</rt></ruby>ません）",
+    "しない"
+  ],
+
+  "て形":[
+    "<ruby>食<rt>た</rt></ruby>べて",
+    "<ruby>飲<rt>の</rt></ruby>んで",
+    "<ruby>行<rt>い</rt></ruby>って",
+    "<ruby>見<rt>み</rt></ruby>て",
+    "<ruby>書<rt>か</rt></ruby>いて",
+    "<ruby>話<rt>はな</rt></ruby>して",
+    "<ruby>来<rt>き</rt></ruby>て",
+    "して"
+  ],
+
+  "た形":[
+    "<ruby>食<rt>た</rt></ruby>べた",
+    "<ruby>飲<rt>の</rt></ruby>んだ",
+    "<ruby>行<rt>い</rt></ruby>った",
+    "<ruby>見<rt>み</rt></ruby>た",
+    "<ruby>書<rt>か</rt></ruby>いた",
+    "<ruby>話<rt>はな</rt></ruby>した",
+    "<ruby>来<rt>き</rt></ruby>た",
+    "した"
+  ],
+
+  "意向形":[
+    "食べよう",
+    "飲もう",
+    "<ruby>行<rt>い</rt></ruby>こう",
+    "<ruby>見<rt>み</rt></ruby>よう",
+    "<ruby>書<rt>か</rt></ruby>こう",
+    "<ruby>話<rt>はな</rt></ruby>そう",
+    "<ruby>来<rt>こ</rt></ruby>よう",
+    "しよう"
+  ],
+  "普通形":[
+  "<ruby>食<rt>た</rt></ruby>べる",
+  "<ruby>食<rt>た</rt></ruby>べない",
+  "<ruby>食<rt>た</rt></ruby>べた",
+
+  "<ruby>飲<rt>の</rt></ruby>む",
+  "<ruby>飲<rt>の</rt></ruby>まない",
+  "<ruby>飲<rt>の</rt></ruby>んだ",
+
+  "<ruby>行<rt>い</rt></ruby>く",
+  "<ruby>行<rt>い</rt></ruby>かない",
+  "<ruby>行<rt>い</rt></ruby>った",
+
+  "<ruby>見<rt>み</rt></ruby>る",
+  "<ruby>見<rt>み</rt></ruby>ない",
+  "<ruby>見<rt>み</rt></ruby>た",
+
+  "<ruby>書<rt>か</rt></ruby>く",
+  "<ruby>書<rt>か</rt></ruby>かない",
+  "<ruby>書<rt>か</rt></ruby>いた",
+
+  "<ruby>話<rt>はな</rt></ruby>す",
+  "<ruby>話<rt>はな</rt></ruby>さない",
+  "<ruby>話<rt>はな</rt></ruby>した",
+
+  "<ruby>来<rt>く</rt></ruby>る",
+  "<ruby>来<rt>こ</rt></ruby>ない",
+  "<ruby>来<rt>き</rt></ruby>た",
+
+  "する",
+  "しない",
+  "した",
+
+  "<ruby>雨<rt>あめ</rt></ruby>だ",
+  "<ruby>雨<rt>あめ</rt></ruby>だった",
+
+  "<ruby>静<rt>しず</rt></ruby>かだ",
+  "<ruby>静<rt>しず</rt></ruby>かだった",
+
+  "<ruby>学生<rt>がくせい</rt></ruby>だ",
+  "<ruby>学生<rt>がくせい</rt></ruby>だった",
+
+  "<ruby>暑<rt>あつ</rt></ruby>い",
+  "<ruby>暑<rt>あつ</rt></ruby>かった",
+
+  "おいしい",
+  "おいしかった"
+],
+"丁寧形":[
+  "です",
+  "でした",
+  "ではありません",
+  "食べます",
+  "飲みます",
+  "行きます",
+  "見ます",
+  "書きます",
+  "話します",
+  "来ます",
+  "します"
+]
+};
+
+function getGrammarType(x){const k = x.kanji;// 助詞
+  if([
+    "は","が","を","に（時間）","に（場所）","に（目的地）",
+    "で（場所）","で（手段）","と","の","も","から","まで"
+  ].includes(k)){
+    return "🟣 助詞";
+  }
+
+  // 動詞文法
+  if(
+    k.includes("たい") ||
+    k.includes("て") ||
+    k.includes("ない") ||
+    k.includes("たこと") ||
+    k.includes("つもり") ||
+    k.includes("予定") ||
+    k.includes("ように") ||
+    k.includes("ようと思います") ||
+    k.includes("ことができます")
+  ){
+    return "🔵 動詞文法";
+  }
+
+  // 形容詞
+  if(
+    k === "い形容詞" ||
+    k === "な形容詞" ||
+    k.includes("ほうがいい") ||
+    k === "いちばん" ||
+    k.includes("ほど")
+  ){
+    return "🟢 形容詞";
+  }
+
+  // 疑問詞
+  if([
+    "どこ／どちら",
+    "だれ／どなた",
+    "なに／なん",
+    "いつ",
+    "どう",
+    "どうして",
+    "どのくらい",
+    "いくつ",
+    "どんな"
+  ].includes(k)){
+    return "❓ 疑問詞";
+  }
+
+  // 表現
+  return "🟠 表現";
+}
+function getVerbForm(k){
+
+  const forms = {
+
+    // =========================
+    // 丁寧形
+    // =========================
+    "です／ます":"丁寧形",
+
+    // =========================
+    // ます形
+    // =========================
+    "～たいです":"ます形",
+    "～たくないです":"ます形",
+    "～ましょう":"ます形",
+    "～ませんか":"ます形",
+    "～ませんか（誘い）":"ます形",
+    "～ながら":"ます形",
+    "～やすいです":"ます形",
+    "～にくいです":"ます形",
+    "～すぎます":"ます形",
+
+    // =========================
+    // て形
+    // =========================
+    "～てください":"て形",
+    "～てもいいです":"て形",
+    "～てはいけません":"て形",
+    "～ています":"て形",
+    "～てから":"て形",
+    "～てもらいます":"て形",
+    "～てくれます":"て形",
+    "～てあげます":"て形",
+    "～てみます":"て形",
+    "～ておきます":"て形",
+    "～てしまいます":"て形",
+    "～てあります":"て形",
+    "～てもらえますか":"て形",
+    "～ていただけますか":"て形",
+    "～そうに":"て形",
+
+    // =========================
+    // ない形
+    // =========================
+    "～ないでください":"ない形",
+    "～なくてもいいです":"ない形",
+    "～なければなりません":"ない形",
+    "～ないといけません":"ない形",
+    "～ないほうがいい":"ない形",
+    "～ないと":"ない形",
+    "～なきゃ":"ない形",
+
+    // =========================
+    // た形
+    // =========================
+    "～たことがあります":"た形",
+    "～たことがありません":"た形",
+    "～たら":"た形",
+    "～たらどうですか":"た形",
+    "～たほうがいい":"た形",
+    "～たり～たりします":"た形",
+    "～たりします":"た形",
+    "～後で":"た形",
+    "～たら、～ました":"た形",
+
+    // =========================
+    // 辞書形
+    // =========================
+    "～ことができます":"辞書形",
+    "～ことができません":"辞書形",
+    "～つもりです":"辞書形",
+    "～予定です":"辞書形",
+    "～前に":"辞書形",
+    "～ために":"辞書形",
+    "～ように":"辞書形",
+    "～こと":"辞書形",
+    "～のが好きです":"辞書形",
+    "～のが上手です":"辞書形",
+    "～のが苦手です":"辞書形",
+    "～しかない":"辞書形",
+    "～と":"辞書形",
+
+    // =========================
+    // 意向形
+    // =========================
+    "～ようと思います":"意向形",
+
+    // =========================
+    // 普通形
+    // =========================
+    "～と思います":"普通形",
+    "～と言います":"普通形",
+    "～からです":"普通形",
+    "～ので":"普通形",
+    "～けど":"普通形",
+    "～が、～":"普通形",
+    "～ので、～":"普通形",
+    "～とき":"普通形",
+    "～なら":"普通形",
+    "～でしょう":"普通形",
+    "～かもしれません":"普通形",
+    "～そうです（伝聞）":"普通形",
+    "～ようです":"普通形",
+    "～のでしょうか":"普通形",
+    "～んです":"普通形",
+    "～んですが":"普通形",
+    "～かな":"普通形",
+    "～みたいです":"普通形",
+
+    // =========================
+    // その他の動詞活用
+    // =========================
+    "～そうです（様態）":"ます形",
+    "～ようになります":"辞書形",
+    "～ことになります":"辞書形",
+    "～ことにします":"辞書形",
+    "～なくなります":"ない形",
+
+  };
+
+  return forms[k] || "";
+}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function ruby(t,r){return r?`<ruby>${esc(t)}<rt>${esc(r)}</rt></ruby>`:esc(t)}
+let filter='all';
+function render(){
+ const q=document.getElementById('search').value.trim().toLowerCase();
+ const arr=data.filter((x,i)=>{
+   const text=[x.kanji,x.reading,x.word,x.english,x.nepali,x.explanation].join(' ').toLowerCase();
+   const type = getGrammarType(x);
+return (!q || text.includes(q))
+    && (filter === 'all' || filter === type);
+ });
+ document.getElementById('count').textContent=`表示：${arr.length} / ${data.length}`;
+ document.getElementById('grid').innerHTML=arr.map(x=>`
+ <article class="card">
+   <div class="kanji" style="font-size:32px">${rubyGrammar(x.kanji)}</div>
+   <div class="main-reading">形：${esc(x.reading)}</div>
+   <div class="row word-block">
+      <div class="type-box">
+  ${getGrammarType(x)}
+</div>
+
+${getVerbForm(x.kanji) ? `
+<div class="verb-form"
+     onclick="showVerbForm('${getVerbForm(x.kanji)}')">
+
+  📖 使用する形：
+  <b>${getVerbForm(x.kanji)}</b>
+
+</div>
+` : ''}
+    <div class="word-title">📌 文法のポイント</div>
+     <div class="row">
+      
+  <div class="label">📝 例文</div>
+  <div class="example">${x.word || '<span class="missing">準備中</span>'}</div>
+</div>
+
+     <div class="usage"><b>💬 使い方：</b>${x.explanation}</div>
+   </div>
+   <div class="row"><div class="label">🇬🇧 英語</div>${x.english?esc(x.english):'<span class="missing">準備中</span>'}</div>
+   <div class="row nepali"><div class="label">🇳🇵 ネパール語</div>${x.nepali?esc(x.nepali):'<span class="missing">準備中</span>'}</div>
+ </article>`).join('');
+}
+document.getElementById('search').addEventListener('input',render);
+document.querySelectorAll('button[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('button[data-filter]').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+ filter=b.dataset.filter; render();
+}));
+// render();  ← ここでは実行しない
+</script>
+
+
+<script>
+function rubyGrammar(value){
+  if(!value) return "";
+  const readings = {"い形容詞":"いけいようし","な形容詞":"なけいようし","名詞修飾":"めいししゅうしょく","～予定です":"～よていです","～と思います":"～とおもいます","～と言います":"～といいます","～前に":"～まえに","～後で":"～あとで","～の中で":"～のなかで","～場合":"～ばあい","～から来ました":"～からきました","～に住んでいます":"～にすんでいます","～をしています":"～をしています","～のが好きです":"～のがすきです","～のが上手です":"～のがじょうずです","～のが苦手です":"～のがにがてです","～そうです（様態）":"～そうです（ようたい）","～そうです（伝聞）":"～そうです（でんぶん）","～ませんか（誘い）":"～ませんか（さそい）","～ようと思います":"～ようとおもいます"};
+  const r=readings[value];
+  return r ? `<ruby>${esc(value)}<rt>${esc(r)}</rt></ruby>` : esc(value);
+}render();
+</script>
+<script id="furigana-script">
+const grammarReadings = {"です／ます": "です／ます", "は": "は", "が": "が", "を": "を", "に（時間）": "に（じかん）", "に（場所）": "に（ばしょ）", "に（目的地）": "に（もくてきち）", "で（場所）": "で（ばしょ）", "で（手段）": "で（しゅだん）", "と": "と", "の": "の", "も": "も", "から": "から", "まで": "まで", "から～まで": "から～まで", "だけ": "だけ", "しか～ない": "しか～ない", "くらい／ぐらい": "くらい／ぐらい", "ごろ": "ごろ", "とても": "とても", "あまり～ない": "あまり～ない", "ぜんぜん～ない": "ぜんぜん～ない", "たくさん": "たくさん", "あります": "あります", "います": "います", "い形容詞": "いけいようし", "な形容詞": "なけいようし", "名詞修飾": "めいししゅうしょく", "～たいです": "～たいです", "～たくないです": "～たくないです", "～ましょう": "～ましょう", "～ませんか": "～ませんか", "～てください": "～てください", "～てもいいです": "～てもいいです", "～てはいけません": "～てはいけません", "～ています": "～ています", "～てから": "～てから", "～ないでください": "～ないでください", "～なくてもいいです": "～なくてもいいです", "～なければなりません": "～なければなりません", "～ないといけません": "～ないといけません", "～たことがあります": "～たことがあります", "～たことがありません": "～たことがありません", "～たり～たりします": "～たり～たりします", "～たりします": "～たりします", "～ながら": "～ながら", "～ことができます": "～ことができます", "～ことができません": "～ことができません", "～つもりです": "～つもりです", "～予定です": "～よていです", "～と思います": "～とおもいます", "～と言います": "～といいます", "～からです": "～からです", "～ので": "～ので", "～けど": "～けど", "～が、～": "～が、～", "～ので、～": "～ので、～", "～前に": "～まえに", "～後で": "～あとで", "～とき": "～とき", "～と": "～と", "～たら": "～たら", "～なら": "～なら", "～ても": "～ても", "～し、～し": "～し、～し", "～や～など": "～や～など", "～とか～とか": "～とか～とか", "もう": "もう", "まだ": "まだ", "まだ～です": "まだ～です", "～すぎます": "～すぎます", "～やすいです": "～やすいです", "～にくいです": "～にくいです", "～になります": "～になります", "～にします": "～にします", "～くします": "～くします", "～ほうがいいです": "～ほうがいいです", "～でしょう": "～でしょう", "～かもしれません": "～かもしれません", "～そうです（様態）": "～そうです（ようたい）", "～そうです（伝聞）": "～そうです（でんぶん）", "～ようです": "～ようです", "～たほうがいい": "～たほうがいい", "AよりBのほうが": "AよりBのほうが", "いちばん": "いちばん", "～ほど～ない": "～ほど～ない", "～の中で": "～のなかで", "～について": "～について", "～によって": "～によって", "～ために": "～ために", "～ように": "～ように", "～こと": "～こと", "～のが好きです": "～のがすきです", "～のが上手です": "～のがじょうずです", "～のが苦手です": "～のがにがてです", "～てみます": "～てみます", "～ておきます": "～ておきます", "～てしまいます": "～てしまいます", "～てあります": "～てあります", "～ないと": "～ないと", "～なきゃ": "～なきゃ", "～てもらいます": "～てもらいます", "～てくれます": "～てくれます", "～てあげます": "～てあげます", "～ないほうがいい": "～ないほうがいい", "～しかない": "～しかない", "～たらどうですか": "～たらどうですか", "～ませんでしたか": "～ませんでしたか", "～でしょうか": "～でしょうか", "～んです": "～んです", "～んですが": "～んですが", "～という": "～という", "～についての": "～についての", "～場合": "～ばあい", "～のでしょうか": "～のでしょうか", "～たら、～ました": "～たら、～ました", "これ／それ／あれ": "これ／それ／あれ", "この／その／あの": "この／その／あの", "ここ／そこ／あそこ": "ここ／そこ／あそこ", "どこ／どちら": "どこ／どちら", "だれ／どなた": "だれ／どなた", "なに／なん": "なに／なん", "いつ": "いつ", "どう": "どう", "どうして": "どうして", "どのくらい": "どのくらい", "いくつ": "いくつ", "どんな": "どんな", "～から来ました": "～からきました", "～に住んでいます": "～にすんでいます", "～をしています": "～をしています", "～がほしいです": "～がほしいです", "～てもらえますか": "～てもらえますか", "～ていただけますか": "～ていただけますか", "～ましょうか": "～ましょうか", "～ませんか（誘い）": "～ませんか（さそい）", "～のですか": "～のですか", "～かな": "～かな", "～よ": "～よ", "～ね": "～ね", "～よね": "～よね", "～でしょうね": "～でしょうね", "～みたいです": "～みたいです", "～そうに": "～そうに", "～ため": "～ため", "～ようと思います": "～ようとおもいます", "～ことにします": "～ことにします", "～ことになります": "～ことになります", "～ようになります": "～ようになります", "～なくなります": "～なくなります", "～くなります": "～くなります", "～になる": "～になる"};
+const furiganaWords = {"仕事": "しごと", "私": "わたし", "会社員": "かいしゃいん", "日本語": "にほんご", "毎朝": "まいあさ", "ご飯": "ごはん", "食べます": "たべます", "時": "じ", "起きます": "おきます", "駅": "えき", "前": "まえ", "コンビニ": "こんびに", "会社": "かいしゃ", "行きます": "いきます", "食堂": "しょくどう", "昼ご飯": "ひるごはん", "電車": "でんしゃ", "友だち": "ともだち", "映画": "えいが", "見ます": "みます", "私の": "わたしの", "かばん": "かばん", "から": "から", "働きます": "はたらきます", "月曜日": "げつようび", "金曜日": "きんようび", "水": "みず", "円": "えん", "ありません": "ありません", "分": "ふん", "待ってください": "まってください", "来ます": "きます", "店": "みせ", "安い": "やすい", "今日": "きょう", "忙しくない": "いそがしくない", "わかりません": "わかりません", "野菜": "やさい", "たくさん": "たくさん", "明日": "あした", "試験": "しけん", "人": "ひと", "部屋": "へや", "広い": "ひろい", "町": "まち", "静か": "しずか", "日本": "にほん", "買った": "かった", "行きたい": "いきたい", "働きたくない": "はたらきたくない", "一緒": "いっしょ", "行きませんか": "いきませんか", "ここ": "ここ", "名前": "なまえ", "書いてください": "かいてください", "座ってもいい": "すわってもいい", "写真": "しゃしん", "撮ってはいけません": "とってはいけません", "今": "いま", "しています": "しています", "食べてから": "たべてから", "仕事をします": "しごとをします", "車": "くるま", "止めないでください": "とめないでください", "来なくてもいい": "こなくてもいい", "早く": "はやく", "起きなければなりません": "おきなければなりません", "薬": "くすり", "飲まないといけません": "のまないといけません", "行ったことがあります": "いったことがあります", "北海道": "ほっかいどう", "行ったことがありません": "いったことがありません", "休みの日": "やすみのひ", "買い物": "かいもの", "したりします": "したりします", "週末": "しゅうまつ", "掃除": "そうじ", "音楽": "おんがく", "聞きながら": "ききながら", "勉強します": "べんきょうします", "話す": "はなす", "話すこと": "はなすこと", "カード": "かーど", "使う": "つかう", "使うこと": "つかうこと", "来年": "らいねん", "行くつもり": "いくつもり", "来週": "らいしゅう", "病院": "びょういん", "行く予定": "いくよてい", "雨": "あめ", "田中": "たなか", "言いました": "いいました", "休み": "やすみ", "なので": "なので", "家": "いえ", "います": "います", "行きたいけど": "いきたいけど", "時間": "じかん", "すみません": "すみません", "もう一度": "もういちど", "お願いします": "おねがいします", "熱": "ねつ", "あります": "あります", "休みます": "やすみます", "寝る前": "ねるまえ", "歯": "は", "みがきます": "みがきます", "仕事の後": "しごとのあと", "買い物します": "かいものします", "困ったとき": "こまったとき", "先生": "せんせい", "聞きます": "ききます", "ボタン": "ぼたん", "押す": "おす", "開きます": "あきます", "時間があったら": "じかんがあったら", "電話してください": "でんわしてください", "春": "はる", "いいです": "いいです", "降っても": "ふっても", "この店": "このみせ", "おいしい": "おいしい", "果物": "くだもの", "買いました": "かいました", "とか": "とか", "食べました": "たべました", "宿題": "しゅくだい", "していません": "していません", "元気": "げんき", "このかばん": "このかばん", "高すぎます": "たかすぎます", "ペン": "ぺん", "書きやすい": "かきやすい", "字": "じ", "読みにくい": "よみにくい", "4月": "しがつ", "暖かくなります": "あたたかくなります", "飲み物": "のみもの", "お茶": "おちゃ", "きれいにします": "きれいにします", "病院へ行った": "びょういんへいった", "晴れる": "はれる", "おいしそう": "おいしそう", "休みだそう": "やすみだそう", "電気": "でんき", "ついている": "ついている", "家にいる": "いえにいる", "早く寝た": "はやくねた", "バス": "ばす", "昨日": "きのう", "暑くない": "あつくない", "りんご": "りんご", "好き": "すき", "仕事について": "しごとについて", "人によって": "ひとによって", "考え方": "かんがえかた", "違います": "ちがいます", "働くため": "はたらくため", "忘れないように": "わすれないように", "メモします": "めもします", "料理する": "りょうりする", "料理を作る": "りょうりをつくる", "人の前": "ひとのまえ", "苦手": "にがて", "料理を食べてみます": "りょうりをたべてみます", "旅行": "りょこう", "ホテル": "ほてる", "予約": "よやく", "予約しておきます": "よやくしておきます", "忘れてしまいました": "わすれてしまいました", "机": "つくえ", "机の上": "つくえのうえ", "書いてあります": "かいてあります", "帰らないと": "かえらないと", "行かなきゃ": "いかなきゃ", "教えてもらいました": "おしえてもらいました", "手伝ってくれました": "てつだってくれました", "日本語を教えてあげます": "にほんごをおしえてあげます", "無理": "むり", "歩いて行く": "あるいていく", "駅に行きませんでしたか": "えきにいきませんでしたか", "駅はどこ": "えきはどこ", "どうした": "どうした", "お願い": "おねがい", "さくら": "さくら", "生活": "せいかつ", "本": "ほん", "地震": "じしん", "場合": "ばあい", "外": "そと", "出ないでください": "でないでください", "10分": "じゅっぷん", "電車なら": "でんしゃなら", "駅まで": "えきまで", "どうして": "どうして", "家に帰ったら": "いえにかえったら", "電話": "でんわ", "近く": "ちかく", "方": "かた", "何": "なに", "いつ": "いつ", "来ました": "きました", "どうですか": "どうですか", "休みました": "やすみました", "どのくらい": "どのくらい", "勉強しました": "べんきょうしました", "いくつ": "いくつ", "どんな仕事": "どんなしごと", "ネパール": "ねぱーる", "名古屋": "なごや", "住んでいます": "すんでいます", "新しい": "あたらしい", "言ってもらえますか": "いってもらえますか", "書いていただけますか": "かいていただけますか", "荷物": "にもつ", "持ちましょうか": "もちましょうか", "休む": "やすむ", "晴れるかな": "はれるかな", "安いですよ": "やすいですよ", "暑いですね": "あついですね", "休みですよね": "やすみですよね", "忙しいでしょうね": "いそがしいでしょうね", "雨みたい": "あめみたい", "楽しそうに": "たのしそうに", "病気": "びょうき", "もっと": "もっと", "勉強しよう": "べんきょうしよう", "毎日": "まいにち", "東京": "とうきょう", "行くこと": "いくこと", "話せるようになりました": "はなせるようになりました", "降らなくなりました": "ふらなくなりました", "寒くなりました": "さむくなりました", "元気になりました": "げんきになりました"};
+function showVerbForm(form){
+
+ const list = verbForms[form] || [];
+
+ document.getElementById("verbTitle").textContent =
+   form + " の例";
+
+ document.getElementById("verbWords").innerHTML =
+   list.map(x=>`<span class="word-chip">${x}</span>`).join("");
+
+ document.getElementById("verbModal").style.display="block";
+}
+
+function closeVerbForm(){
+ document.getElementById("verbModal").style.display="none";
+}
+function addFurigana(text){
+  if(!text) return "";
+  // 既存のrubyタグは一度外す
+  text = text.replace(/<ruby>(.*?)<rt>.*?<\/rt><\/ruby>/g, "$1")
+             .replace(/<ruby>(.*?)<\/ruby>/g, "$1");
+  let result = esc(text);
+  const keys = Object.keys(furiganaWords).sort((a,b)=>b.length-a.length);
+  for(const k of keys){
+    const r = furiganaWords[k];
+    const ek = esc(k);
+    const er = esc(r);
+    result = result.replace(new RegExp(ek.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'g'),
+      `<ruby>${ek}<rt>${er}</rt></ruby>`);
+  }
+  return result;
+}
+function addGrammarFurigana(text){
+  if(!text) return "";
+  const r = grammarReadings[text] || "";
+  if(!r || r === text) return esc(text);
+  // ～などの記号部分を除き、漢字を含む部分だけルビ化
+  let out = esc(text);
+  // 読みを文法名全体として上に表示
+  return `<ruby>${esc(text)}<rt>${esc(r)}</rt></ruby>`;
+}
+</script>
+<div id="verbModal" class="verb-modal" style="display:none">
+  <div class="verb-content">
+    <h3 id="verbTitle"></h3>
+    <div id="verbWords"></div>
+    <button onclick="closeVerbForm()">閉じる</button>
+  </div>
+</div>
+</body></html>

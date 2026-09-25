@@ -411,7 +411,7 @@ let allListeningData = [
     audio:"audio/36.wav",
     image:"audio/36.png",
     q:"がぞうをみて、おんせいとあうものを選びなさい",
-    answer:"2",
+    answer:"4",
     choices:["1","2","3","4"]
 },
 {

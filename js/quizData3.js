@@ -498,6 +498,254 @@ let allImageQuizData = [
  choices:["はんばい","こうばん","かいばん","けいばん"
 ]},
 
+{image:"imgs/ilust/101.png",
+ answer:"ふね",
+ choices:["ふね","トロッコ","でんしゃ","エレベーター"
+]},
 
+{image:"imgs/ilust/102.png",
+ answer:"れいぞうこ",
+ choices:["れいぞうこ","せんたくき","でんしレンジ","そうじき"
+]},
+
+{image:"imgs/ilust/103.png",
+ answer:"せんたくき",
+ choices:["せんたくき","れいぞうこ","テレビ","でんしレンジ"
+]},
+
+{image:"imgs/ilust/104.png",
+ answer:"でんしレンジ",
+ choices:["でんしレンジ","れいぞうこ","せんたくき","そうじき"
+]},
+
+{image:"imgs/ilust/105.png",
+ answer:"そうじき",
+ choices:["そうじき","せんたくき","でんしレンジ","エアコン"
+]},
+
+{image:"imgs/ilust/106.png",
+ answer:"かさ",
+ choices:["かさ","ぼうし","てぶくろ","くつ"
+]},
+
+{image:"imgs/ilust/107.png",
+ answer:"さいふ",
+ choices:["さいふ","かばん","けいたいでんわ","かぎ"
+]},
+
+{image:"imgs/ilust/108.png",
+ answer:"かぎ",
+ choices:["かぎ","さいふ","とけい","めがね"
+]},
+
+{image:"imgs/ilust/109.png",
+ answer:"とけい",
+ choices:["とけい","かぎ","めがね","でんち"
+]},
+
+{image:"imgs/ilust/110.png",
+ answer:"ごみばこ",
+ choices:["ごみばこ","れいぞうこ","たな","つくえ"
+]},
+
+{image:"imgs/ilust/111.png",
+ answer:"でんち",
+ choices:["でんち","かぎ","さいふ","けいたいでんわ"
+]},
+
+{image:"imgs/ilust/112.png",
+ answer:"えき",
+ choices:["えき","びょういん","ぎんこう","ゆうびんきょく"
+]},
+
+{image:"imgs/ilust/113.png",
+ answer:"しんごう",
+ choices:["しんごう","おうだんほどう","えき","こうばん"
+]},
+
+{image:"imgs/ilust/114.png",
+ answer:"おうだんほどう",
+ choices:["おうだんほどう","しんごう","バスてい","えき"
+]},
+
+{image:"imgs/ilust/115.png",
+ answer:"こうばん",
+ choices:["こうばん","びょういん","ぎんこう","ゆうびんきょく"
+]},
+
+{image:"imgs/ilust/116.png",
+ answer:"びょういん",
+ choices:["びょういん","こうばん","ぎんこう","コンビニ"
+]},
+
+{image:"imgs/ilust/117.png",
+ answer:"ゆうびんきょく",
+ choices:["ゆうびんきょく","ぎんこう","びょういん","スーパー"
+]},
+
+{image:"imgs/ilust/118.png",
+ answer:"ぎんこう",
+ choices:["ぎんこう","ゆうびんきょく","こうばん","コンビニ"
+]},
+
+{image:"imgs/ilust/119.png",
+ answer:"コンビニ",
+ choices:["コンビニ","スーパー","ぎんこう","レストラン"
+]},
+
+{image:"imgs/ilust/120.png",
+ answer:"スーパー",
+ choices:["スーパー","コンビニ","びょういん","ホテル"
+]},
+
+{image:"imgs/ilust/121.png",
+ answer:"バスてい",
+ choices:["バスてい","えき","こうばん","おうだんほどう"
+]},
+
+{image:"imgs/ilust/122.png",
+ answer:"べんとう",
+ choices:["べんとう","おにぎり","パン","サンドイッチ"
+]},
+
+{image:"imgs/ilust/123.png",
+ answer:"おにぎり",
+ choices:["おにぎり","べんとう","パン","りんご"
+]},
+
+{image:"imgs/ilust/124.png",
+ answer:"パン",
+ choices:["パン","おにぎり","ケーキ","めん"
+]},
+
+{image:"imgs/ilust/125.png",
+ answer:"やさい",
+ choices:["やさい","くだもの","にく","さかな"
+]},
+
+{image:"imgs/ilust/126.png",
+ answer:"くだもの",
+ choices:["くだもの","やさい","パン","にく"
+]},
+
+{image:"imgs/ilust/127.png",
+ answer:"ぎゅうにゅう",
+ choices:["ぎゅうにゅう","みず","ジュース","コーヒー"
+]},
+
+{image:"imgs/ilust/128.png",
+ answer:"みず",
+ choices:["みず","ぎゅうにゅう","おちゃ","ジュース"
+]},
+
+{image:"imgs/ilust/129.png",
+ answer:"はし",
+ choices:["はし","スプーン","フォーク","ナイフ"
+]},
+
+{image:"imgs/ilust/130.png",
+ answer:"コップ",
+ choices:["コップ","おさら","おちゃわん","はし"
+]},
+
+{image:"imgs/ilust/131.png",
+ answer:"くつ",
+ choices:["くつ","ぼうし","てぶくろ","かばん"
+]},
+
+{image:"imgs/ilust/132.png",
+ answer:"ぼうし",
+ choices:["ぼうし","くつ","マスク","めがね"
+]},
+
+{image:"imgs/ilust/133.png",
+ answer:"うわぎ",
+ choices:["うわぎ","ズボン","シャツ","くつ"
+]},
+
+{image:"imgs/ilust/134.png",
+ answer:"ズボン",
+ choices:["ズボン","うわぎ","スカート","シャツ"
+]},
+
+{image:"imgs/ilust/135.png",
+ answer:"シャツ",
+ choices:["シャツ","うわぎ","ズボン","セーター"
+]},
+
+{image:"imgs/ilust/136.png",
+ answer:"てぶくろ",
+ choices:["てぶくろ","くつした","ぼうし","マスク"
+]},
+
+{image:"imgs/ilust/137.png",
+ answer:"めがね",
+ choices:["めがね","サングラス","マスク","ぼうし"
+]},
+
+{image:"imgs/ilust/138.png",
+ answer:"かばん",
+ choices:["かばん","さいふ","リュック","スーツケース"
+]},
+
+{image:"imgs/ilust/139.png",
+ answer:"マスク",
+ choices:["マスク","めがね","てぶくろ","ぼうし"
+]},
+
+{image:"imgs/ilust/140.png",
+ answer:"そうじ",
+ choices:["そうじ","せんたく","りょうり","かいもの"
+]},
+
+{image:"imgs/ilust/141.png",
+ answer:"せんたく",
+ choices:["せんたく","そうじ","りょうり","かたづけ"
+]},
+
+{image:"imgs/ilust/142.png",
+ answer:"りょうり",
+ choices:["りょうり","そうじ","せんたく","かいもの"
+]},
+
+{image:"imgs/ilust/143.png",
+ answer:"かいもの",
+ choices:["かいもの","りょうり","そうじ","さんぽ"
+]},
+
+{image:"imgs/ilust/144.png",
+ answer:"でんわ",
+ choices:["でんわ","パソコン","テレビ","カメラ"
+]},
+
+{image:"imgs/ilust/145.png",
+ answer:"きゅうけい",
+ choices:["きゅうけい","しごと","べんきょう","そうじ"
+]},
+
+{image:"imgs/ilust/146.png",
+ answer:"じゅんび",
+ choices:["じゅんび","かたづけ","きゅうけい","しごと"
+]},
+
+{image:"imgs/ilust/147.png",
+ answer:"かたづけ",
+ choices:["かたづけ","じゅんび","りょうり","せんたく"
+]},
+
+{image:"imgs/ilust/148.png",
+ answer:"かくにん",
+ choices:["かくにん","じゅんび","そうじ","きゅうけい"
+]},
+
+{image:"imgs/ilust/149.png",
+ answer:"ちこく",
+ choices:["ちこく","やすみ","きゅうけい","しごと"
+]},
+
+{image:"imgs/ilust/150.png",
+ answer:"エレベーター",
+ choices:["エレベーター","エスカレーター","でんしゃ","バス"
+]}
 
 ];

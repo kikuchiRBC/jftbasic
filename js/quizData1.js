@@ -18,12 +18,12 @@ let allQuizData = [
     {
         kanji:"消す",
         answer:"けす",
-        choices:["けす","けし","こす"]
+        choices:["けす","げす","こす"]
     },
     {
         kanji:"捨てる",
         answer:"すてる",
-        choices:["すてる","してる","すれる"]
+        choices:["すてる","してる","そてる"]
     },
     {
         kanji:"出す",
@@ -33,17 +33,17 @@ let allQuizData = [
     {
         kanji:"分ける",
         answer:"わける",
-        choices:["わける","わかる","われる"]
+        choices:["わける","ぶける","よける"]
     },
     {
         kanji:"燃える",
         answer:"もえる",
-        choices:["もえる","もやる","こえる"]
+        choices:["もえる","めえる","こえる"]
     },
     {
         kanji:"決める",
         answer:"きめる",
-        choices:["きめる","きまる","けめる"]
+        choices:["きめる","くめる","けめる"]
     },
     {
         kanji:"設定する",
@@ -73,7 +73,7 @@ let allQuizData = [
     {
         kanji:"危ない",
         answer:"あぶない",
-        choices:["あぶない","あぶい","あない"]
+        choices:["あぶない","あびない","あない"]
     },
     {
         kanji:"大切",
@@ -93,7 +93,7 @@ let allQuizData = [
     {
         kanji:"進む",
         answer:"すすむ",
-        choices:["すすむ","すすめる","すすめ"]
+        choices:["すすむ","ししむ","すせむ"]
     },
     {
         kanji:"最近",
@@ -123,22 +123,22 @@ let allQuizData = [
     {
         kanji:"違う",
         answer:"ちがう",
-        choices:["ちがう","ちかう","ことなる"]
+        choices:["ちがう","ちかう","つがう"]
     },
     {
         kanji:"慣れる",
         answer:"なれる",
-        choices:["なれる","なられる","なべる"]
+        choices:["なれる","なられる","ねれる"]
     },
     {
         kanji:"増える",
         answer:"ふえる",
-        choices:["ふえる","ふやす","ふける"]
+        choices:["ふえる","ぶえる","ほえる"]
     },
     {
         kanji:"笑う",
         answer:"わらう",
-        choices:["わらう","わらい","わるう"]
+        choices:["わらう","われう","わるう"]
     },
     {
         kanji:"苦労する",
@@ -163,17 +163,17 @@ let allQuizData = [
     {
         kanji:"住む",
         answer:"すむ",
-        choices:["すむ","つむ","すまう"]
+        choices:["すむ","つむ","ずむ"]
     },
     {
         kanji:"建てる",
         answer:"たてる",
-        choices:["たてる","たつる","けてる"]
+        choices:["たてる","だてる","けてる"]
     },
     {
         kanji:"続ける",
         answer:"つづける",
-        choices:["つづける","つずける","つけづる"]
+        choices:["つづける","つずける","つけける"]
     },
     {
         kanji:"考える",
@@ -298,7 +298,7 @@ let allQuizData = [
     {
         kanji:"死ぬ",
         answer:"しぬ",
-        choices:["しぬ","じぬ","しの"]
+        choices:["しぬ","じぬ","きぬ"]
     },
 
     {
@@ -470,7 +470,7 @@ let allQuizData = [
     {
         kanji:"健康",
         answer:"けんこう",
-        choices:["けんこう","げんこう","けんこう"]
+        choices:["けんこう","げんこう","けんごう"]
     },
     {
         kanji:"栄養",
@@ -485,7 +485,7 @@ let allQuizData = [
     {
         kanji:"調味料",
         answer:"ちょうみりょう",
-        choices:["ちょうみりょう","ちょうみりょう","ちょうみりょ"]
+        choices:["ちょうみりょう","しらみりょう","ちょうみりょ"]
     },
     {
         kanji:"新鮮",
@@ -725,7 +725,7 @@ let allQuizData = [
     {
         kanji:"鉄道",
         answer:"てつどう",
-        choices:["てつどう","てつどう","てつどが"]
+        choices:["てつどう","てつとう","てつどが"]
     },
     {
         kanji:"提示する",
@@ -767,11 +767,7 @@ let allQuizData = [
         answer:"きゅうきゅうしゃ",
         choices:["きゅうきゅうしゃ","きゅきゅうしゃ","きゅうきゅしゃ"]
     },
-    {
-        kanji:"ひったくり",
-        answer:"ひったくり",
-        choices:["ひったくり","ひたっくり","ひったぐり"]
-    },
+
     {
         kanji:"交差点",
         answer:"こうさてん",
@@ -880,7 +876,7 @@ let allQuizData = [
     {
         kanji:"悲しい",
         answer:"かなしい",
-        choices:["かなしい","かなしい","かなし"]
+        choices:["かなしい","なしい","がなしい"]
     },
     {
         kanji:"尊敬する",
@@ -950,7 +946,7 @@ let allQuizData = [
     {
         kanji:"訪れる",
         answer:"おとずれる",
-        choices:["おとずれる","おとづれる","たずねる"]
+        choices:["おとずれる","おとづれる","たずれる"]
     },
     {
         kanji:"新幹線",
@@ -960,7 +956,7 @@ let allQuizData = [
     {
         kanji:"飛行機",
         answer:"ひこうき",
-        choices:["ひこうき","ひこうき","ひこうぎ"]
+        choices:["ひこうき","ひごうき","ひこうぎ"]
     },
     {
         kanji:"宿泊",
@@ -1000,7 +996,7 @@ let allQuizData = [
     {
         kanji:"疲れる",
         answer:"つかれる",
-        choices:["つかれる","つがれる","つかねる"]
+        choices:["つかれる","つがれる","ちかれる"]
     },
     {
         kanji:"給料",
@@ -1045,7 +1041,7 @@ let allQuizData = [
     {
         kanji:"速い",
         answer:"はやい",
-        choices:["はやい","すごい","はやし"]
+        choices:["はやい","すごい","ほやい"]
     },
     {
         kanji:"遅刻する",
@@ -1095,12 +1091,12 @@ let allQuizData = [
     {
         kanji:"答える",
         answer:"こたえる",
-        choices:["こたえる","こだえる","こたいる"]
+        choices:["こたえる","こだえる","きたえる"]
     },
     {
         kanji:"向いている",
         answer:"むいている",
-        choices:["むいている","むいでいる","むけている"]
+        choices:["むいている","こいている","もいている"]
     },
 
     {
@@ -1141,12 +1137,12 @@ let allQuizData = [
     {
         kanji:"書く",
         answer:"かく",
-        choices:["かく","かこ","がく"]
+        choices:["かく","きく","がく"]
     },
     {
         kanji:"貸す",
         answer:"かす",
-        choices:["かす","だす","かつ"]
+        choices:["かす","だす","しす"]
     },
     {
         kanji:"教える",
@@ -1381,7 +1377,7 @@ let allQuizData = [
     {
         kanji:"上",
         answer:"うえ",
-        choices:["うえ","うい","うわ"]
+        choices:["うえ","うい","いえ"]
     },
     {
         kanji:"用事",
@@ -2412,7 +2408,7 @@ let allQuizData = [
     {
         kanji:"日本",
         answer:"にほん",
-        choices:["にほん","にっぽん","にほん"]
+        choices:["にほん","にぽん","にぼん"]
     },
     {
         kanji:"父",

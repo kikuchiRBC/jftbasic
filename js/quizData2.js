@@ -200,7 +200,7 @@ type:"grammar",
      image:"imgs/grammar/11.jpg",
    
     answer:"買える",
-    choices:["買える","買お","買って","買っている"]
+    choices:["買える","買お","買っ","買"]
 },
 {
  

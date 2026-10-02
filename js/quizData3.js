@@ -17,8 +17,8 @@ let allImageQuizData = [
   choices:["前","上","下","横"
     ]},
 {image:"imgs/5.jpg",
-  answer:"後ろ",
-  choices:["前","後ろ","下","横"
+  answer:"中",
+  choices:["前","中","下","横"
     ]},
 
     //651

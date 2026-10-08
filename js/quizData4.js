@@ -521,5 +521,27 @@ let allListeningData = [
     q:"これから何をしますか。",
     answer:"a",
     choices:["a","b","c"]
-}
+},
+{
+    audio:"audio/52.wav",
+    image:"audio/52.jpg",
+    q:"なくしたスマートフォンはどれですか。",
+    answer:"a",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/53.wav",
+    image:"audio/53.jpg",
+    q:"いぐちさんはどの人ですか。",
+    answer:"c",
+    choices:["a","b","c","d"]
+},{
+    audio:"audio/54.wav",
+    image:"audio/54.jpg",
+    q:"アリさんは、なにをしますか。",
+    answer:"c",
+    choices:["a","b","c"]
+},
+
+
 ];

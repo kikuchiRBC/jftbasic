@@ -1448,5 +1448,116 @@ choices:[
 "お弁当を食べる"
 ],
 answer:"ジュースを飲む"
-}
+},
+[
+  {
+    type: "reading",
+    q: `
+<div class="reading-text">
+<b>【ごみの出し方】</b><br><br>
+
+<ruby>燃<rt>もえ</rt></ruby>るごみは、<ruby>火曜日<rt>かようび</rt></ruby>と<ruby>金曜日<rt>きんようび</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>8<ruby>時<rt>じ</rt></ruby>までに出してください。<br>
+<ruby>夜<rt>よる</rt></ruby>に出してはいけません。
+
+</div><br>
+
+<ruby>燃<rt>もえ</rt></ruby>るごみは、いつ出しますか。
+`,
+    choices: [
+      "火曜日の夜",
+      "金曜日の朝8時まで",
+      "水曜日の朝8時まで",
+      "毎日いつでも"
+    ],
+    answer: "金曜日の朝8時まで"
+  },
+  {
+    type: "reading",
+    q: `
+<div class="reading-text">
+<b>【さくらクリニック】</b><br><br>
+
+<ruby>診療<rt>しんりょう</rt></ruby>時間：9:00 - 12:00 / 14:00 - 18:00<br>
+<ruby>休診日<rt>きゅうしんび</rt></ruby>：<ruby>水曜日<rt>すいようび</rt></ruby>・<ruby>日曜日<rt>にちようび</rt></ruby>・<ruby>祝日<rt>しゅくじつ</rt></ruby><br>
+※<ruby>土曜日<rt>どようび</rt></ruby>は<ruby>午前<rt>ごぜん</rt></ruby>のみです。
+
+</div><br>
+
+土曜日の午後2時に、クリニックへ行くことができますか。
+`,
+    choices: [
+      "はい、行くことができます。",
+      "いいえ、行くことができません。",
+      "午前9時からなら行くことができます。",
+      "水曜日なら行くことができます。"
+    ],
+    answer: "いいえ、行くことができません。"
+  },
+  {
+    type: "reading",
+    q: `
+<div class="reading-text">
+<b>【たなかさんからのメッセージ】</b><br><br>
+
+キムさん、お疲れ様です。<br>
+きょうの<ruby>会議<rt>かいぎ</rt></ruby>は、3<ruby>階<rt>かい</rt></ruby>ではなく<b>4<ruby>階<rt>かい</rt></ruby>の<ruby>部屋<rt>へや</rt></ruby></b>でします。<br>
+<ruby>時間<rt>じかん</rt></ruby>は<ruby>午後<rt>ごご</rt></ruby>2<ruby>時<rt>じ</rt></ruby>からです。<br>
+よろしくお願いします。
+
+</div><br>
+
+キムさんは、どこへ行きますか。
+`,
+    choices: [
+      "3階の部屋",
+      "4階の部屋",
+      "2階の部屋",
+      "キムさんの部屋"
+    ],
+    answer: "4階の部屋"
+  },
+  {
+    type: "reading",
+    q: `
+<div class="reading-text">
+<b>【レストランの割引のお知らせ】</b><br><br>
+
+<ruby>平日<rt>へいじつ</rt></ruby>（<ruby>月曜日<rt>げつようび</rt></ruby>〜<ruby>金曜日<rt>きんようび</rt></ruby>）の11:30〜14:00は、すべてのランチメニューが100<ruby>円<rt>えん</rt></ruby><ruby>安<rt>やす</rt></ruby>くなります。<br>
+※<ruby>土曜日<rt>どようび</rt></ruby>と<ruby>日曜日<rt>にちようび</rt></ruby>は安くなりません。
+
+</div><br>
+
+安くなるのは、いつですか。
+`,
+    choices: [
+      "日曜日の昼",
+      "土曜日の昼",
+      "木曜日の昼",
+      "金曜日の夜"
+    ],
+    answer: "木曜日の昼"
+  },
+  {
+    type: "reading",
+    q: `
+<div class="reading-text">
+<b>【エレベーター工事のお知らせ】</b><br><br>
+
+3<ruby>月<rt>がつ</rt></ruby>10<ruby>日<rt>か</rt></ruby>（<ruby>月<rt>げつ</rt></ruby>）〜 3<ruby>月<rt>がつ</rt></ruby>12<ruby>日<rt>にち</rt></ruby>（<ruby>水<rt>すい</rt></ruby>）<br>
+<ruby>工事<rt>こうじ</rt></ruby>のため、エレベーターを<ruby>使<rt>つか</rt></ruby>うことができません。<br>
+<ruby>階段<rt>かいだん</rt></ruby>を<ruby>使<rt>つか</rt></ruby>ってください。
+
+</div><br>
+
+3月11日に、エレベーターを使うことができますか。
+`,
+    choices: [
+      "はい、使えます。",
+      "いいえ、使えません。",
+      "階段のあとで使えます。",
+      "3月10日だけ使えません。"
+    ],
+    answer: "いいえ、使えません。"
+  }
+]
 ];

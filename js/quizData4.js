@@ -482,4 +482,25 @@ let allListeningData = [
     answer:"c",
     choices:["a","b","c"]
 },
+{
+    audio:"audio/47.wav",
+    image:"audio/47.png",
+    q:"がぞうをみて、おんせいとあうものを選びなさい",
+    answer:"b",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/48.wav",
+    image:"audio/48.jpg",
+    q:"ホセさんのびょうきはなんですか。",
+    answer:"a",
+    choices:["a","b","c"]
+},
+{
+    audio:"audio/49.wav",
+    image:"audio/49.jpg",
+    q:"どこで日本語を勉強しましたか？",
+    answer:"b",
+    choices:["a","b","c"]
+},
 ];

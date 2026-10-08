@@ -378,7 +378,7 @@ let allListeningData = [
     audio:"audio/33.wav",
     image:"audio/33.png",
     q:"がぞうをみて、おんせいとあうものを選びなさい",
-    answer:"a、2:b",
+    answer:"1:a、2:b",
     choices:[
 "1:a、2:b",
 "1:b、2:b",
@@ -432,7 +432,7 @@ let allListeningData = [
     audio:"audio/39.wav",
     q:"おんせいをきいてこたえなさい",
     answer:"明るくて元気ですが、わすれものがおおい",
-    choices:["a. 勉強はすきですが、スポーツはきらい",
+    choices:["勉強はすきですが、スポーツはきらい",
         "明るくて元気ですが、わすれものがおおい","しずかなひと","毎日アルバイトをしています"]
 },
 {
@@ -445,7 +445,7 @@ let allListeningData = [
 {
     audio:"audio/41.wav",
     q:"俳優（はいゆう）を好きになったきっかけはなんですか。",
-    answer:"b",
+    answer:"ドラマを見たから",
     choices:["友だちにすすめられたから","ドラマを見たから","演技（えんぎ）の勉強（べんきょう）をしているから","音楽ばんぐみに出ていたから"]
 },
 {
@@ -503,4 +503,23 @@ let allListeningData = [
     answer:"b",
     choices:["a","b","c"]
 },
+{
+    audio:"audio/49.wav",
+    image:"audio/49.jpg",
+    q:"どこで日本語を勉強しましたか？",
+    answer:"b",
+    choices:["a","b","c"]
+},{
+    audio:"audio/50.wav",
+    image:"audio/50.jpg",
+    q:"アドバイスはなんでしたか？",
+    answer:"a",
+    choices:["a","b","c"]
+},{
+    audio:"audio/51.wav",
+    image:"audio/51.jpg",
+    q:"これから何をしますか。",
+    answer:"a",
+    choices:["a","b","c"]
+}
 ];

@@ -752,7 +752,7 @@ let allImageQuizData = [
 { image:"imgs/ilust/153.png", answer:"歩きます。", choices:["走ります。","歩きます。","帰ります。","来ます。"] },
 { image:"imgs/ilust/154.png", answer:"食べます。", choices:["食べます。","飲みます。","作ります。","買います。"] },
 { image:"imgs/ilust/155.png", answer:"飲みます。", choices:["食べます。","飲みます。","洗います。","使います。"] },
-{ image:"imgs/ilust/156.png", answer:"買います。", choices:["売ります。","借ります。","買います。","返します。"] },
+{ image:"imgs/ilust/156.png", answer:"買います。", choices:["食べます。","借ります。","買います。","返します。"] },
 { image:"imgs/ilust/157.png", answer:"作ります。", choices:["作ります。","食べます。","捨てます。","置きます。"] },
 { image:"imgs/ilust/158.png", answer:"読みます。", choices:["書きます。","話します。","読みます。","聞きます。"] },
 { image:"imgs/ilust/159.png", answer:"書きます。", choices:["読みます。","書きます。","見ます。","言います。"] },
@@ -769,7 +769,6 @@ let allImageQuizData = [
 { image:"imgs/ilust/170.png", answer:"立ちます。", choices:["座ります。","寝ます。","立ちます。","入ります。"] },
 { image:"imgs/ilust/171.png", answer:"寝ます。", choices:["起きます。","寝ます。","休みます。","待ちます。"] },
 { image:"imgs/ilust/172.png", answer:"忘れます。", choices:["覚えます。","忘れます。","探します。","見つけます。"] },
-{ image:"imgs/ilust/173.png", answer:"置きます。", choices:["覚えます。","置きます。","立ちます。","運びます。"] },
 
 { image:"imgs/ilust/177.png", answer:"連絡します。", choices:["連絡します。","参加します。","待ちます。","探します。"] },
 { image:"imgs/ilust/178.png", answer:"相談します。", choices:["相談します。","食べます。","利用します。","集めます。"] },

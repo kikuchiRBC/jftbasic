@@ -214,7 +214,7 @@ button{
     border:none;
 
     border-radius:18px;
-
+    text-align:center;
     background:linear-gradient(
         135deg,
         #3498db,
@@ -991,7 +991,8 @@ h2{
 <h2>🖼がぞう　もんだい🖼</h2>
 <button onclick="startImageQuiz(1)">A（1～50）</button>
 <button onclick="startImageQuiz(2)">B（51～100）</button>
-<button onclick="startImageQuiz(3)">C（101～）</button>
+<button onclick="startImageQuiz(3)">C（101～150）</button>
+<button onclick="startImageQuiz(4)">D（150～200）</button>
 
 <h2>📖ぶんぽう もんだい📖</h2>
 <button onclick="startGrammarQuiz(1)">A（1～50）</button>
@@ -1206,7 +1207,10 @@ quizType = "image";
         quizData = allImageQuizData.slice(50,100);
     }
     else if(set === 3){
-        quizData = allImageQuizData.slice(100);
+        quizData = allImageQuizData.slice(100,150);
+    }
+    else if(set === 4){
+        quizData = allImageQuizData.slice(150,200);
     }
 quizData = shuffle([...quizData]);
     current = 0;

@@ -870,6 +870,13 @@ h2{
 
         margin:15px 0;
     }
+        #question1{
+        font-size:20px;
+
+        line-height:1.5;
+
+        margin:15px 0;
+    }
 
     #count{
         font-size:18px;
@@ -966,7 +973,11 @@ h2{
 
 <h2>🏆総合テスト🏆</h2>
 <button class="random-btn"onclick="startMixedTest()">
-30問のランダムTEST
+ランダムTEST30
+</button>
+
+<button class="random-btn"onclick="startMixedTest2()">
+全部のランダムTEST50
 </button>
 
 <h2>どっかい</h2>
@@ -988,6 +999,9 @@ h2{
 <button onclick="startQuiz(12)">L（551～600）</button>
 <button onclick="startQuiz(13)">M（601～650）</button>
 
+<h2>会話（かいわ）</h2>
+<button onclick="starttalkQuiz(1)">A（1～50）</button>
+
 <h2>🖼がぞう　もんだい🖼</h2>
 <button onclick="startImageQuiz(1)">A（1～50）</button>
 <button onclick="startImageQuiz(2)">B（51～100）</button>
@@ -1008,8 +1022,10 @@ h2{
 </button>
 </div>
 <div id="quiz" style="display:none;">
+     <div id="question1"></div>
     <div id="audioArea"></div>
     <div id="imageArea"></div>
+    
       <div id="questionText"></div>
     <div id="kanji"></div>
     <div id="choices"></div>
@@ -1037,6 +1053,7 @@ h2{
 <script src="js/quizData2.js"></script>
 <script src="js/quizData3.js"></script>
 <script src="js/quizData4.js"></script>
+<script src="js/quizData5.js"></script>
 <script src="js/QuizDataReading.js"></script>
 <script>
 
@@ -1240,6 +1257,30 @@ quizData = shuffle([...quizData]);
     current = 0;
     loadQuiz();
 }
+function starttalkQuiz(set){
+    currentSet = set;
+    quizType = "talk";
+score = 0;
+miss = 0;
+
+document.getElementById("score").textContent = 0;
+document.getElementById("miss").textContent = 0;
+document.getElementById("start").style.display="none";
+document.getElementById("quiz").style.display="block";
+    if(set === 1){
+        quizData = alltalkData.slice(0,50);
+    }
+    else if(set === 2){
+        quizData = alltalkData.slice(50,100);
+    }
+    else if(set === 3){
+        quizData = alltalkData.slice(100);
+    }
+quizData = shuffle([...quizData]);
+    current = 0;
+    loadQuiz();
+}
+
 function shuffle(array){
     for(let i=array.length-1;i>0;i--){
         const j=Math.floor(Math.random()*(i+1));
@@ -1305,6 +1346,70 @@ function startMixedTest(){
 
     loadQuiz();
 }
+
+function startMixedTest2(){
+
+    score = 0;
+    miss = 0;
+
+    document.getElementById("score").textContent = 0;
+    document.getElementById("miss").textContent = 0;
+
+    document.getElementById("start").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+
+    currentSet = 100;
+
+    const kanji =
+        getRandomItems(allQuizData, 10);
+
+const image =
+    getRandomItems(allImageQuizData, 10)
+    .map(item => ({
+        ...item,
+        type:"image"
+    }));
+
+    const talk =
+        getRandomItems(alltalkData, 10)
+        .map(item => ({
+            ...item,
+            type:"talk"
+        }));
+
+    const reading =
+        getRandomItems(ReadingData, 10)
+        .map(item => ({
+            ...item,
+            type:"reading"
+        }));
+
+    const listening =
+        getRandomItems(allListeningData, 10)
+        .map(item => ({
+            ...item,
+            type:"listening"
+        }));
+
+    quizData = [
+        ...kanji,
+        ...image,
+        ...talk,
+        ...reading,
+        ...listening
+    ];
+
+    // シャッフル
+    for(let i = quizData.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [quizData[i], quizData[j]] =
+        [quizData[j], quizData[i]];
+    }
+
+    current = 0;
+
+    loadQuiz();
+}
 function goHome(){
 
     document.getElementById("quiz").style.display = "none";
@@ -1337,6 +1442,8 @@ function loadQuiz(){
     const questionArea = document.getElementById("questionText");
     const audioArea = document.getElementById("audioArea");
     const kanjiArea = document.getElementById("kanji");
+    const question11 = document.getElementById("question1");
+question11.innerHTML = q.question1 || "";
 
     /* =========================
        問題文
@@ -1677,6 +1784,21 @@ if(currentSet == 99){
 
     return;
 }
+if(currentSet == 100){
+
+    document.getElementById("choices").innerHTML = "";
+
+    document.getElementById("result").innerHTML =
+        "🏆 JFT-BASIC模擬テスト終了！<br>" +
+        quizData.length + "問中 " +
+        score + " 点でした。";
+
+    document.getElementById("next").style.display = "none";
+    document.getElementById("nextSet").style.display = "none";
+
+    return;
+}
+``
 // 間違いがあれば復習
 if(
     wrongQuestions[currentSet] &&

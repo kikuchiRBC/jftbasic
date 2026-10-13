@@ -1001,6 +1001,7 @@ h2{
 
 <h2>会話（かいわ）</h2>
 <button onclick="starttalkQuiz(1)">A（1～50）</button>
+<button onclick="starttalkQuiz(2)">B（51～100）</button>
 
 <h2>🖼がぞう　もんだい🖼</h2>
 <button onclick="startImageQuiz(1)">A（1～50）</button>
@@ -1011,6 +1012,7 @@ h2{
 <h2>📖ぶんぽう もんだい📖</h2>
 <button onclick="startGrammarQuiz(1)">A（1～50）</button>
 <button onclick="startGrammarQuiz(2)">B（51～100）</button>
+<button onclick="startGrammarQuiz(3)">C（101～150）</button>
 <a href="bunpo.html" class="grammar-list-btn">
     📘 文法リストを見る
 </a>
@@ -1251,7 +1253,9 @@ document.getElementById("quiz").style.display="block";
         quizData = allGrammarData.slice(50,100);
     }
     else if(set === 3){
-        quizData = allGrammarData.slice(100);
+        quizData = allGrammarData.slice(100,150);
+    }else if(set === 4){
+        quizData = allGrammarData.slice(150);
     }
 quizData = shuffle([...quizData]);
     current = 0;
